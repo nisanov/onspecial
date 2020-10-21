@@ -1,0 +1,31 @@
+{
+  "name": "onspecial.info",
+  "version": "1.0.0",
+  "description": "A supermarket on special aggregator web application.",
+  "private": true,
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "watch": "webpack --watch",
+    "build": "webpack"
+  },
+  "keywords": [],
+  "author": "Yasha Nisanov",
+  "license": "Proprietary",
+  "devDependencies": {
+    "@babel/core": "^7.12.3",
+    "@babel/preset-env": "^7.12.1",
+    "dart-sass": "^1.25.0",
+    "delete": "^1.1.0",
+    "gulp": "^4.0.2",
+    "gulp-babel": "^8.0.0",
+    "gulp-better-rollup": "^4.0.1",
+    "gulp-concat": "^2.6.1",
+    "gulp-resolve-url": "0.0.2",
+    "gulp-rev": "^9.0.0",
+    "gulp-sass": "^4.1.0",
+    "gulp-sourcemaps": "^2.6.5",
+    "notyf": "^3.9.0",
+    "rollup": "^1.4.1",
+    "sass": "^1.27.0"
+  }
+}

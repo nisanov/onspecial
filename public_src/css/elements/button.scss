@@ -1,0 +1,15 @@
+.btn {
+  cursor: pointer;
+  outline: 0;
+  padding: 6px 14px;
+  border: none;
+  border-radius: 3px;
+  box-shadow: $box-shadow;
+  font-family: "Quicksand";
+  font-weight: 700;
+  font-size: 14px;
+  &.primary {
+    color: $text-primary;
+    background-color: $background-primary;
+  }
+}

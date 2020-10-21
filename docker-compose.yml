@@ -1,0 +1,82 @@
+version: "3.7"
+
+volumes:
+  os.mysql:
+    name: os.mysql
+  os.redis:
+    name: onspecial.redis
+
+networks:
+  os.network:
+    name: os.network
+    driver: bridge
+
+services:
+  php:
+    container_name: os.php
+    build:
+      context: ./.docker/php
+    volumes:
+      - ./:/code:cached
+      - ./.docker/php/xdebug:/usr/bin/xdebug:ro
+    ports:
+      - 9000:9000
+    networks:
+      - os.network
+    depends_on:
+      - mysql
+      - redis
+
+  nginx:
+    container_name: os.nginx
+    build:
+      context: ./.docker/nginx
+    volumes:
+      - ./:/code:cached
+    ports:
+      - 80:80
+      - 443:443
+    networks:
+      - os.network
+    depends_on:
+      - php
+
+  mysql:
+    container_name: os.mysql
+    image: mysql:8.0.21
+    command: --default-authentication-plugin=mysql_native_password
+    cap_add:
+      - SYS_NICE  # CAP_SYS_NICE
+    ports:
+      - 3306:3306
+    volumes:
+      - os.mysql:/var/lib/mysql:delegated
+    environment:
+      MYSQL_DATABASE: ${DB_DATABASE}
+      MYSQL_USER: ${DB_USERNAME}
+      MYSQL_PASSWORD: ${DB_PASSWORD}
+      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
+    networks:
+      - os.network
+
+  redis:
+    container_name: os.redis
+    image: redis:6
+    command: redis-server --appendonly yes --requirepass ${REDIS_PASSWORD}
+    ports:
+      - 6379:6379
+    volumes:
+      - os.redis:/data:delegated
+    networks:
+      - os.network
+
+  mailhog:
+    container_name: os.mailhog
+    image: mailhog/mailhog:latest
+    ports:
+      - 1025:1025
+      - 8025:8025
+    networks:
+      - os.network
+    depends_on:
+      - php

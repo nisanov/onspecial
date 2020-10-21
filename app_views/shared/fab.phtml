@@ -1,0 +1,42 @@
+<div class="fab">
+    <button>
+        <svg>
+            <use xlink:href="<?php echo $this->url->getStatic('img/sprites.svg'); ?>#times"></use>
+        </svg>
+    </button>
+    <div class="drawer">
+        <?php if ($this->authentication->hasUser()) : ?>
+            <a class="home" href="<?php echo $this->url->get(''); ?>">
+                <svg>
+                    <use xlink:href="<?php echo $this->url->getStatic('img/sprites.svg'); ?>#piggy-bank"></use>
+                </svg>
+            </a>
+            <a class="profile" href="<?php echo $this->url->get('profile'); ?>">
+                <svg>
+                    <use xlink:href="<?php echo $this->url->getStatic('img/sprites.svg'); ?>#user-edit"></use>
+                </svg>
+            </a>
+            <a class="logout" href="<?php echo $this->url->get('authentication/logout'); ?>">
+                <svg>
+                    <use xlink:href="<?php echo $this->url->getStatic('img/sprites.svg'); ?>#power-off"></use>
+                </svg>
+            </a>
+        <?php else : ?>
+            <a class="login" href="<?php echo $this->url->get('authentication'); ?>">
+                <svg>
+                    <use xlink:href="<?php echo $this->url->getStatic('img/sprites.svg'); ?>#user-secret"></use>
+                </svg>
+            </a>
+            <a class="registration" href="<?php echo $this->url->get('registration'); ?>">
+                <svg>
+                    <use xlink:href="<?php echo $this->url->getStatic('img/sprites.svg'); ?>#user-plus"></use>
+                </svg>
+            </a>
+            <a class="recovery" href="<?php echo $this->url->get('recovery'); ?>">
+                <svg>
+                    <use xlink:href="<?php echo $this->url->getStatic('img/sprites.svg'); ?>#user-shield"></use>
+                </svg>
+            </a>
+        <?php endif; ?>
+    </div>
+</div>

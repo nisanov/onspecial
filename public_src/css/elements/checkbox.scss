@@ -1,0 +1,82 @@
+.checkbox {
+  .label {
+    margin: 0 8px 0 26px;
+    padding: 0;
+    font-family: "Quicksand";
+    font-weight: 400;
+    font-size: 14px;
+  }
+  .container {
+    position: relative;
+    margin: auto;
+    font-size: 16px;
+    line-height: 16px;
+    height: 16px;
+    width: 16px;
+    clear: both;
+    input[type="checkbox"] {
+      position: absolute;
+      opacity: 0;
+      &:checked {
+        ~ .widget {
+          background-color: $background-primary;
+          border-radius: 3px;
+          -webkit-transform: rotate(0deg) scale(1);
+          -ms-transform: rotate(0deg) scale(1);
+          transform: rotate(0deg) scale(1);
+          opacity: 1;
+          border: 2px solid $border-color;
+          &::after {
+            -webkit-transform: rotate(45deg) scale(1);
+            -ms-transform: rotate(45deg) scale(1);
+            transform: rotate(45deg) scale(1);
+            opacity: 1;
+            left: 5px;
+            top: 1px;
+            width: 4px;
+            height: 10px;
+            border: solid $text-primary;
+            border-width: 0 2px 2px 0;
+            background-color: transparent;
+            border-radius: 0;
+          }
+        }
+      }
+    }
+    .widget {
+      position: absolute;
+      top: 0px;
+      left: 0px;
+      height: 16px;
+      width: 16px;
+      background-color: $background-color;
+      border-radius: 3px;
+      transition: all 0.2s ease-out;
+      -webkit-transition: all 0.2s ease-out;
+      -moz-transition: all 0.2s ease-out;
+      -ms-transition: all 0.2s ease-out;
+      -o-transition: all 0.2s ease-out;
+      border: 2px solid $border-color;
+      &::after {
+        position: absolute;
+        content: "";
+        left: 8px;
+        top: 8px;
+        height: 0px;
+        width: 0px;
+        border-radius: 3px;
+        border: solid $text-primary;
+        border-width: 0 3px 3px 0;
+        -webkit-transform: rotate(0deg) scale(0);
+        -ms-transform: rotate(0deg) scale(0);
+        transform: rotate(0deg) scale(0);
+        opacity: 1;
+        transition: all 0.2s ease-out;
+        -webkit-transition: all 0.2s ease-out;
+        -moz-transition: all 0.2s ease-out;
+        -ms-transition: all 0.2s ease-out;
+        -o-transition: all 0.2s ease-out;
+      }
+    }
+  }
+}

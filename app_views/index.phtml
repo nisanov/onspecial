@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>on Special</title>
+    <link rel="shortcut icon" type="image/png" href="<?php echo $this->url->getStatic('img/favicon.png'); ?>" />
+    <link rel="stylesheet" type="text/css" href="<?php echo $this->url->getStatic('css/vendor.css'); ?>" />
+    <link rel="stylesheet" type="text/css" href="<?php echo $this->url->getStatic('css/app.css'); ?>" />
+    <script defer src="<?php echo $this->url->getStatic('js/vendor.js'); ?>"></script>
+    <script defer src="<?php echo $this->url->getStatic('js/app.js'); ?>"></script>
+</head>
+
+<body>
+    <div class="container">
+        <?php echo $this->getContent(); ?>
+    </div>
+    <footer>
+        <div>
+            Powered by <a href="https://phalcon.io/" target="_blank" tabindex="-1"><img src="<?php echo $this->url->getStatic('img/phalcon.png'); ?>" alt="Phalcon Framework"></a> and crafted by Yasha Nisanov.
+        </div>
+    </footer>
+    <?php echo $this->flashSession->output(); ?>
+</body>
+
+</html>

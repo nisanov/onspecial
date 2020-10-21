@@ -1,0 +1,7 @@
+/node_modules
+/vendor
+/tmp
+.env
+.vscode
+.phalcon
+.phpunit.result.cache

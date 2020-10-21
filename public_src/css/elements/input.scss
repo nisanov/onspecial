@@ -1,0 +1,69 @@
+.input {
+  &.invalid {
+    label {
+      color: $text-invalid;
+      animation: shake 0.82s cubic-bezier(.36,.07,.19,.97) both;
+      transform: translate(0, 16px) scale(1);
+      transform-origin: top left;
+      backface-visibility: hidden;
+      perspective: 1000px;
+    }
+  }
+  &.activated {
+    label {
+      transform: translate(0, -2px) scale(0.86);
+    }
+  }
+  &.focused {
+    .underline {
+      width: 100%;
+      transition: 0.2s ease-in-out;
+      left: 0;
+    }
+  }
+  padding: 0 0 0 8px;
+  margin: 0;
+  border: none;
+  border-bottom: solid 1px $border-color;
+  position: relative;
+  label {
+    position: absolute;
+    font-family: "Quicksand";
+    font-weight: 300;
+    font-size: 16px;
+    color: $text-color;
+    transform: translate(0, 16px) scale(1);
+    transform-origin: top left;
+    transition: all 0.2s ease-in-out;
+  }
+  input {
+    padding: 16px 0 2px 0;
+    border: none;
+    outline: 0;
+    width: 100%;
+    font-family: "Quicksand";
+    font-weight: 500;
+    font-size: 16px;
+    background-color: transparent;
+    color: $text-input;
+  }
+  .underline {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    width: 0;
+    height: 1px;
+    background-color: $border-highlight;
+    transition: 0.2s ease-in-out;
+  }
+}
+
+.message {
+    padding: 2px 0 0 0;
+    height: 20px;
+    text-align: right;
+    font-family: "Quicksand";
+    font-weight: 500;
+    font-size: 14px;
+    color: $text-invalid;
+}

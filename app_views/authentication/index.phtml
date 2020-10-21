@@ -1,0 +1,10 @@
+<form method="post" action="<?php echo $this->url->get('authentication/login'); ?>" novalidate>
+    <h1 class="header">Account Authentication</h1>
+    <?php echo $form->renderCsrfToken(); ?>
+    <?php echo $form->render('email'); ?>
+    <?php echo $form->render('password'); ?>
+    <div class="footer">
+        <?php echo $form->render('remember'); ?>
+        <?php echo $form->render('Login'); ?>
+    </div>
+</form>

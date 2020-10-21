@@ -1,0 +1,11 @@
+<form method="post" action="<?php echo $this->url->get('registration/register'); ?>" novalidate>
+    <h1 class="header">Account Registration</h1>
+    <?php echo $form->renderCsrfToken(); ?>
+    <?php echo $form->render('name'); ?>
+    <?php echo $form->render('email'); ?>
+    <?php echo $form->render('password'); ?>
+    <?php echo $form->render('password_confirm'); ?>
+    <div class="footer">
+        <?php echo $form->render('Register'); ?>
+    </div>
+</form>

@@ -1,0 +1,8 @@
+<form method="post" action="<?php echo $this->url->get('recovery/recover'); ?>" novalidate>
+    <h1 class="header">Account Recovery</h1>
+    <?php echo $form->renderCsrfToken(); ?>
+    <?php echo $form->render('email'); ?>
+    <div class="footer">
+        <?php echo $form->render('Recover'); ?>
+    </div>
+</form>
