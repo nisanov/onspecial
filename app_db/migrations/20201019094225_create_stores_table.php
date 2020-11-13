@@ -19,8 +19,8 @@ final class CreateStoresTable extends AbstractMigration
      */
     public function change(): void
     {
-        $table = $this->table('stores', ['id' => false, 'primary_key' => 'id']);
-        $table
+        $this
+            ->table('stores', ['id' => false, 'primary_key' => 'id'])
             ->addColumn('id', 'biginteger', ['signed' => false, 'identity' => true])
             ->addColumn('name', 'string')
             ->addColumn('active', 'boolean', ['default' => true])

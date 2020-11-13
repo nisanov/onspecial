@@ -9,7 +9,7 @@ use App\Model\Models\Product;
 use App\Model\Models\Scrape;
 use App\Model\Models\Special;
 use App\Model\Models\Store;
-use App\Service\Services\StoreScrapper\StoreScrapperInterface;
+use Carbon\Carbon;
 use Symfony\Component\Panther\Client;
 use Throwable;
 use Whoops\Exception\Formatter;
@@ -73,7 +73,7 @@ abstract class StoreScrapper implements StoreScrapperInterface
      */
     public function __construct()
     {
-        $this->store = Store::getFirstOrCreatedByName($this->getName(), ['scrapper' => get_class($this)]);
+        $this->store = Store::getFirstOrCreateByName($this->getName(), ['scrapper' => get_class($this), 'created_at' => Carbon::now()]);
         $this->client = Client::createChromeClient('/code/bin/chromedriver-linux', $this->arguments);
 
         $this->scrape = new Scrape;
@@ -95,9 +95,9 @@ abstract class StoreScrapper implements StoreScrapperInterface
 
             foreach ($generator as $data) {
 
-                $product = Product::getUpdatedOrCreatedByStore($data['store_id'], $data['store_reference'], [
+                $product = Product::getUpdateOrCreateByStore($data['store_id'], $data['store_reference'], [
                     'on_special' => true,
-                    'brand_id' => $data['brand'] ? Brand::getFirstOrCreatedByName($data['brand'])->getId() : null,
+                    'brand_id' => $data['brand'] ? Brand::getFirstOrCreateByName($data['brand'])->getId() : null,
                     'name' => $data['name'],
                     'description' => $data['description'],
                     'ingredients' => $data['ingredients'],
@@ -105,9 +105,10 @@ abstract class StoreScrapper implements StoreScrapperInterface
                     'thumb' => $data['thumb'],
                     'image' => $data['image'],
                     'size' => $data['size'],
+                    'created_at' => Carbon::now(),
                 ]);
 
-                if ($product->shouldCreateSpecial()) {
+                if ($product->isNewlyCreated() || $product->hasUpdated('on_special')) {
 
                     $assignment = [
                         'store_id' => $data['store_id'],
@@ -126,14 +127,10 @@ abstract class StoreScrapper implements StoreScrapperInterface
             }
 
             $this->recordsScrapped = $generator->getReturn();
-
-            $this->store->save();
-
             $this->archiveExpiredSpecials();
+            $this->store->save();
         } catch (Throwable $exception) {
-
             $this->scrape->setError(Formatter::formatExceptionPlain(new Inspector($exception)));
-
             throw $exception;
         } finally {
             $this->scrape->save();
@@ -141,24 +138,32 @@ abstract class StoreScrapper implements StoreScrapperInterface
     }
 
     /**
-     * Archive expired specials.
-     *
+     * Archive expired specials for this store instance.
+     * 
      * @return void
      */
-    final private function archiveExpiredSpecials(): void
+    public function archiveExpiredSpecials(): void
     {
-        $this->recordsExpired = 0;
-        // return DB::table('products')
-        //     ->join('specials', 'products.id', '=', 'specials.product_id')
-        //     ->where([
-        //         ['products.on_special', '=', true],
-        //         ['products.updated_at', '<', now()->startOfDay()],
-        //         ['specials.withdrawn_at', '=', null],
-        //     ])
-        //     ->update([
-        //         'products.on_special' => false,
-        //         'specials.withdrawn_at' => now()->subDay(),
-        //     ]) / 2;
+        $products = Product::find([
+            'on_special AND store_id = :storeId: AND updated_at < :updatedAt:',
+            'bind' => [
+                'storeId' => $this->store->getId(),
+                'updatedAt' => $this->store->getUpdatedAt()->format('Y-m-d H:i:s.u'),
+            ]
+        ]);
+
+        $now = Carbon::now();
+        foreach ($products as $product) {
+            $product->isOnSpecial(false);
+            $product->save();
+            $special = $product->getSpecial();
+            if ($special !== null) {
+                $special->setUpdatedAt($now);
+                $special->save();
+            }
+        }
+
+        $this->recordsExpired = count($products);
         $this->scrape->setExpired($this->recordsExpired);
     }
 

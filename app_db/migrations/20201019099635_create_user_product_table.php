@@ -19,8 +19,8 @@ final class CreateUserProductTable extends AbstractMigration
      */
     public function change(): void
     {
-        $table = $this->table('user_product', ['id' => false, 'primary_key' => 'id']);
-        $table
+        $this
+            ->table('user_product', ['id' => false, 'primary_key' => 'id'])
             ->addColumn('id', 'biginteger', ['signed' => false, 'identity' => true])
             ->addColumn('user_id', 'biginteger', ['signed' => false])
             ->addColumn('product_id', 'biginteger', ['signed' => false])

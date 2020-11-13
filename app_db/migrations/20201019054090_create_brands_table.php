@@ -19,8 +19,8 @@ final class CreateBrandsTable extends AbstractMigration
      */
     public function change(): void
     {
-        $table = $this->table('brands', ['id' => false, 'primary_key' => 'id']);
-        $table
+        $this
+            ->table('brands', ['id' => false, 'primary_key' => 'id'])
             ->addColumn('id', 'biginteger', ['signed' => false, 'identity' => true])
             ->addColumn('name', 'string')
             ->addColumn('created_at', 'timestamp', ['precision' => 4])

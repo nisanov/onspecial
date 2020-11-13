@@ -6,9 +6,10 @@ namespace App\Model\Models;
 
 use App\Model\Generic;
 use App\Model\Traits\HasTimestamps;
-use Carbon\Carbon;
 
 /**
+ * @method static Scrape[] find(array $parameters = null)
+ * @method static Scrape findFirst(array $parameters = null)
  * @method Store getStore()
  */
 class Scrape extends Generic
@@ -20,16 +21,16 @@ class Scrape extends Generic
     /**
      * The unique record identifier.
      * 
-     * @var string|null
+     * @var int|null
      */
-    private ?string $id = null;
+    private ?int $id = null;
 
     /**
      * The store record identifier.
      * 
-     * @var string
+     * @var int|null
      */
-    private string $store_id;
+    private ?int $store_id = null;
 
     /**
      * The number of records scrapped.
@@ -55,9 +56,9 @@ class Scrape extends Generic
     /**
      * The error information, as applicable.
      * 
-     * @var string
+     * @var string|null
      */
-    private string $error = "";
+    private ?string $error = null;
 
     /**
      * Initialize the model.
@@ -77,32 +78,72 @@ class Scrape extends Generic
     /**
      * Get the unique record identifier.
      *
-     * @return string|null
+     * @return int|null
      */
-    public function getId(): ?string
+    public function getId(): ?int
     {
         return $this->id;
     }
 
     /**
-     * Set the store record identifier.
+     * Get the store record identifier.
      *
-     * @param string $value
-     * @return void
+     * @return int
      */
-    public function setStoreId(string $value): void
+    public function getStoreId(): int
     {
-        $this->store_id = $value;
+        return $this->store_id;
     }
 
     /**
-     * Get the store record identifier.
+     * Get the number of records scrapped.
      *
-     * @return string
+     * @return int
      */
-    public function getStoreId(): string
+    public function getRecords(): int
     {
-        return $this->store_id;
+        return $this->records;
+    }
+
+    /**
+     * Get the number of records expired.
+     *
+     * @return int
+     */
+    public function getExpired(): int
+    {
+        return $this->expired;
+    }
+
+    /**
+     * Get the number of seconds spent scrapping.
+     *
+     * @return float
+     */
+    public function getSeconds(): float
+    {
+        return $this->seconds;
+    }
+
+    /**
+     * Get the error information.
+     *
+     * @return string|null
+     */
+    public function getError(): ?string
+    {
+        return $this->error;
+    }
+
+    /**
+     * Set the store record identifier.
+     *
+     * @param int $value
+     * @return void
+     */
+    public function setStoreId(int $value): void
+    {
+        $this->store_id = $value;
     }
 
     /**
@@ -127,16 +168,6 @@ class Scrape extends Generic
     }
 
     /**
-     * Get the number of records scrapped.
-     *
-     * @return int
-     */
-    public function getRecords(): int
-    {
-        return $this->records;
-    }
-
-    /**
      * Set the number of records expired.
      *
      * @param int $value
@@ -145,16 +176,6 @@ class Scrape extends Generic
     public function setExpired(int $value): void
     {
         $this->expired = $value;
-    }
-
-    /**
-     * Get the number of records expired.
-     *
-     * @return int
-     */
-    public function getExpired(): int
-    {
-        return $this->expired;
     }
 
     /**
@@ -169,16 +190,6 @@ class Scrape extends Generic
     }
 
     /**
-     * Get the number of seconds spent scrapping.
-     *
-     * @return float
-     */
-    public function getSeconds(): float
-    {
-        return $this->seconds;
-    }
-
-    /**
      * Set the error information.
      *
      * @param string $value
@@ -187,16 +198,6 @@ class Scrape extends Generic
     public function setError(string $value): void
     {
         $this->error = $value;
-    }
-
-    /**
-     * Get the error information.
-     *
-     * @return string
-     */
-    public function getError(): string
-    {
-        return $this->error;
     }
 
     /**

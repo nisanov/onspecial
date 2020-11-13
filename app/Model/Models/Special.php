@@ -8,6 +8,8 @@ use App\Model\Generic;
 use App\Model\Traits\HasTimestamps;
 
 /**
+ * @method static Special[] find(array $parameters = null)
+ * @method static Special findFirst(array $parameters = null)
  * @method Store getStore()
  * @method Store getProduct()
  */
@@ -18,23 +20,23 @@ class Special extends Generic
     /**
      * The unique record identifier.
      * 
-     * @var string|null
+     * @var int|null
      */
-    private ?string $id = null;
+    private ?int $id = null;
 
     /**
      * The store record identifier.
      * 
-     * @var string
+     * @var int|null
      */
-    private string $store_id;
+    private ?int $store_id = null;
 
     /**
      * The product record identifier.
      * 
-     * @var string
+     * @var int|null
      */
-    private string $product_id;
+    private ?int $product_id = null;
 
     /**
      * The current price.
@@ -80,53 +82,83 @@ class Special extends Generic
     /**
      * Get the unique record identifier.
      *
-     * @return string|null
+     * @return int|null
      */
-    public function getId(): ?string
+    public function getId(): ?int
     {
         return $this->id;
     }
 
     /**
-     * Set the store record identifier.
-     *
-     * @param string $value
-     * @return void
-     */
-    public function setStoreId(string $value): void
-    {
-        $this->store_id = $value;
-    }
-
-    /**
      * Get the store record identifier.
      *
-     * @return string
+     * @return int|nullz
      */
-    public function getStoreId(): string
+    public function getStoreId(): ?int
     {
         return $this->store_id;
     }
 
     /**
-     * Set the product record identifier.
+     * Get the product record identifier.
      *
-     * @param string $value
-     * @return void
+     * @return int|null
      */
-    public function setProductId(string $value): void
+    public function getProductId(): ?int
     {
-        $this->product_id = $value;
+        return $this->product_id;
     }
 
     /**
-     * Get the product record identifier.
+     * Get the current price.
      *
-     * @return string
+     * @return float
      */
-    public function getProductId(): string
+    public function getCurrentPrice(): float
     {
-        return $this->product_id;
+        return $this->current_price;
+    }
+
+    /**
+     * Get the previous price.
+     *
+     * @return float
+     */
+    public function getPreviousPrice(): float
+    {
+        return $this->previous_price;
+    }
+
+    /**
+     * Get the ratio price.
+     *
+     * @return string|null
+     */
+    public function getRatioPrice(): ?string
+    {
+        return $this->ratio_price;
+    }
+
+    /**
+     * Set the store record identifier.
+     *
+     * @param int $value
+     * @return void
+     */
+    public function setStoreId(int $value): void
+    {
+        $this->store_id = $value;
+    }
+
+    /**
+     * Set the product record identifier.
+     *
+     * @param int $value
+     * @return void
+     */
+    public function setProductId(int $value): void
+    {
+        $this->product_id = $value;
     }
 
     /**
@@ -141,16 +173,6 @@ class Special extends Generic
     }
 
     /**
-     * Get the current price.
-     *
-     * @return float
-     */
-    public function getCurrentPrice(): float
-    {
-        return $this->current_price;
-    }
-
-    /**
      * Set the previous price.
      *
      * @param float $value
@@ -162,16 +184,6 @@ class Special extends Generic
     }
 
     /**
-     * Get the previous price.
-     *
-     * @return float
-     */
-    public function getPreviousPrice(): float
-    {
-        return $this->previous_price;
-    }
-
-    /**
      * Set the ratio price.
      *
      * @param string $value
@@ -180,15 +192,5 @@ class Special extends Generic
     public function setRatioPrice(string $value): void
     {
         $this->ratio_price = $value;
-    }
-
-    /**
-     * Get the ratio price.
-     *
-     * @return string|null
-     */
-    public function getRatioPrice(): ?string
-    {
-        return $this->ratio_price;
     }
 }

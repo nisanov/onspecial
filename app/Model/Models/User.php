@@ -9,6 +9,8 @@ use App\Model\Traits\HasTimestamps;
 use Carbon\Carbon;
 
 /**
+ * @method static Simple|User[] find(array $parameters = null)
+ * @method static User findFirst(array $parameters = null)
  * @method static User findFirstByEmail(string $email)
  */
 class User extends Generic
@@ -18,9 +20,9 @@ class User extends Generic
     /**
      * The unique record identifier.
      * 
-     * @var string|null
+     * @var int|null
      */
-    private ?string $id = null;
+    private ?int $id = null;
 
     /**
      * The full name.
@@ -60,22 +62,11 @@ class User extends Generic
     /**
      * Get the unique record identifier.
      *
-     * @return string|null
+     * @return int|null
      */
-    public function getId(): ?string
+    public function getId(): ?int
     {
         return $this->id;
-    }
-
-    /**
-     * Set the full name.
-     *
-     * @param string $value
-     * @return void
-     */
-    public function setName(string $value): void
-    {
-        $this->name = $value;
     }
 
     /**
@@ -89,17 +80,6 @@ class User extends Generic
     }
 
     /**
-     * Set the email.
-     *
-     * @param string $value
-     * @return void
-     */
-    public function setEmail(string $value): void
-    {
-        $this->email = $value;
-    }
-
-    /**
      * Get the email.
      *
      * @return string
@@ -110,17 +90,6 @@ class User extends Generic
     }
 
     /**
-     * Set the password.
-     *
-     * @param string $value
-     * @return void
-     */
-    public function setPassword(string $value): void
-    {
-        $this->password = $value;
-    }
-
-    /**
      * Get the password.
      *
      * @return string
@@ -128,17 +97,6 @@ class User extends Generic
     public function getPassword(): string
     {
         return $this->password;
-    }
-
-    /**
-     * Set the email verification timestamp.
-     *
-     * @param Carbon $carbon
-     * @return void
-     */
-    public function setEmailVerifiedAt(Carbon $carbon): void
-    {
-        $this->email_verified_at = $carbon->toDateTimeString();
     }
 
     /**
@@ -156,17 +114,6 @@ class User extends Generic
     }
 
     /**
-     * Set the authentication timestamp.
-     *
-     * @param Carbon $carbon
-     * @return void
-     */
-    public function setAuthenticatedAt(Carbon $carbon): void
-    {
-        $this->authenticated_at = $carbon->toDateTimeString();
-    }
-
-    /**
      * Get the last authentication timestamp.
      *
      * @return Carbon|null
@@ -178,5 +125,60 @@ class User extends Generic
         }
 
         return Carbon::parse($this->authenticated_at);
+    }
+
+    /**
+     * Set the full name.
+     *
+     * @param string $value
+     * @return void
+     */
+    public function setName(string $value): void
+    {
+        $this->name = $value;
+    }
+
+    /**
+     * Set the email.
+     *
+     * @param string $value
+     * @return void
+     */
+    public function setEmail(string $value): void
+    {
+        $this->email = $value;
+    }
+
+    /**
+     * Set the password.
+     *
+     * @param string $value
+     * @return void
+     */
+    public function setPassword(string $value): void
+    {
+        $this->password = $value;
+    }
+
+    /**
+     * Set the email verification timestamp.
+     *
+     * @param Carbon $carbon
+     * @return void
+     */
+    public function setEmailVerifiedAt(Carbon $carbon): void
+    {
+        $this->email_verified_at = $carbon->toDateTimeString();
+    }
+
+    /**
+     * Set the authentication timestamp.
+     *
+     * @param Carbon $carbon
+     * @return void
+     */
+    public function setAuthenticatedAt(Carbon $carbon): void
+    {
+        $this->authenticated_at = $carbon->toDateTimeString();
     }
 }

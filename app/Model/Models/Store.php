@@ -6,11 +6,14 @@ namespace App\Model\Models;
 
 use App\Model\Generic;
 use App\Model\Traits\HasTimestamps;
-use Phalcon\Mvc\Model\Resultset\Simple;
 
 /**
- * @method Simple getProducts()
- * @method Simple getSpecials()
+ * @method static Store[] find(array $parameters = null)
+ * @method static Store findFirst(array $parameters = null)
+ * @method static Store findFirstByName(string $name)
+ * @method Simple|Product[] getProducts()
+ * @method Simple|Special[] getSpecials()
+ * @method Simple|Scrape[] getScrapes()
  */
 class Store extends Generic
 {
@@ -19,30 +22,30 @@ class Store extends Generic
     /**
      * The unique record identifier.
      * 
-     * @var string|null
+     * @var int|null
      */
-    private ?string $id = null;
+    private ?int $id = null;
 
     /**
      * The store name.
      * 
-     * @var string
+     * @var string|null
      */
-    private string $name = "";
+    private ?string $name = null;
 
     /**
      * The active state.
      * 
      * @var string
      */
-    private bool $active = true;
+    private int $active = 1;
 
     /**
      * The scrapper class.
      * 
-     * @var string
+     * @var string|null
      */
-    private string $scrapper;
+    private ?string $scrapper = null;
 
     /**
      * Initialize the model.
@@ -62,16 +65,31 @@ class Store extends Generic
             'reusable' => true,
             'alias' => 'specials',
         ]);
+
+        $this->hasMany('id', Scrape::class, 'store_id', [
+            'reusable' => true,
+            'alias' => 'scrapes',
+        ]);
     }
 
     /**
      * Get the unique record identifier.
      *
-     * @return string|null
+     * @return int|null
      */
-    public function getId(): ?string
+    public function getId(): ?int
     {
         return $this->id;
+    }
+
+    /**
+     * Get the store name.
+     *
+     * @return string|null
+     */
+    public function getName(): ?string
+    {
+        return $this->name;
     }
 
     /**
@@ -86,16 +104,6 @@ class Store extends Generic
     }
 
     /**
-     * Get the store name.
-     *
-     * @return string
-     */
-    public function getName(): string
-    {
-        return $this->name;
-    }
-
-    /**
      * Get or set the active state.
      *
      * @param bool|null $state
@@ -104,10 +112,10 @@ class Store extends Generic
     public function isActive(?bool $state = null): bool
     {
         if ($state !== null) {
-            $this->active = $state;
+            $this->active = (int)$state;
         }
 
-        return $this->active;
+        return (bool)$this->active;
     }
 
     /**
@@ -124,9 +132,9 @@ class Store extends Generic
     /**
      * Get the scrapper class.
      *
-     * @return string
+     * @return string|null
      */
-    public function getScrapper(): string
+    public function getScrapper(): ?string
     {
         return $this->scrapper;
     }
@@ -138,7 +146,7 @@ class Store extends Generic
      * @param array $assignment
      * @return self
      */
-    public static function getFirstOrCreatedByName(string $name, array $assignment = []): self
+    public static function getFirstOrCreateByName(string $name, array $assignment = []): self
     {
         $store = self::findFirstByName($name);
         if ($store === null) {

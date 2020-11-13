@@ -5,16 +5,20 @@ declare(strict_types=1);
 namespace App;
 
 use App\Provider\GenericInterface;
-use Carbon\Carbon;
-use DateTime;
 use Dotenv\Dotenv;
 use Exception;
+use Phalcon\Cli\Console;
 use Phalcon\Config;
 use Phalcon\Di\FactoryDefault;
+use Phalcon\Di\FactoryDefault\Cli;
 use Phalcon\Http\ResponseInterface;
+use Phalcon\Loader;
 use Phalcon\Mvc\Application as MvcApplication;
 use Phalcon\Security;
 use Phalcon\Session\Manager as SessionManager;
+use Throwable;
+use Whoops\Exception\Formatter;
+use Whoops\Exception\Inspector;
 
 class Application
 {
@@ -40,6 +44,11 @@ class Application
     protected MvcApplication $application;
 
     /**
+     * The console instance.
+     */
+    protected Console $console;
+
+    /**
      * The application container.
      * 
      * @var FactoryDefault
@@ -54,22 +63,33 @@ class Application
     protected string $basePath;
 
     /**
+     * Whether the application is being run at the command line.
+     */
+    protected bool $cli = false;
+
+    /**
      * Construct the application class instance.
      * 
      * @return void
      */
     public function __construct()
     {
+        $this->cli = php_sapi_name() === 'cli';
         $this->basePath = dirname(__DIR__);
 
         date_default_timezone_set('Australia/Melbourne');
 
         Dotenv::createImmutable($this->basePath)->load();
 
-        $this->container = new FactoryDefault();
+        $this->container = $this->cli ? new Cli : new FactoryDefault();
         $this->container->setShared(self::IDENTIFIER, $this);
 
-        $this->application = new MvcApplication($this->container);
+        if ($this->cli) {
+            $this->console = new Console($this->container);
+            $this->container->setShared('console', $this->console);
+        } else {
+            $this->application = new MvcApplication($this->container);
+        }
 
         $this->registerProviders();
         $this->registerNamespaces();
@@ -78,14 +98,40 @@ class Application
     /**
      * Run the application.
      * 
+     * @param string $request
      * @return void
      */
-    public function run(): void
+    public function run(string $request): void
     {
-        $response = $this->application->handle($_SERVER['REQUEST_URI']);
+        $response = $this->application->handle($request);
         if ($response instanceof ResponseInterface) {
             echo $response->getContent();
         }
+    }
+
+    /**
+     * Run the application at the command line.
+     *
+     * @param array|null $arguments
+     * @return void
+     */
+    public function runCommandLine(?array $arguments = []): void
+    {
+        try {
+            $this->console->handle($arguments);
+        } catch (Throwable $exception) {
+            fwrite(STDERR, Formatter::formatExceptionPlain(new Inspector($exception)));
+        }
+    }
+
+    /**
+     * Get whether the application is being run at the command line.
+     * 
+     * @return bool
+     */
+    public function isCommandLine(): bool
+    {
+        return $this->cli;
     }
 
     /**
@@ -165,11 +211,8 @@ class Application
      */
     private function registerNamespaces(): void
     {
-        $config = $this->getConfig();
-        $loader = new \Phalcon\Loader();
-        $loader->registerNamespaces([
-            'App\Controller\Controllers' => $config->path('application.controllersDir'),
-            'App\Model\Models' => $config->path('application.modelsDir'),
-        ])->register();
+        $loader = new Loader();
+        $loader->registerNamespaces(['App' => $this->basePath . '/app/']);
+        $loader->register();
     }
 }

@@ -27,7 +27,7 @@ class WhoopsProvider extends Generic
      */
     public function register(): void
     {
-        if (php_sapi_name() === 'cli') {
+        if ($this->application->isCommandLine()) {
             $handler = new PlainTextHandler;
         } else {
             $handler = new PrettyPageHandler;

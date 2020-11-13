@@ -24,7 +24,7 @@ class ViewProvider extends Generic
     public function register(): void
     {
         $container = $this->container;
-        $viewsDir = $this->application->getConfig()->path('application.viewsDir');
+        $viewsDir = $this->application->getBasePath() . '/app_views';
 
         $this->container->setShared(static::IDENTIFIER, function () use ($container, $viewsDir) {
 

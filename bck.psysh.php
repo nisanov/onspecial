@@ -1,12 +1,22 @@
 <?php
 
-$defaultIncludes = [];
-$bootstrapPath = __DIR__ . '/vendor/autoload.php';
-if (file_exists($bootstrapPath)) {
-    $defaultIncludes[] = $bootstrapPath;
-}
+declare(strict_types=1);
 
-$GLOBALS['app'] = new App\Application;
+use App\Application;
+use Whoops\Exception\Formatter;
+use Whoops\Exception\Inspector;
+
+error_reporting(E_ALL);
+
+require_once __DIR__ . "/vendor/autoload.php";
+
+global $application;
+
+try {
+    $application = new Application;
+} catch (Throwable $exception) {
+    fwrite(STDERR, Formatter::formatExceptionPlain(new Inspector($exception)));
+}
 
 return [
 
@@ -39,7 +49,7 @@ return [
     // "Default includes" will be included once at the beginning of every PsySH
     // session. This is a good place to add autoloaders for your favorite
     // libraries.
-    'defaultIncludes' => $defaultIncludes,
+    'defaultIncludes' => [],
 
     // If set to true, the history will not keep duplicate entries. Newest
     // entries override oldest. This is the equivalent of the
@@ -95,7 +105,7 @@ return [
 
     // Set the shell's temporary directory location. Defaults to  `/psysh` inside
     // the system's temp dir unless explicitly overridden.
-    'runtimeDir' => __DIR__ . '/tmp',
+    'runtimeDir' => '/tmp/psysh',
 
     // Display an additional startup message. You can color and style the
     // message thanks to the Symfony Console tags. See
@@ -117,7 +127,7 @@ return [
     // Valid options are "always", "daily", "weekly", and "monthly".
     //
     // To disable update checks entirely, set to "never".
-    'updateCheck' => 'daily',
+    'updateCheck' => 'weekly',
 
     // Enable bracketed paste support. If you use PHP built with readline
     // (not libedit) and a relatively modern terminal, enable this.

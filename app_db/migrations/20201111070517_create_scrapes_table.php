@@ -19,14 +19,14 @@ final class CreateScrapesTable extends AbstractMigration
      */
     public function change(): void
     {
-        $table = $this->table('scrapes', ['id' => false, 'primary_key' => 'id']);
-        $table
+        $this
+            ->table('scrapes', ['id' => false, 'primary_key' => 'id'])
             ->addColumn('id', 'biginteger', ['signed' => false, 'identity' => true])
             ->addColumn('store_id', 'biginteger', ['signed' => false])
             ->addColumn('records', 'integer', ['signed' => false])
             ->addColumn('expired', 'integer', ['signed' => false])
-            ->addColumn('seconds', 'decimal', ['signed' => false, 'precision' => 6, 'scale' => 4])
-            ->addColumn('error', 'text')
+            ->addColumn('seconds', 'decimal', ['signed' => false, 'precision' => 8, 'scale' => 4])
+            ->addColumn('error', 'text', ['null' => true, 'default' => null])
             ->addColumn('created_at', 'timestamp', ['precision' => 4])
             ->addColumn('updated_at', 'timestamp', ['precision' => 4, 'null' => true, 'default' => null])
             ->addForeignKey('store_id', 'stores', 'id', ['delete' => 'CASCADE', 'update' => 'NO_ACTION'])

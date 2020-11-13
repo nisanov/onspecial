@@ -19,20 +19,20 @@ final class CreateProductsTable extends AbstractMigration
      */
     public function change(): void
     {
-        $table = $this->table('products', ['id' => false, 'primary_key' => 'id']);
-        $table
+        $this
+            ->table('products', ['id' => false, 'primary_key' => 'id'])
             ->addColumn('id', 'biginteger', ['signed' => false, 'identity' => true])
-            ->addColumn('brand_id', 'biginteger', ['signed' => false, 'null' => true])
+            ->addColumn('brand_id', 'biginteger', ['signed' => false, 'null' => true, 'default' => null])
             ->addColumn('store_id', 'biginteger', ['signed' => false])
             ->addColumn('store_reference', 'string')
             ->addColumn('name', 'string')
-            ->addColumn('description', 'text')
-            ->addColumn('ingredients', 'text')
+            ->addColumn('description', 'text', ['null' => true, 'default' => null])
+            ->addColumn('ingredients', 'text', ['null' => true, 'default' => null])
             ->addColumn('uri', 'string')
-            ->addColumn('thumb', 'string', ['null' => true])
+            ->addColumn('thumb', 'string', ['null' => true, 'default' => null])
             ->addColumn('image', 'string')
-            ->addColumn('size', 'string', ['null' => true, 'length' => 50])
-            ->addColumn('on_special', 'boolean', ['default' => true])
+            ->addColumn('size', 'string', ['null' => true, 'default' => null, 'length' => 50])
+            ->addColumn('on_special', 'boolean', ['null' => false, 'default' => true])
             ->addColumn('created_at', 'timestamp', ['precision' => 4])
             ->addColumn('updated_at', 'timestamp', ['precision' => 4, 'null' => true, 'default' => null])
             ->addIndex(['store_reference'], ['name' => 'idx_products_store_reference'])

@@ -6,9 +6,6 @@ return [
     'application' => [
         'baseUri' => $_ENV['APP_BASE_URI'],
         'crypticKey' => $_ENV['APP_CRYPTIC_KEY'],
-        'controllersDir' => $basePath . '/app/Controller/Controllers',
-        'modelsDir' => $basePath . '/app/Model/Models',
-        'viewsDir' => $basePath . '/app_views/',
     ],
     'mailer' => [
         'host' => $_ENV['MAIL_HOST'],

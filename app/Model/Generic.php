@@ -5,20 +5,32 @@ declare(strict_types=1);
 namespace App\Model;
 
 use App\Model\Traits\HasTimestamps;
+use Phalcon\Db\Exception;
 use Phalcon\Mvc\Model as MvcModel;
 use ReflectionClass;
 
 abstract class Generic extends MvcModel
 {
     /**
-     * Initialize the model.
+     * Initialize the model with initial instance.
      *
      * @return void
      */
     public function initialize(): void
     {
-        var_dump($this->keepSnapshots(true));
+        $this->keepSnapshots(true);
         $this->setSource($this->getDerivedTableName());
+    }
+
+    /**
+     * Construct the model with every instance.
+     *
+     * @return void
+     */
+    public function onConstruct(): void
+    {
+        $this->setSnapshotData($this->toArray(), $this->getModelsMetaData()->getColumnMap($this));
+        $this->setOldSnapshotData($this->toArray(), $this->getModelsMetaData()->getColumnMap($this));
     }
 
     /**
@@ -28,7 +40,7 @@ abstract class Generic extends MvcModel
      */
     public function isNewlyCreated(): bool
     {
-        return $this->hasChanged('id');
+        return $this->hasUpdated('id');
     }
 
     /**
@@ -61,6 +73,10 @@ abstract class Generic extends MvcModel
             $this->stamp();
         }
 
-        return parent::save();
+        if (!parent::save()) {
+            throw new Exception("Failed to save " . get_class($this) . ": " . $this->getMessages()[0]->getMessage());
+        }
+
+        return true;
     }
 }

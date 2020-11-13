@@ -6,11 +6,12 @@ namespace App\Model\Models;
 
 use App\Model\Generic;
 use App\Model\Traits\HasTimestamps;
-use Phalcon\Mvc\Model\Resultset\Simple;
 
 /**
+ * @method static Brand[] find(array $parameters = null)
+ * @method static Brand findFirst(array $parameters = null)
  * @method static Brand findFirstByName(string $name)
- * @method Simple getProducts()
+ * @method Simple|Product[] getProducts()
  */
 class Brand extends Generic
 {
@@ -19,16 +20,16 @@ class Brand extends Generic
     /**
      * The unique record identifier.
      * 
-     * @var string|null
+     * @var int|null
      */
-    private ?string $id = null;
+    private ?int $id = null;
 
     /**
      * The brand name.
      * 
-     * @var string
+     * @var string|null
      */
-    private string $name = "";
+    private ?string $name = null;
 
     /**
      * Initialize the model.
@@ -48,11 +49,21 @@ class Brand extends Generic
     /**
      * Get the unique record identifier.
      *
-     * @return string|null
+     * @return int|null
      */
-    public function getId(): ?string
+    public function getId(): ?int
     {
         return $this->id;
+    }
+
+    /**
+     * Get the brand name.
+     *
+     * @return string|null
+     */
+    public function getName(): ?string
+    {
+        return $this->name;
     }
 
     /**
@@ -67,22 +78,12 @@ class Brand extends Generic
     }
 
     /**
-     * Get the brand name.
-     *
-     * @return string
-     */
-    public function getName(): string
-    {
-        return $this->name;
-    }
-
-    /**
      * Get the first matching or created brand by name.
      *
      * @param string $name
      * @return Brand
      */
-    public static function getFirstOrCreatedByName(string $name): Brand
+    public static function getFirstOrCreateByName(string $name): Brand
     {
         $brand = Brand::findFirstByName($name);
         if ($brand === null) {

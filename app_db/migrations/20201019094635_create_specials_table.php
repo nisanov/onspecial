@@ -19,14 +19,14 @@ final class CreateSpecialsTable extends AbstractMigration
      */
     public function change(): void
     {
-        $table = $this->table('specials', ['id' => false, 'primary_key' => 'id']);
-        $table
+        $this
+            ->table('specials', ['id' => false, 'primary_key' => 'id'])
             ->addColumn('id', 'biginteger', ['signed' => false, 'identity' => true])
             ->addColumn('store_id', 'biginteger', ['signed' => false])
             ->addColumn('product_id', 'biginteger', ['signed' => false])
             ->addColumn('current_price', 'decimal', ['signed' => false, 'precision' => 8, 'scale' => 2])
             ->addColumn('previous_price', 'decimal', ['signed' => false, 'precision' => 8, 'scale' => 2])
-            ->addColumn('ratio_price', 'string', ['null' => true])
+            ->addColumn('ratio_price', 'string', ['null' => true, 'default' => null])
             ->addTimestamps()
             ->addForeignKey('store_id', 'stores', 'id', ['delete' => 'CASCADE', 'update' => 'NO_ACTION'])
             ->addForeignKey('product_id', 'products', 'id', ['delete' => 'CASCADE', 'update' => 'NO_ACTION'])

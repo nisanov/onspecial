@@ -1,26 +1,4 @@
 .input {
-  &.invalid {
-    label {
-      color: $text-invalid;
-      animation: shake 0.82s cubic-bezier(.36,.07,.19,.97) both;
-      transform: translate(0, 16px) scale(1);
-      transform-origin: top left;
-      backface-visibility: hidden;
-      perspective: 1000px;
-    }
-  }
-  &.activated {
-    label {
-      transform: translate(0, -2px) scale(0.86);
-    }
-  }
-  &.focused {
-    .underline {
-      width: 100%;
-      transition: 0.2s ease-in-out;
-      left: 0;
-    }
-  }
   padding: 0 0 0 8px;
   margin: 0;
   border: none;
@@ -34,7 +12,17 @@
     color: $text-color;
     transform: translate(0, 16px) scale(1);
     transform-origin: top left;
-    transition: all 0.2s ease-in-out;
+    transition: 0.3s cubic-bezier(0.65, 0.05, 0.36, 1);
+  }
+  &.activated {
+    label {
+      transform: translate(0, -2px) scale(0.86);
+    }
+  }
+  &.invalid {
+    label {
+      color: $text-invalid;
+    }
   }
   input {
     padding: 16px 0 2px 0;
@@ -54,7 +42,14 @@
     width: 0;
     height: 1px;
     background-color: $border-highlight;
-    transition: 0.2s ease-in-out;
+    transition: 0.3s cubic-bezier(0.65, 0.05, 0.36, 1);
+  }
+  &.focused {
+    .underline {
+      width: 100%;
+      transition: 0.3s cubic-bezier(0.65, 0.05, 0.36, 1);
+      left: 0;
+    }
   }
 }
 

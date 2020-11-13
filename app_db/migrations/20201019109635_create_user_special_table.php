@@ -19,8 +19,8 @@ final class CreateUserSpecialTable extends AbstractMigration
      */
     public function change(): void
     {
-        $table = $this->table('user_special', ['id' => false, 'primary_key' => 'id']);
-        $table
+        $this
+            ->table('user_special', ['id' => false, 'primary_key' => 'id'])
             ->addColumn('id', 'biginteger', ['signed' => false, 'identity' => true])
             ->addColumn('user_id', 'biginteger', ['signed' => false])
             ->addColumn('special_id', 'biginteger', ['signed' => false])

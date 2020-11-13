@@ -1,6 +1,6 @@
 # on.Special
 
-A supermarket specials aggregator web application.
+A supermarket products on special aggregator web application.
 
 ## Installation
 
@@ -28,6 +28,14 @@ A supermarket specials aggregator web application.
 
     ```bash
     docker-compose exec php php ./vendor/bin/phinx migrate -e development
+    ```
+
+## Commands
+
+- Using psy shell to interact with the application:
+
+    ```bash
+    docker-compose exec php php console.php psysh
     ```
 
 ## Redis
@@ -82,10 +90,10 @@ A supermarket specials aggregator web application.
     docker-compose exec php xdebug status
   ```
 
-- Example of debugging artisan at the linux command line:
+- Example of debugging psy shell at the command line:
 
     ```bash
-    docker-compose exec php php -dxdebug.remote_host=172.17.0.1 ./vendor/bin/psysh
+    docker-compose exec php php -dxdebug.remote_host=172.17.0.1 console.php psysh
     ```
 
 ## Testing
