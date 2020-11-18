@@ -9,10 +9,12 @@ use Dotenv\Dotenv;
 use Exception;
 use Phalcon\Cli\Console;
 use Phalcon\Config;
+use Phalcon\Db\Profiler;
 use Phalcon\Di\FactoryDefault;
 use Phalcon\Di\FactoryDefault\Cli;
 use Phalcon\Http\ResponseInterface;
 use Phalcon\Loader;
+use Phalcon\Logger;
 use Phalcon\Mvc\Application as MvcApplication;
 use Phalcon\Security;
 use Phalcon\Session\Manager as SessionManager;
@@ -182,6 +184,26 @@ class Application
     public function getSecurity(): Security
     {
         return $this->container->getSecurity();
+    }
+
+    /**
+     * Get the application logger service provider.
+     * 
+     * @return Logger
+     */
+    public function getLogger(): Logger
+    {
+        return $this->container->getLogger();
+    }
+
+    /**
+     * Get the application database profiler service provider.
+     * 
+     * @return Profiler
+     */
+    public function getProfiler(): Profiler
+    {
+        return $this->container->getProfiler();
     }
 
     /**

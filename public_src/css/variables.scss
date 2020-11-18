@@ -15,9 +15,12 @@ $text-anchor: $cadet;
 
 $background-color: $smoke;
 $background-primary: $cadet;
+$background-secondary: $blue;
 
 $border-color: $blue;
 $border-highlight: lighten($blue, 25%);
+
+$transition: all 0.3s cubic-bezier(0.65, 0.05, 0.36, 1);
 
 $box-shadow: 0 2.8px 2.2px rgba(0, 0, 0, 0.034),
   0 6.7px 5.3px rgba(0, 0, 0, 0.048), 0 12.5px 10px rgba(0, 0, 0, 0.06),

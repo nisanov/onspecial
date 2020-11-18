@@ -88,7 +88,7 @@ function jsTranspileApplication(cb) {
 
 function jsTranspileVendor(cb) {
   gulp
-    .src(["./node_modules/notyf/notyf.min.js"])
+    .src(["./node_modules/notyf/notyf.min.js", "./node_modules/smoothscroll-polyfill/dist/smoothscroll.min.js"])
     .pipe(concat({ path: "vendor.js", cwd: "" }))
     .pipe(revision())
     .pipe(gulp.dest("./public/js"))

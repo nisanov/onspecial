@@ -1,0 +1,498 @@
+@font-face {
+  font-family: "Quicksand";
+  src: url("../fonts/Quicksand-Light.ttf") format("truetype");
+  font-weight: 300;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Quicksand";
+  src: url("../fonts/Quicksand-Regular.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Quicksand";
+  src: url("../fonts/Quicksand-Medium.ttf") format("truetype");
+  font-weight: 500;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Quicksand";
+  src: url("../fonts/Quicksand-SemiBold.ttf") format("truetype");
+  font-weight: 600;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Quicksand";
+  src: url("../fonts/Quicksand-Bold.ttf") format("truetype");
+  font-weight: 700;
+  font-style: normal;
+}
+
+@keyframes shake {
+  10%, 90% {
+    transform: translate3d(-1px, 0, 0);
+  }
+
+  20%, 80% {
+    transform: translate3d(2px, 0, 0);
+  }
+
+  30%, 50%, 70% {
+    transform: translate3d(-4px, 0, 0);
+  }
+
+  40%, 60% {
+    transform: translate3d(4px, 0, 0);
+  }
+}
+
+.input {
+  padding: 0 0 0 8px;
+  margin: 0;
+  border: none;
+  border-bottom: solid 1px #265973;
+  position: relative;
+}
+
+.input label {
+  position: absolute;
+  font-family: "Quicksand";
+  font-weight: 300;
+  font-size: 16px;
+  color: #265973;
+  transform: translate(0, 16px) scale(1);
+  transform-origin: top left;
+  transition: all 0.3s cubic-bezier(0.65, 0.05, 0.36, 1);
+}
+
+.input.activated label {
+  transform: translate(0, -2px) scale(0.86);
+}
+
+.input.invalid label {
+  color: #9f6060;
+}
+
+.input input {
+  padding: 16px 0 2px 0;
+  border: none;
+  outline: 0;
+  width: 100%;
+  font-family: "Quicksand";
+  font-weight: 500;
+  font-size: 16px;
+  background-color: transparent;
+  color: #1a3c4d;
+}
+
+.input .underline {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  width: 0;
+  height: 1px;
+  background-color: #539fc6;
+  transition: all 0.3s cubic-bezier(0.65, 0.05, 0.36, 1);
+}
+
+.input.focused .underline {
+  width: 100%;
+  transition: all 0.3s cubic-bezier(0.65, 0.05, 0.36, 1);
+  left: 0;
+}
+
+.message {
+  padding: 2px 0 0 0;
+  height: 20px;
+  text-align: right;
+  font-family: "Quicksand";
+  font-weight: 500;
+  font-size: 14px;
+  color: #9f6060;
+}
+
+.checkbox .label {
+  margin: 0 8px 0 26px;
+  padding: 0;
+  font-family: "Quicksand";
+  font-weight: 400;
+  font-size: 14px;
+}
+
+.checkbox .container {
+  position: relative;
+  margin: auto;
+  font-size: 16px;
+  line-height: 16px;
+  height: 16px;
+  width: 16px;
+  clear: both;
+}
+
+.checkbox .container input[type=checkbox] {
+  position: absolute;
+  opacity: 0;
+}
+
+.checkbox .container input[type=checkbox]:checked ~ .widget {
+  background-color: #609d9f;
+  border-radius: 3px;
+  -webkit-transform: rotate(0deg) scale(1);
+  -ms-transform: rotate(0deg) scale(1);
+  transform: rotate(0deg) scale(1);
+  opacity: 1;
+  border: 2px solid #265973;
+}
+
+.checkbox .container input[type=checkbox]:checked ~ .widget::after {
+  -webkit-transform: rotate(45deg) scale(1);
+  -ms-transform: rotate(45deg) scale(1);
+  transform: rotate(45deg) scale(1);
+  opacity: 1;
+  left: 5px;
+  top: 1px;
+  width: 4px;
+  height: 10px;
+  border: solid #f2f2f2;
+  border-width: 0 2px 2px 0;
+  background-color: transparent;
+  border-radius: 0;
+}
+
+.checkbox .container .widget {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  height: 16px;
+  width: 16px;
+  background-color: #f2f2f2;
+  border-radius: 3px;
+  transition: all 0.3s cubic-bezier(0.65, 0.05, 0.36, 1);
+  -webkit-transition: all 0.3s cubic-bezier(0.65, 0.05, 0.36, 1);
+  -moz-transition: all 0.3s cubic-bezier(0.65, 0.05, 0.36, 1);
+  -ms-transition: all 0.3s cubic-bezier(0.65, 0.05, 0.36, 1);
+  -o-transition: all 0.3s cubic-bezier(0.65, 0.05, 0.36, 1);
+  border: 2px solid #265973;
+}
+
+.checkbox .container .widget::after {
+  position: absolute;
+  content: "";
+  left: 8px;
+  top: 8px;
+  height: 0px;
+  width: 0px;
+  border-radius: 3px;
+  border: solid #f2f2f2;
+  border-width: 0 3px 3px 0;
+  -webkit-transform: rotate(0deg) scale(0);
+  -ms-transform: rotate(0deg) scale(0);
+  transform: rotate(0deg) scale(0);
+  opacity: 1;
+  transition: all 0.3s cubic-bezier(0.65, 0.05, 0.36, 1);
+  -webkit-transition: all 0.3s cubic-bezier(0.65, 0.05, 0.36, 1);
+  -moz-transition: all 0.3s cubic-bezier(0.65, 0.05, 0.36, 1);
+  -ms-transition: all 0.3s cubic-bezier(0.65, 0.05, 0.36, 1);
+  -o-transition: all 0.3s cubic-bezier(0.65, 0.05, 0.36, 1);
+}
+
+.btn {
+  cursor: pointer;
+  outline: 0;
+  padding: 6px 14px;
+  border: none;
+  border-radius: 3px;
+  box-shadow: 0 2.8px 2.2px rgba(0, 0, 0, 0.034), 0 6.7px 5.3px rgba(0, 0, 0, 0.048), 0 12.5px 10px rgba(0, 0, 0, 0.06), 0 22.3px 17.9px rgba(0, 0, 0, 0.072), 0 41.8px 33.4px rgba(0, 0, 0, 0.086), 0 100px 80px rgba(0, 0, 0, 0.12);
+  font-family: "Quicksand";
+  font-weight: 700;
+  font-size: 14px;
+}
+
+.btn.primary {
+  color: #f2f2f2;
+  background-color: #609d9f;
+}
+
+.fab {
+  position: fixed;
+  top: 28px;
+  right: 18px;
+  text-align: center;
+  z-index: 99;
+}
+
+.fab button {
+  cursor: pointer;
+  display: block;
+  width: 56px;
+  height: 56px;
+  padding: 13px;
+  border: none;
+  border-radius: 50%;
+  outline: 0;
+  transition: all 0.3s cubic-bezier(0.65, 0.05, 0.36, 1);
+  background: #609d9f;
+  box-shadow: 0 2.8px 2.2px rgba(0, 0, 0, 0.034), 0 6.7px 5.3px rgba(0, 0, 0, 0.048), 0 12.5px 10px rgba(0, 0, 0, 0.06), 0 22.3px 17.9px rgba(0, 0, 0, 0.072), 0 41.8px 33.4px rgba(0, 0, 0, 0.086), 0 100px 80px rgba(0, 0, 0, 0.12);
+}
+
+.fab button svg {
+  width: 100%;
+  height: 100%;
+  fill: #f2f2f2;
+  transition: all 0.3s cubic-bezier(0.65, 0.05, 0.36, 1);
+  transform: rotate(45deg);
+}
+
+.fab .drawer {
+  opacity: 0;
+  transition: all 0.3s cubic-bezier(0.65, 0.05, 0.36, 1);
+  transform: scale(0);
+  transform-origin: top center;
+}
+
+.fab .drawer a {
+  cursor: pointer;
+  display: block;
+  margin: 11px auto 0 auto;
+  width: 18px;
+  height: 18px;
+  padding: 13px;
+  border-radius: 50%;
+  border: none;
+  outline: 0;
+  box-shadow: 0 2.8px 2.2px rgba(0, 0, 0, 0.034), 0 6.7px 5.3px rgba(0, 0, 0, 0.048), 0 12.5px 10px rgba(0, 0, 0, 0.06), 0 22.3px 17.9px rgba(0, 0, 0, 0.072), 0 41.8px 33.4px rgba(0, 0, 0, 0.086), 0 100px 80px rgba(0, 0, 0, 0.12);
+}
+
+.fab .drawer a svg {
+  width: 100%;
+  height: 100%;
+  fill: #f2f2f2;
+}
+
+.fab .drawer a.profile,
+.fab .drawer a.registration {
+  background: #86609f;
+}
+
+.fab .drawer a.home,
+.fab .drawer a.login {
+  background: #6a9f60;
+}
+
+.fab .drawer a.recovery,
+.fab .drawer a.logout {
+  background: #9f6060;
+}
+
+.fab.activated button svg {
+  transform: rotate(180deg);
+}
+
+.fab.activated .drawer {
+  opacity: 1;
+  transform: scale(1);
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background-color: #f2f2f2;
+  color: #265973;
+  font-family: "Quicksand";
+  font-weight: 400;
+  font-size: 14px;
+  padding: 0;
+  margin: 0;
+  min-height: 100vh;
+}
+
+.products {
+  margin: 66px auto 50px auto;
+  max-width: 500px;
+}
+
+.products .product {
+  margin: 7px;
+  padding: 10px;
+  background-color: white;
+}
+
+.products .product .content {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: flex-start;
+  align-content: stretch;
+}
+
+.products .product .content .thumbnail {
+  margin: 10px;
+}
+
+.products .product .content .thumbnail img {
+  width: 50px;
+  height: 50px;
+}
+
+.products .product .content .information {
+  margin: 10px;
+}
+
+.products .product .drawer {
+  display: none;
+  margin: 10px 0 0 0;
+  opacity: 0;
+  transition: all 0.3s cubic-bezier(0.65, 0.05, 0.36, 1);
+  transform: scale(0);
+  transform-origin: top center;
+  transition: all 0.3s cubic-bezier(0.65, 0.05, 0.36, 1);
+}
+
+.products .product .drawer.activated {
+  opacity: 1;
+  transform: scale(1);
+  display: block;
+}
+
+.logo {
+  text-align: center;
+}
+
+.logo img {
+  width: 191px;
+}
+
+.alert {
+  display: none;
+}
+
+a {
+  background-color: transparent;
+  color: #609d9f;
+  font-family: "Quicksand";
+  font-weight: 500;
+  font-size: 15px;
+  padding: 0;
+  margin: 0;
+  outline: 0;
+  text-decoration: none;
+}
+
+a:link,
+a:visited {
+  background-color: transparent;
+  color: #609d9f;
+}
+
+a:hover,
+a:focus,
+a:active {
+  background-color: transparent;
+  color: #609d9f;
+  text-decoration: underline;
+}
+
+form {
+  max-width: 500px;
+  padding: 10px 26px 80px 26px;
+  margin: 0 auto;
+}
+
+form .header {
+  font-weight: 300;
+  font-size: 24px;
+}
+
+form .footer {
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  justify-content: flex-end;
+  margin: 24px 0 0 0;
+}
+
+form .footer.columns {
+  justify-content: space-between;
+}
+
+header {
+  position: fixed;
+  width: 100%;
+  height: 56px;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  align-content: stretch;
+  background-color: #f2f2f2;
+  color: #265973;
+  font-family: "Quicksand";
+  font-weight: 300;
+  font-size: 12px;
+  box-shadow: 0 2.8px 2.2px rgba(0, 0, 0, 0.034), 0 6.7px 5.3px rgba(0, 0, 0, 0.048), 0 12.5px 10px rgba(0, 0, 0, 0.06), 0 22.3px 17.9px rgba(0, 0, 0, 0.072), 0 41.8px 33.4px rgba(0, 0, 0, 0.086), 0 100px 80px rgba(0, 0, 0, 0.12);
+}
+
+header .logo {
+  margin: 0 10px;
+  width: 60px;
+  height: 60px;
+}
+
+header .controls {
+  margin: 0 10px;
+}
+
+footer {
+  background: transparent;
+}
+
+footer div {
+  padding: 5px;
+  text-align: center;
+}
+
+footer div img {
+  vertical-align: text-top;
+}
+
+.topper {
+  position: fixed;
+  bottom: 26px;
+  right: 26px;
+  text-align: center;
+  z-index: 99;
+}
+
+.topper button {
+  cursor: pointer;
+  display: block;
+  width: 42px;
+  height: 42px;
+  padding: 14px;
+  border: none;
+  border-radius: 50%;
+  outline: 0;
+  opacity: 0;
+  transition: all 0.3s cubic-bezier(0.65, 0.05, 0.36, 1);
+  background: #265973;
+  box-shadow: 0 2.8px 2.2px rgba(0, 0, 0, 0.034), 0 6.7px 5.3px rgba(0, 0, 0, 0.048), 0 12.5px 10px rgba(0, 0, 0, 0.06), 0 22.3px 17.9px rgba(0, 0, 0, 0.072), 0 41.8px 33.4px rgba(0, 0, 0, 0.086), 0 100px 80px rgba(0, 0, 0, 0.12);
+}
+
+.topper button svg {
+  width: 100%;
+  height: 100%;
+  fill: #f2f2f2;
+}
+
+.topper button.activated {
+  opacity: 0.8;
+}
+
+
+/*# sourceMappingURL=app-b9902b6de7.css.map */

@@ -359,7 +359,7 @@ class Product extends Generic
      * @param array $assignment
      * @return self
      */
-    public static function getUpdateOrCreateByStore(int $storeId, string $storeReference, array $assignment = []): self
+    public static function getUpdatedOrCreatedByStore(int $storeId, string $storeReference, array $assignment = []): self
     {
         $condition = [
             'store_id = :storeId: AND store_reference = :storeReference:',

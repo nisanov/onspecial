@@ -12,7 +12,7 @@
     color: $text-color;
     transform: translate(0, 16px) scale(1);
     transform-origin: top left;
-    transition: 0.3s cubic-bezier(0.65, 0.05, 0.36, 1);
+    transition: $transition;
   }
   &.activated {
     label {
@@ -42,12 +42,12 @@
     width: 0;
     height: 1px;
     background-color: $border-highlight;
-    transition: 0.3s cubic-bezier(0.65, 0.05, 0.36, 1);
+    transition: $transition;
   }
   &.focused {
     .underline {
       width: 100%;
-      transition: 0.3s cubic-bezier(0.65, 0.05, 0.36, 1);
+      transition: $transition;
       left: 0;
     }
   }

@@ -73,7 +73,7 @@ abstract class StoreScrapper implements StoreScrapperInterface
      */
     public function __construct()
     {
-        $this->store = Store::getFirstOrCreateByName($this->getName(), ['scrapper' => get_class($this), 'created_at' => Carbon::now()]);
+        $this->store = Store::getFirstOrCreatedByName($this->getName(), ['scrapper' => get_class($this), 'created_at' => Carbon::now()]);
         $this->client = Client::createChromeClient('/code/bin/chromedriver-linux', $this->arguments);
 
         $this->scrape = new Scrape;
@@ -95,9 +95,9 @@ abstract class StoreScrapper implements StoreScrapperInterface
 
             foreach ($generator as $data) {
 
-                $product = Product::getUpdateOrCreateByStore($data['store_id'], $data['store_reference'], [
+                $product = Product::getUpdatedOrCreatedByStore($data['store_id'], $data['store_reference'], [
                     'on_special' => true,
-                    'brand_id' => $data['brand'] ? Brand::getFirstOrCreateByName($data['brand'])->getId() : null,
+                    'brand_id' => $data['brand'] ? Brand::getFirstOrCreatedByName($data['brand'])->getId() : null,
                     'name' => $data['name'],
                     'description' => $data['description'],
                     'ingredients' => $data['ingredients'],
@@ -105,10 +105,9 @@ abstract class StoreScrapper implements StoreScrapperInterface
                     'thumb' => $data['thumb'],
                     'image' => $data['image'],
                     'size' => $data['size'],
-                    'created_at' => Carbon::now(),
                 ]);
 
-                if ($product->isNewlyCreated() || $product->hasUpdated('on_special')) {
+                if ($product->isNewlyCreated() || $product->hasChanged('on_special')) {
 
                     $assignment = [
                         'store_id' => $data['store_id'],
@@ -127,7 +126,7 @@ abstract class StoreScrapper implements StoreScrapperInterface
             }
 
             $this->recordsScrapped = $generator->getReturn();
-            $this->archiveExpiredSpecials();
+            $this->archiveExpiredSpecials(); // archive must happen before the store is saved and the updated at is
             $this->store->save();
         } catch (Throwable $exception) {
             $this->scrape->setError(Formatter::formatExceptionPlain(new Inspector($exception)));
@@ -145,20 +144,18 @@ abstract class StoreScrapper implements StoreScrapperInterface
     public function archiveExpiredSpecials(): void
     {
         $products = Product::find([
-            'on_special AND store_id = :storeId: AND updated_at < :updatedAt:',
+            "on_special AND store_id = :storeId: AND ( updated_at < :updatedAt: OR ( updated_at IS NULL AND created_at < :updatedAt: ))",
             'bind' => [
                 'storeId' => $this->store->getId(),
                 'updatedAt' => $this->store->getUpdatedAt()->format('Y-m-d H:i:s.u'),
             ]
         ]);
 
-        $now = Carbon::now();
         foreach ($products as $product) {
             $product->isOnSpecial(false);
             $product->save();
             $special = $product->getSpecial();
             if ($special !== null) {
-                $special->setUpdatedAt($now);
                 $special->save();
             }
         }

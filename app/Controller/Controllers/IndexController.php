@@ -22,6 +22,30 @@ class IndexController extends WebController
             return $this->response->redirect('authentication');
         }
 
+        $products = $this->modelsManager->executeQuery("
+            SELECT 
+                products.id,
+                products.name,
+                products.thumb,
+                products.uri,
+                specials.current_price,
+                specials.previous_price,
+                brands.name brand
+            FROM 
+                App\Model\Models\Product products
+            INNER JOIN
+                App\Model\Models\Special specials ON products.id = specials.product_id
+            INNER JOIN
+                App\Model\Models\Brand brands ON products.brand_id = brands.id
+            WHERE
+                products.on_special
+                AND specials.updated_at IS NULL
+            ORDER BY
+                brands.name, products.name
+        ");
+
+        $this->view->setVar('products', $products);
+
         return null;
     }
 }

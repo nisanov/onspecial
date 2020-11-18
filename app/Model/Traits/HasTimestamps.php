@@ -30,21 +30,10 @@ trait HasTimestamps
     protected function stamp(): void
     {
         if ($this->created_at === null) {
-            $this->setCreatedAt(Carbon::now());
+            $this->created_at = Carbon::now()->format('Y-m-d H:i:s.u');
         } else {
-            $this->setUpdatedAt(Carbon::now());
+            $this->updated_at = Carbon::now()->format('Y-m-d H:i:s.u');
         }
-    }
-
-    /**
-     * Set the creation timestamp.
-     *
-     * @param Carbon $carbon
-     * @return void
-     */
-    public function setCreatedAt(Carbon $carbon): void
-    {
-        $this->created_at = $carbon->format('Y-m-d H:i:s.u');
     }
 
     /**
@@ -55,17 +44,6 @@ trait HasTimestamps
     public function getCreatedAt(): Carbon
     {
         return Carbon::parse($this->created_at);
-    }
-
-    /**
-     * Set the modification timestamp.
-     *
-     * @param Carbon $carbon
-     * @return void
-     */
-    public function setUpdatedAt(Carbon $carbon): void
-    {
-        $this->updated_at = $carbon->format('Y-m-d H:i:s.u');
     }
 
     /**

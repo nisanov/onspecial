@@ -20,6 +20,7 @@ class PsyshTask extends Task
      * @var array
      */
     protected array $classes = [
+        'Carbon' => 'Carbon\Carbon',
         'Brand' => 'App\Model\Models\Brand',
         'Product' => 'App\Model\Models\Product',
         'Scrape' => 'App\Model\Models\Scrape',
@@ -31,6 +32,12 @@ class PsyshTask extends Task
         'Mailer' => 'App\Service\Services\Mailer',
         'Redirector' => 'App\Service\Services\Redirector',
         'Url' => 'App\Service\Services\Url',
+        'AuthenticationController' => 'App\Controller\Controllers\AuthenticationController',
+        'EmailController' => 'App\Controller\Controllers\EmailController',
+        'IndexController' => 'App\Controller\Controllers\IndexController',
+        'ProfileController' => 'App\Controller\Controllers\ProfileController',
+        'RecoveryController' => 'App\Controller\Controllers\RecoveryController',
+        'RegistrationController' => 'App\Controller\Controllers\RegistrationController',
     ];
 
     /**
@@ -53,6 +60,7 @@ class PsyshTask extends Task
         $this->shell = new Shell($config);
         $this->shell->setScopeVariables([
             'application' => $this->application,
+            'container' => $this->application->getContainer(),
         ]);
 
         spl_autoload_register([$this, 'alias']);

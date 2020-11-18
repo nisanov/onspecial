@@ -21,4 +21,11 @@ interface StoreScrapperInterface
      * @return Generator
      */
     public function getProducts(): Generator;
+
+    /**
+     * Perform the store scrapper.
+     *
+     * @return void
+     */
+    public function performScrape(): void;
 }

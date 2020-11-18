@@ -6,6 +6,7 @@ namespace App\Model\Models;
 
 use App\Model\Generic;
 use App\Model\Traits\HasTimestamps;
+use App\Service\Services\StoreScrapperInterface;
 
 /**
  * @method static Store[] find(array $parameters = null)
@@ -140,13 +141,23 @@ class Store extends Generic
     }
 
     /**
+     * Get the scrapper class instance.
+     *
+     * @return StoreScrapperInterface
+     */
+    public function getScrapperInstance(): StoreScrapperInterface
+    {
+        return new $this->scrapper;
+    }
+
+    /**
      * Get the first matching or created store by name.
      *
      * @param string $name
      * @param array $assignment
      * @return self
      */
-    public static function getFirstOrCreateByName(string $name, array $assignment = []): self
+    public static function getFirstOrCreatedByName(string $name, array $assignment = []): self
     {
         $store = self::findFirstByName($name);
         if ($store === null) {

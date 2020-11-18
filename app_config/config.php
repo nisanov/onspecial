@@ -14,7 +14,6 @@ return [
         'password' => $_ENV['MAIL_PASSWORD'],
     ],
     'database' => [
-        'adapter' => $_ENV['DB_ADAPTER'],
         'host' => $_ENV['DB_HOST'],
         'port' => $_ENV['DB_PORT'],
         'dbname' => $_ENV['DB_DATABASE'],

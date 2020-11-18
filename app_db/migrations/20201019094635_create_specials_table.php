@@ -27,7 +27,8 @@ final class CreateSpecialsTable extends AbstractMigration
             ->addColumn('current_price', 'decimal', ['signed' => false, 'precision' => 8, 'scale' => 2])
             ->addColumn('previous_price', 'decimal', ['signed' => false, 'precision' => 8, 'scale' => 2])
             ->addColumn('ratio_price', 'string', ['null' => true, 'default' => null])
-            ->addTimestamps()
+            ->addColumn('created_at', 'timestamp', ['precision' => 4])
+            ->addColumn('updated_at', 'timestamp', ['precision' => 4, 'null' => true, 'default' => null])
             ->addForeignKey('store_id', 'stores', 'id', ['delete' => 'CASCADE', 'update' => 'NO_ACTION'])
             ->addForeignKey('product_id', 'products', 'id', ['delete' => 'CASCADE', 'update' => 'NO_ACTION'])
             ->create();

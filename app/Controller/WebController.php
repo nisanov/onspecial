@@ -9,9 +9,11 @@ use App\Service\Services\Authentication;
 use App\Service\Services\Mailer;
 use App\Service\Services\Redirector;
 use Phalcon\Cache;
+use Phalcon\Logger;
 use Phalcon\Mvc\Controller as MvcController;
 
 /**
+ * @property Logger $logger
  * @property Redirector $redirector
  * @property Authentication $authentication
  * @property Mailer $mailer

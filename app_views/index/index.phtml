@@ -1,0 +1,33 @@
+<header>
+    <img class="logo" src="<?php echo $this->url->getStatic('img/logo.png'); ?>" alt="on Special - Logo">
+    <div class="controls">
+        <div>Seen ? of <?php echo count($products); ?> products</div>
+    </div>
+</header>
+<div class="products">
+    <?php foreach ($products as $product) : ?>
+        <div class="product">
+            <div class="content">
+                <div class="thumbnail">
+                    <img src="<?php echo $product->thumb; ?>" onerror="this.src='<?php echo $this->url->getStatic('img/placeholder.jpg'); ?>'" />
+                </div>
+                <div class="information">
+                    <div><?php echo $product->name; ?></div>
+                    <div>$<?php echo $product->current_price; ?><small> was $<?php echo $product->previous_price; ?></small></div>
+                </div>
+            </div>
+            <div class="drawer">
+                <div class="row">
+                    <span>Brand: <spam><span><?php echo $product->brand ? $product->brand : null; ?></span>
+                </div>
+            </div>
+        </div>
+    <?php endforeach; ?>
+</div>
+<div class="topper">
+    <button>
+        <svg>
+            <use xlink:href="<?php echo $this->url->getStatic('img/sprites.svg'); ?>#arrow-up"></use>
+        </svg>
+    </button>
+</div>

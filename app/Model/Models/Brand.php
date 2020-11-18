@@ -83,7 +83,7 @@ class Brand extends Generic
      * @param string $name
      * @return Brand
      */
-    public static function getFirstOrCreateByName(string $name): Brand
+    public static function getFirstOrCreatedByName(string $name): Brand
     {
         $brand = Brand::findFirstByName($name);
         if ($brand === null) {
