@@ -224,6 +224,7 @@
   right: 18px;
   text-align: center;
   z-index: 99;
+  pointer-events: none;
 }
 
 .fab button {
@@ -238,6 +239,7 @@
   transition: all 0.3s cubic-bezier(0.65, 0.05, 0.36, 1);
   background: #609d9f;
   box-shadow: 0 2.8px 2.2px rgba(0, 0, 0, 0.034), 0 6.7px 5.3px rgba(0, 0, 0, 0.048), 0 12.5px 10px rgba(0, 0, 0, 0.06), 0 22.3px 17.9px rgba(0, 0, 0, 0.072), 0 41.8px 33.4px rgba(0, 0, 0, 0.086), 0 100px 80px rgba(0, 0, 0, 0.12);
+  pointer-events: all;
 }
 
 .fab button svg {
@@ -266,6 +268,7 @@
   border: none;
   outline: 0;
   box-shadow: 0 2.8px 2.2px rgba(0, 0, 0, 0.034), 0 6.7px 5.3px rgba(0, 0, 0, 0.048), 0 12.5px 10px rgba(0, 0, 0, 0.06), 0 22.3px 17.9px rgba(0, 0, 0, 0.072), 0 41.8px 33.4px rgba(0, 0, 0, 0.086), 0 100px 80px rgba(0, 0, 0, 0.12);
+  pointer-events: all;
 }
 
 .fab .drawer a svg {
@@ -313,51 +316,191 @@ body {
 }
 
 .products {
+  position: relative;
   margin: 66px auto 50px auto;
   max-width: 500px;
 }
 
 .products .product {
-  margin: 7px;
-  padding: 10px;
-  background-color: white;
+  position: relative;
+  margin: 4px;
+  background-color: #fafafa;
+  border-radius: 5px;
+  border: 1px solid #e6e6e6;
 }
 
 .products .product .content {
+  position: relative;
   display: flex;
   flex-direction: row;
-  justify-content: flex-start;
-  align-items: flex-start;
-  align-content: stretch;
+  justify-content: space-between;
+  align-items: stretch;
+  border-radius: 5px;
 }
 
 .products .product .content .thumbnail {
-  margin: 10px;
+  position: relative;
+  display: flex;
+  padding: 20px;
+  background-color: #ffffff;
+  border-radius: 5px 0 0 5px;
+  cursor: pointer;
+}
+
+.products .product .content .thumbnail .search-plus {
+  pointer-events: none;
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  padding: 0;
+  margin: 0;
+  width: 16px;
+  height: 16px;
+}
+
+.products .product .content .thumbnail .search-plus svg {
+  fill: #d9eaf2;
 }
 
 .products .product .content .thumbnail img {
   width: 50px;
   height: 50px;
+  align-self: center;
 }
 
 .products .product .content .information {
-  margin: 10px;
+  margin: 15px;
+  flex-grow: 2;
+  align-self: center;
+}
+
+.products .product .content .information .price {
+  margin: 5px 0 0 0;
+}
+
+.products .product .content .information .price .current {
+  font-size: 1.2em;
+}
+
+.products .product .content .information .price .previous {
+  font-size: 0.8em;
+}
+
+.products .product .content .controls {
+  padding: 4px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.products .product .content .controls .heart svg {
+  fill: #d9bfbf;
+  width: 60%;
+  height: 60%;
+}
+
+.products .product .content .controls .dropdown svg {
+  transition: all 0.3s cubic-bezier(0.65, 0.05, 0.36, 1);
+  fill: #66aacc;
+  width: 60%;
+  height: 60%;
 }
 
 .products .product .drawer {
-  display: none;
-  margin: 10px 0 0 0;
-  opacity: 0;
+  margin: 0;
+  background-color: #fcfcfc;
+  border-radius: 0 0 5px 5px;
+  color: #265973;
+  font-family: "Quicksand";
+  font-weight: 300;
+  font-size: 13px;
   transition: all 0.3s cubic-bezier(0.65, 0.05, 0.36, 1);
-  transform: scale(0);
-  transform-origin: top center;
+  overflow-y: hidden;
+  max-height: 0;
+}
+
+.products .product .drawer .row {
+  margin: 5px 12px;
+  display: grid;
+  grid-template-columns: 93px auto;
+}
+
+.products .product .drawer .row:first-child {
+  margin: 12px 12px 5px 12px;
+}
+
+.products .product .drawer .row:last-child {
+  margin: 5px 12px 12px 12px;
+}
+
+.products .product.more .controls .dropdown svg {
+  transform: rotate(180deg);
+}
+
+.products .product.more .drawer {
+  max-height: 800px;
+}
+
+button.svg {
+  cursor: pointer;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: transparent;
+  border-radius: 50%;
+  border: none;
+  outline: 0;
+  width: 30px;
+  height: 30px;
   transition: all 0.3s cubic-bezier(0.65, 0.05, 0.36, 1);
 }
 
-.products .product .drawer.activated {
-  opacity: 1;
-  transform: scale(1);
-  display: block;
+button.svg svg {
+  margin: 0;
+  padding: 0;
+  transition: all 0.3s cubic-bezier(0.65, 0.05, 0.36, 1);
+}
+
+.lightbox {
+  position: relative;
+  margin: 20px;
+  padding: 40px;
+  background: #ffffff;
+  text-align: center;
+}
+
+.lightbox button {
+  cursor: pointer;
+  position: absolute;
+  top: -18px;
+  right: -18px;
+  margin: 0;
+  padding: 0;
+  background: #ffffff;
+  border-radius: 50%;
+  border: 3px solid #66aacc;
+  outline: 0;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.lightbox button svg {
+  fill: #66aacc;
+  margin: 0;
+  padding: 0;
+  width: 80%;
+  height: 80%;
+}
+
+.lightbox img {
+  margin: 0 auto;
+  width: 90%;
 }
 
 .logo {
@@ -433,18 +576,19 @@ header {
   background-color: #f2f2f2;
   color: #265973;
   font-family: "Quicksand";
-  font-weight: 300;
-  font-size: 12px;
+  font-weight: 500;
+  font-size: 14px;
   box-shadow: 0 2.8px 2.2px rgba(0, 0, 0, 0.034), 0 6.7px 5.3px rgba(0, 0, 0, 0.048), 0 12.5px 10px rgba(0, 0, 0, 0.06), 0 22.3px 17.9px rgba(0, 0, 0, 0.072), 0 41.8px 33.4px rgba(0, 0, 0, 0.086), 0 100px 80px rgba(0, 0, 0, 0.12);
+  z-index: 98;
 }
 
 header .logo {
-  margin: 0 10px;
+  margin: 0 20px;
   width: 60px;
   height: 60px;
 }
 
-header .controls {
+header .statistics {
   margin: 0 10px;
 }
 
@@ -491,8 +635,8 @@ footer div img {
 }
 
 .topper button.activated {
-  opacity: 0.8;
+  opacity: 0.5;
 }
 
 
-/*# sourceMappingURL=app-b9902b6de7.css.map */
+/*# sourceMappingURL=app-416a5dfdf9.css.map */

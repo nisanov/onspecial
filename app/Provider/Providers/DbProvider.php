@@ -71,24 +71,25 @@ class DbProvider extends Generic
      */
     public static function getRawSqlStatement(Item $profile): string
     {
-        $search = [];
-        $replace = [];
-        foreach ((array)$profile->getSqlVariables() as $key => $value) {
-            if (is_numeric($key)) {
-                $key = '?';
-            } elseif (strpos($key, ':') !== 0) {
-                $key = ":{$key}";
+        $statement = $profile->getSqlStatement();
+        $variables = $profile->getSqlVariables();
+
+        if (empty($variables)) {
+            return $statement;
+        } elseif (key($variables) === 0) {
+            return vsprintf(str_replace('?', "'%s'", $statement), $variables);
+        }
+
+        foreach ($variables as $variable => $value) {
+            if (strpos($variable, ':') !== 0) {
+                $variable = ":{$variable}";
             }
-            $search[] = $key;
             if (!is_numeric($value)) {
                 $value = "'{$value}'";
             }
-            $replace[] = $value;
+            $statement = str_replace($variable, $value, $statement);
         }
 
-        $statement = str_replace('%s', '%%s', $profile->getSqlStatement());
-        $statement = str_replace(array_unique($search), '%s', $statement);
-
-        return sprintf($statement, ...$replace);
+        return $statement;
     }
 }

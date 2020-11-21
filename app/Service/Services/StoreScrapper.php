@@ -96,7 +96,7 @@ abstract class StoreScrapper implements StoreScrapperInterface
             foreach ($generator as $data) {
 
                 $product = Product::getUpdatedOrCreatedByStore($data['store_id'], $data['store_reference'], [
-                    'on_special' => true,
+                    'on_special' => '1',
                     'brand_id' => $data['brand'] ? Brand::getFirstOrCreatedByName($data['brand'])->getId() : null,
                     'name' => $data['name'],
                     'description' => $data['description'],
@@ -107,7 +107,7 @@ abstract class StoreScrapper implements StoreScrapperInterface
                     'size' => $data['size'],
                 ]);
 
-                if ($product->isNewlyCreated() || $product->hasChanged('on_special')) {
+                if ($product->hasUpdated('id') || $product->hasUpdated('on_special')) {
 
                     $assignment = [
                         'store_id' => $data['store_id'],

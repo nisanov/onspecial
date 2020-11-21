@@ -1,4 +1,5 @@
 import FloatingLabel from "./plugins/FloatingLabel";
+
 FloatingLabel.initialize();
 
 // https://carlosroso.com/notyf/
@@ -46,8 +47,85 @@ if (fab !== null) {
 
 const topper = document.querySelector(".topper button");
 if (topper !== null) {
-  const accessibility = () => topper.classList.toggle("activated", document.documentElement.scrollTop > 2000);
+  const accessibility = () =>
+    topper.classList.toggle(
+      "activated",
+      document.documentElement.scrollTop > 2000
+    );
+
   accessibility();
+
   document.addEventListener("scroll", accessibility);
-  topper.addEventListener("click", () => document.documentElement.scrollTo({ top: 0, behavior: "smooth" }));
+
+  topper.addEventListener("click", () =>
+    document.documentElement.scrollTo({ top: 0, behavior: "smooth" })
+  );
+
+  let seen = 0;
+  const products = document.querySelectorAll(".product");
+  const observer = new IntersectionObserver(
+    (entries, observer) => {
+      entries.some((entry) => {
+        if (!entry.isIntersecting) {
+          return true;
+        }
+        observer.unobserve(entry.target);
+        const index = [].indexOf.call(products, entry.target) + 1;
+        if (index > seen) {
+          seen = index;
+          document.getElementById("seen").innerText = seen.toString();
+        }
+      });
+    },
+    {
+      root: null,
+      rootMargin: "0px",
+      threshold: 0.75,
+    }
+  );
+
+  products.forEach((product) => {
+    observer.observe(product);
+    product
+      .querySelector(".controls .dropdown")
+      .addEventListener("click", (event) => {
+        event.target.closest(".product").classList.toggle('more');
+        // const container = event.target.closest(".product");
+        // const drawer = container.querySelector('.drawer');
+        // if (!container.classList.contains("more")) {
+        //   container.classList.add("more");
+        //   drawer.style.display = "block";
+        //   drawer.style.height = "auto";
+        //   const height = drawer.clientHeight + "px";
+        //   drawer.style.height = "0px";
+        //   setTimeout(() => {
+        //     drawer.style.height = height;
+        //   }, 0);
+        // } else {
+        //   container.classList.remove("more");
+        //   drawer.style.height = "0px";
+        //   drawer.addEventListener(
+        //     "transitionend",
+        //     () => {
+        //       drawer.style.display = "none";
+        //     },
+        //     { once: true }
+        //   );
+        // }
+      });
+  });
+
+  window.lightbox = basicLightbox.create(
+    document.getElementById("lightbox").innerHTML
+  );
+
+  document.querySelectorAll(".thumbnail").forEach((thumbnail) =>
+    thumbnail.addEventListener("click", () => {
+      const image = lightbox.element();
+      image.querySelector("img").src = thumbnail.querySelector(
+        "img"
+      ).dataset.image;
+      lightbox.show();
+    })
+  );
 }

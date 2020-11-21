@@ -100,7 +100,7 @@ class Product extends Generic
     /**
      * Whether the product is currently on special.
      * 
-     * @var bool
+     * @var int
      */
     private int $on_special = 1;
 

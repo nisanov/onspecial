@@ -24,15 +24,22 @@ class IndexController extends WebController
 
         $products = $this->modelsManager->executeQuery("
             SELECT 
-                products.id,
+                products.id product_id,
+                stores.name store,
                 products.name,
                 products.thumb,
+                products.image,
                 products.uri,
+                products.description,
+                products.ingredients,
                 specials.current_price,
                 specials.previous_price,
+                specials.ratio_price,
                 brands.name brand
             FROM 
                 App\Model\Models\Product products
+            INNER JOIN
+                App\Model\Models\Store stores ON products.store_id = stores.id
             INNER JOIN
                 App\Model\Models\Special specials ON products.id = specials.product_id
             INNER JOIN

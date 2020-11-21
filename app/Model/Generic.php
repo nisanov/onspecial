@@ -29,18 +29,10 @@ abstract class Generic extends MvcModel
      */
     public function onConstruct(): void
     {
-        $this->setSnapshotData($this->toArray(), $this->getModelsMetaData()->getColumnMap($this));
-        $this->setOldSnapshotData($this->toArray(), $this->getModelsMetaData()->getColumnMap($this));
-    }
+        $data = $this->toArray();
 
-    /**
-     * Determine if this instance is newly created.
-     *
-     * @return bool
-     */
-    public function isNewlyCreated(): bool
-    {
-        return $this->hasUpdated('id');
+        $this->setOldSnapshotData($data);
+        $this->setSnapshotData($data);
     }
 
     /**
@@ -78,5 +70,18 @@ abstract class Generic extends MvcModel
         }
 
         return true;
+    }
+
+    /**
+     * Handles the after fetch event.
+     *
+     * @return void
+     */
+    public function afterFetch(): void
+    {
+        $data = $this->toArray();
+
+        $this->setOldSnapshotData($data);
+        $this->setSnapshotData($data);
     }
 }

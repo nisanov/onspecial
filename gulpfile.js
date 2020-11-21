@@ -52,7 +52,10 @@ function cssTranspileApplication(cb) {
 
 function cssTranspileVendor(cb) {
   gulp
-    .src(["./node_modules/notyf/notyf.min.css"])
+    .src([
+      "./node_modules/notyf/notyf.min.css",
+      "./node_modules/basiclightbox/dist/basicLightbox.min.css",
+    ])
     .pipe(concat({ path: "vendor.css", cwd: "" }))
     .pipe(revision())
     .pipe(gulp.dest("./public/css"))
@@ -88,7 +91,11 @@ function jsTranspileApplication(cb) {
 
 function jsTranspileVendor(cb) {
   gulp
-    .src(["./node_modules/notyf/notyf.min.js", "./node_modules/smoothscroll-polyfill/dist/smoothscroll.min.js"])
+    .src([
+      "./node_modules/notyf/notyf.min.js",
+      "./node_modules/smoothscroll-polyfill/dist/smoothscroll.min.js",
+      "./node_modules/basiclightbox/dist/basicLightbox.min.js",
+    ])
     .pipe(concat({ path: "vendor.js", cwd: "" }))
     .pipe(revision())
     .pipe(gulp.dest("./public/js"))
@@ -116,7 +123,7 @@ function processImages(cb) {
       })
     )
     .pipe(gulp.dest("./public"))
-    .on("end", cb)
+    .on("end", cb);
 }
 
 function watch() {
@@ -137,5 +144,5 @@ exports.build = gulp.series(
   cssTranspileVendor,
   jsTranspileApplication,
   jsTranspileVendor,
-  processImages,
+  processImages
 );

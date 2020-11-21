@@ -1,7 +1,7 @@
 <header>
     <img class="logo" src="<?php echo $this->url->getStatic('img/logo.png'); ?>" alt="on Special - Logo">
-    <div class="controls">
-        <div>Seen ? of <?php echo count($products); ?> products</div>
+    <div class="statistics">
+        <div>Seen <b><span id="seen">0</span></b> of <b><?php echo count($products); ?></b> products</div>
     </div>
 </header>
 <div class="products">
@@ -9,16 +9,52 @@
         <div class="product">
             <div class="content">
                 <div class="thumbnail">
-                    <img src="<?php echo $product->thumb; ?>" onerror="this.src='<?php echo $this->url->getStatic('img/placeholder.jpg'); ?>'" />
+                    <button class="svg search-plus">
+                        <svg>
+                            <use xlink:href="<?php echo $this->url->getStatic('img/sprites.svg'); ?>#search-plus"></use>
+                        </svg>
+                    </button>
+                    <img data-image="<?php echo $product->image; ?>" src="<?php echo $product->thumb; ?>" onerror="this.src='<?php echo $this->url->getStatic('img/placeholder.jpg'); ?>'" />
                 </div>
                 <div class="information">
                     <div><?php echo $product->name; ?></div>
-                    <div>$<?php echo $product->current_price; ?><small> was $<?php echo $product->previous_price; ?></small></div>
+                    <div class="price">
+                        <span class="current">$<?php echo $product->current_price; ?></span><span class="previous"> was $<?php echo $product->previous_price; ?></span>
+                    </div>
+                </div>
+                <div class="controls">
+                    <button class="svg heart">
+                        <svg>
+                            <use xlink:href="<?php echo $this->url->getStatic('img/sprites.svg'); ?>#heart"></use>
+                        </svg>
+                    </button>
+                    <button class="svg dropdown">
+                        <svg>
+                            <use xlink:href="<?php echo $this->url->getStatic('img/sprites.svg'); ?>#angle-down"></use>
+                        </svg>
+                    </button>
                 </div>
             </div>
             <div class="drawer">
                 <div class="row">
-                    <span>Brand: <spam><span><?php echo $product->brand ? $product->brand : null; ?></span>
+                    <span>Brand:</span>
+                    <span><?php echo $product->brand ? $product->brand : null; ?></span>
+                </div>
+                <div class="row">
+                    <span>Store:</span>
+                    <span><?php echo ucwords(strtolower($product->store)); ?></span>
+                </div>
+                <div class="row">
+                    <span>Ratio:</span>
+                    <span><?php echo $product->ratio_price ?: '-'; ?></span>
+                </div>
+                <div class="row">
+                    <span>Description:</span>
+                    <span><?php echo $product->description ?: '-'; ?></span>
+                </div>
+                <div class="row">
+                    <span>Ingredients:</span>
+                    <span><?php echo $product->ingredients ?: '-'; ?></span>
                 </div>
             </div>
         </div>
@@ -31,3 +67,13 @@
         </svg>
     </button>
 </div>
+<template id="lightbox">
+    <div class="lightbox">
+        <button class="close" onclick="window.lightbox.close()">
+            <svg>
+                <use xlink:href="<?php echo $this->url->getStatic('img/sprites.svg'); ?>#times"></use>
+            </svg>
+        </button>
+        <img alt="Product Image">
+    </div>
+</template>
