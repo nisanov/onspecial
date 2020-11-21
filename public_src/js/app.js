@@ -90,28 +90,6 @@ if (topper !== null) {
       .querySelector(".controls .dropdown")
       .addEventListener("click", (event) => {
         event.target.closest(".product").classList.toggle('more');
-        // const container = event.target.closest(".product");
-        // const drawer = container.querySelector('.drawer');
-        // if (!container.classList.contains("more")) {
-        //   container.classList.add("more");
-        //   drawer.style.display = "block";
-        //   drawer.style.height = "auto";
-        //   const height = drawer.clientHeight + "px";
-        //   drawer.style.height = "0px";
-        //   setTimeout(() => {
-        //     drawer.style.height = height;
-        //   }, 0);
-        // } else {
-        //   container.classList.remove("more");
-        //   drawer.style.height = "0px";
-        //   drawer.addEventListener(
-        //     "transitionend",
-        //     () => {
-        //       drawer.style.display = "none";
-        //     },
-        //     { once: true }
-        //   );
-        // }
       });
   });
 

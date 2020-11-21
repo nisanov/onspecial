@@ -42,7 +42,14 @@
                 </div>
                 <div class="row">
                     <span>Store:</span>
-                    <span><?php echo ucwords(strtolower($product->store)); ?></span>
+                    <span>
+                        <?php echo ucwords(strtolower($product->store)); ?>&nbsp;
+                        <a class="svg link" href="<?php echo $product->uri; ?>" target="_blank" rel="noopener">
+                            <svg>
+                                <use xlink:href="<?php echo $this->url->getStatic('img/sprites.svg'); ?>#external-link-alt"></use>
+                            </svg>
+                        </a>
+                    </span>
                 </div>
                 <div class="row">
                     <span>Ratio:</span>

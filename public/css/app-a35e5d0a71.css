@@ -520,7 +520,7 @@ a {
   color: #609d9f;
   font-family: "Quicksand";
   font-weight: 500;
-  font-size: 15px;
+  font-size: 1em;
   padding: 0;
   margin: 0;
   outline: 0;
@@ -539,6 +539,33 @@ a:active {
   background-color: transparent;
   color: #609d9f;
   text-decoration: underline;
+}
+
+a.svg {
+  cursor: pointer;
+  margin: 0;
+  padding: 0;
+  background: transparent;
+  border: none;
+  outline: 0;
+  transition: all 0.3s cubic-bezier(0.65, 0.05, 0.36, 1);
+  vertical-align: baseline;
+}
+
+a.svg svg {
+  margin: 0;
+  padding: 0;
+  width: 1em;
+  height: 1em;
+  transition: all 0.3s cubic-bezier(0.65, 0.05, 0.36, 1);
+}
+
+a.svg.link {
+  font-size: 0.9em;
+}
+
+a.svg.link svg {
+  fill: darkorange;
 }
 
 form {
@@ -639,4 +666,4 @@ footer div img {
 }
 
 
-/*# sourceMappingURL=app-416a5dfdf9.css.map */
+/*# sourceMappingURL=app-a35e5d0a71.css.map */
