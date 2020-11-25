@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace App\Controller\Controllers;
 
-use App\Controller\WebController;
+use App\Controller\HtmlController;
 use App\Form\Forms\RegistrationForm;
 use App\Model\Models\User;
 use Carbon\Carbon;
 use Phalcon\Http\ResponseInterface;
 
-class RegistrationController extends WebController
+class RegistrationController extends HtmlController
 {
     /**
      * Initialize this controller.

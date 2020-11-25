@@ -4,27 +4,39 @@ declare(strict_types=1);
 
 namespace App\Controller\Controllers;
 
-use App\Controller\WebController;
-use App\Model\Models\User;
-use Phalcon\Http\ResponseInterface;
+use App\Controller\Traits\RequiresAuthentication;
+use App\Controller\HtmlController;
 
-class IndexController extends WebController
+class IndexController extends HtmlController
 {
+    use RequiresAuthentication;
+
     /**
      * Show the home page.
      *
-     * @return ResponseInterface|null
+     * @return void
      */
-    public function indexAction(): ?ResponseInterface
+    public function indexAction(): void
     {
-        $user = $this->getUser();
-        if (!$user instanceof User) {
-            return $this->response->redirect('authentication');
-        }
+        $userId = $this->authentication->getUser()->getId();
 
-        $products = $this->modelsManager->executeQuery("
+        $this->view->setVar('statistics', $this->modelsManager->executeQuery("
+            SELECT
+                COUNT(products.id) products,
+                SUM(IFNULL(productUsers.ignoring, 0)) ignoring
+            FROM 
+                App\Model\Models\Product products
+            LEFT JOIN 
+                App\Model\Models\UserProduct productUsers ON productUsers.product_id = products.id AND productUsers.user_id = :userId:
+            WHERE
+                products.on_special
+        ", [
+            'userId' => $userId,
+        ])->getFirst());
+
+        $this->view->setVar('products', $this->modelsManager->executeQuery("
             SELECT 
-                products.id product_id,
+                products.id,
                 stores.name store,
                 products.name,
                 products.thumb,
@@ -35,9 +47,13 @@ class IndexController extends WebController
                 specials.current_price,
                 specials.previous_price,
                 specials.ratio_price,
-                brands.name brand
+                brands.name brand,
+                IFNULL(productUsers.favorite, 0) favorite,
+                IFNULL(productUsers.ignoring, 0) ignoring
             FROM 
                 App\Model\Models\Product products
+            LEFT JOIN 
+                App\Model\Models\UserProduct productUsers ON productUsers.product_id = products.id AND productUsers.user_id = :userId:
             INNER JOIN
                 App\Model\Models\Store stores ON products.store_id = stores.id
             INNER JOIN
@@ -47,12 +63,13 @@ class IndexController extends WebController
             WHERE
                 products.on_special
                 AND specials.updated_at IS NULL
+                AND NOT IFNULL(productUsers.ignoring, 0)
             ORDER BY
-                brands.name, products.name
-        ");
-
-        $this->view->setVar('products', $products);
-
-        return null;
+                productUsers.favorite DESC, 
+                brands.name ASC, 
+                products.name ASC
+        ", [
+            'userId' => $userId,
+        ]));
     }
 }

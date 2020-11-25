@@ -336,6 +336,7 @@ body {
   justify-content: space-between;
   align-items: stretch;
   border-radius: 5px;
+  min-height: 110px;
 }
 
 .products .product .content .thumbnail {
@@ -350,16 +351,17 @@ body {
 .products .product .content .thumbnail .search-plus {
   pointer-events: none;
   position: absolute;
-  top: 3px;
-  left: 3px;
+  top: 0;
+  left: 0;
   padding: 0;
   margin: 0;
-  width: 16px;
-  height: 16px;
+  font-size: 1.1em;
 }
 
 .products .product .content .thumbnail .search-plus svg {
-  fill: #d9eaf2;
+  fill: #b3d5e6;
+  width: 1em;
+  height: 1em;
 }
 
 .products .product .content .thumbnail img {
@@ -394,17 +396,43 @@ body {
   align-items: flex-start;
 }
 
-.products .product .content .controls .heart svg {
-  fill: #d9bfbf;
-  width: 60%;
-  height: 60%;
+.products .product .content .controls .favorite {
+  font-size: 1.1em;
+}
+
+.products .product .content .controls .favorite svg {
+  fill: #a6c69f;
+  width: 1em;
+  height: 1em;
+}
+
+.products .product .content .controls .favorite.favorited svg {
+  fill: #a6c69f;
+}
+
+.products .product .content .controls .ignoring {
+  font-size: 1.1em;
+}
+
+.products .product .content .controls .ignoring svg {
+  fill: #b3d5e6;
+  width: 1em;
+  height: 1em;
+}
+
+.products .product .content .controls .ignoring.ignored svg {
+  fill: #c69f9f;
+}
+
+.products .product .content .controls .dropdown {
+  font-size: 1.2em;
 }
 
 .products .product .content .controls .dropdown svg {
   transition: all 0.3s cubic-bezier(0.65, 0.05, 0.36, 1);
   fill: #66aacc;
-  width: 60%;
-  height: 60%;
+  width: 1em;
+  height: 1em;
 }
 
 .products .product .drawer {
@@ -432,6 +460,10 @@ body {
 
 .products .product .drawer .row:last-child {
   margin: 5px 12px 12px 12px;
+}
+
+.products .product .drawer .row span *:first-child {
+  margin-top: 0;
 }
 
 .products .product.more .controls .dropdown svg {
@@ -666,4 +698,4 @@ footer div img {
 }
 
 
-/*# sourceMappingURL=app-a35e5d0a71.css.map */
+/*# sourceMappingURL=app-fe2fe29c0d.css.map */

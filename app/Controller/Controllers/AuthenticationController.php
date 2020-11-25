@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace App\Controller\Controllers;
 
-use App\Controller\WebController;
+use App\Controller\HtmlController;
 use App\Form\Forms\LoginForm;
 use App\Model\Models\User;
 use Phalcon\Http\ResponseInterface;
 
-class AuthenticationController extends WebController
+class AuthenticationController extends HtmlController
 {
     /**
      * Initialize this controller.
@@ -35,7 +35,7 @@ class AuthenticationController extends WebController
 
         if ($this->authentication->hasRememberMeToken()) {
             if ($this->authentication->viaRememberMeToken()) {
-                return $this->redirector->withSuccess('', "Remembered Credentials");
+                return $this->redirector->withNothing('');
             }
         }
 

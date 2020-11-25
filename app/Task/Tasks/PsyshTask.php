@@ -27,6 +27,7 @@ class PsyshTask extends Task
         'Special' => 'App\Model\Models\Special',
         'Store' => 'App\Model\Models\Store',
         'User' => 'App\Model\Models\User',
+        'UserProduct' => 'App\Model\Models\UserProduct',
         'Woolworths' => 'App\Service\Services\StoreScrapper\Woolworths',
         'Authentication' => 'App\Service\Services\Authentication',
         'Mailer' => 'App\Service\Services\Mailer',

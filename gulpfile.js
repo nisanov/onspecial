@@ -93,6 +93,7 @@ function jsTranspileVendor(cb) {
   gulp
     .src([
       "./node_modules/notyf/notyf.min.js",
+      "./node_modules/axios/dist/axios.min.js",
       "./node_modules/smoothscroll-polyfill/dist/smoothscroll.min.js",
       "./node_modules/basiclightbox/dist/basicLightbox.min.js",
     ])

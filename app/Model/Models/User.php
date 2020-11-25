@@ -60,6 +60,26 @@ class User extends Generic
     private ?string $authenticated_at = null;
 
     /**
+     * Initialize the model.
+     *
+     * @return void
+     */
+    public function initialize(): void
+    {
+        parent::initialize();
+
+        $this->hasMany('id', UserProduct::class, 'user_id', [
+            'reusable' => true,
+            'alias' => 'userProducts',
+        ]);
+
+        $this->hasManyToMany('id', UserProduct::class, 'user_id', 'product_id', Product::class, 'id', [
+            'reusable' => true,
+            'alias' => 'products',
+        ]);
+    }
+
+    /**
      * Get the unique record identifier.
      *
      * @return int|null

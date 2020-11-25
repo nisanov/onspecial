@@ -4,14 +4,15 @@ declare(strict_types=1);
 
 namespace App\Controller\Controllers;
 
-use App\Controller\WebController;
+use App\Controller\Traits\RequiresAuthentication;
+use App\Controller\HtmlController;
 use App\Form\Forms\ProfileForm;
-use App\Model\Models\User;
-use Carbon\Carbon;
 use Phalcon\Http\ResponseInterface;
 
-class ProfileController extends WebController
+class ProfileController extends HtmlController
 {
+    use RequiresAuthentication;
+
     /**
      * Initialize this controller.
      *
@@ -27,16 +28,9 @@ class ProfileController extends WebController
      *
      * @return ResponseInterface|null
      */
-    public function indexAction(): ?ResponseInterface
+    public function indexAction(): void
     {
-        $user = $this->getUser();
-        if (!$user instanceof User) {
-            return $this->redirector->withError('authentication', "Unauthenticated Request");
-        }
-
-        $this->view->setVar('form', new ProfileForm($user));
-
-        return null;
+        $this->view->setVar('form', new ProfileForm($this->authentication->getUser()));
     }
 
     /**
@@ -50,11 +44,7 @@ class ProfileController extends WebController
             return $this->redirector->withError('profile', "Invalid Request Type");
         }
 
-        $user = $this->getUser();
-        if (!$user instanceof User) {
-            return $this->redirector->withError('authentication', "Unauthenticated Request");
-        }
-
+        $user = $this->authentication->getUser();
         $password = $user->getPassword();
 
         $form = new ProfileForm($user);

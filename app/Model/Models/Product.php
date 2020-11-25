@@ -135,6 +135,16 @@ class Product extends Generic
                 'conditions' => "updated_at IS NULL",
             ]
         ]);
+
+        $this->hasMany('id', UserProduct::class, 'product_id', [
+            'reusable' => true,
+            'alias' => 'productUsers',
+        ]);
+
+        $this->hasManyToMany('id', UserProduct::class, 'product_id', 'user_id', User::class, 'id', [
+            'reusable' => true,
+            'alias' => 'users',
+        ]);
     }
 
     /**

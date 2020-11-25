@@ -36,4 +36,17 @@ class Redirector extends Generic
 
         return $this->response->redirect($location);
     }
+
+    /**
+     * Clear session flash nothing and redirect.
+     *
+     * @param string $location
+     * @return ResponseInterface
+     */
+    public function withNothing(string $location): ResponseInterface
+    {
+        $this->flashSession->clear();
+
+        return $this->response->redirect($location);
+    }
 }

@@ -1,12 +1,15 @@
 <header>
     <img class="logo" src="<?php echo $this->url->getStatic('img/logo.png'); ?>" alt="on Special - Logo">
     <div class="statistics">
-        <div>Seen <b><span id="seen">0</span></b> of <b><?php echo count($products); ?></b> products</div>
+        <div>Seen <b><span id="seen">0</span></b> of <b><?php echo count($products); ?></b> Products Listed</div>
+        <?php if ($statistics->ignoring > 0) : ?>
+            <div>Ignored <b><span id="ignoring"><?php echo $statistics->ignoring; ?></span></b> of <b><?php echo $statistics->products; ?></b> Products Available</div>
+        <?php endif; ?>
     </div>
 </header>
 <div class="products">
     <?php foreach ($products as $product) : ?>
-        <div class="product">
+        <div class="product" data-id="<?php echo $product->id; ?>">
             <div class="content">
                 <div class="thumbnail">
                     <button class="svg search-plus">
@@ -14,7 +17,7 @@
                             <use xlink:href="<?php echo $this->url->getStatic('img/sprites.svg'); ?>#search-plus"></use>
                         </svg>
                     </button>
-                    <img data-image="<?php echo $product->image; ?>" src="<?php echo $product->thumb; ?>" onerror="this.src='<?php echo $this->url->getStatic('img/placeholder.jpg'); ?>'" />
+                    <img data-image="<?php echo $product->image; ?>" data-src="<?php echo $product->thumb; ?>" src="<?php echo $this->url->getStatic('img/placeholder.jpg'); ?>" onerror="this.src='<?php echo $this->url->getStatic('img/placeholder.jpg'); ?>'" alt="<?php echo $product->name; ?>" />
                 </div>
                 <div class="information">
                     <div><?php echo $product->name; ?></div>
@@ -23,11 +26,32 @@
                     </div>
                 </div>
                 <div class="controls">
-                    <button class="svg heart">
-                        <svg>
-                            <use xlink:href="<?php echo $this->url->getStatic('img/sprites.svg'); ?>#heart"></use>
-                        </svg>
-                    </button>
+                    <?php if ($product->favorite) : ?>
+                        <button class="svg favorite favorited">
+                            <svg>
+                                <use xlink:href="<?php echo $this->url->getStatic('img/sprites.svg'); ?>#heart-solid"></use>
+                            </svg>
+                        </button>
+                    <?php else : ?>
+                        <button class="svg favorite">
+                            <svg>
+                                <use xlink:href="<?php echo $this->url->getStatic('img/sprites.svg'); ?>#heart"></use>
+                            </svg>
+                        </button>
+                    <?php endif; ?>
+                    <?php if ($product->ignoring) : ?>
+                        <button class="svg ignoring ignored">
+                            <svg>
+                                <use xlink:href="<?php echo $this->url->getStatic('img/sprites.svg'); ?>#ban"></use>
+                            </svg>
+                        </button>
+                    <?php else : ?>
+                        <button class="svg ignoring">
+                            <svg>
+                                <use xlink:href="<?php echo $this->url->getStatic('img/sprites.svg'); ?>#ban"></use>
+                            </svg>
+                        </button>
+                    <?php endif; ?>
                     <button class="svg dropdown">
                         <svg>
                             <use xlink:href="<?php echo $this->url->getStatic('img/sprites.svg'); ?>#angle-down"></use>
@@ -81,6 +105,6 @@
                 <use xlink:href="<?php echo $this->url->getStatic('img/sprites.svg'); ?>#times"></use>
             </svg>
         </button>
-        <img alt="Product Image">
+        <img alt="Product Image" onerror="this.src='<?php echo $this->url->getStatic('img/placeholder.jpg'); ?>'">
     </div>
 </template>

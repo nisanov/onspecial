@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace App\Controller\Controllers;
 
-use App\Controller\WebController;
+use App\Controller\HtmlController;
 use App\Model\Models\User;
 use Phalcon\Mvc\View;
 
-class EmailController extends WebController
+class EmailController extends HtmlController
 {
     /**
      * Initialize all controller actions.
