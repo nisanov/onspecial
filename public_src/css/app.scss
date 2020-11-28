@@ -7,362 +7,350 @@
 @import "elements/fab";
 
 body {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    background-color: $background-color;
-    color: $text-color;
-    font-family: "Quicksand";
-    font-weight: 400;
-    font-size: 14px;
-    padding: 0;
-    margin: 0;
-    min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background-color: $background-color;
+  color: $text-color;
+  font-family: "Quicksand";
+  font-weight: 400;
+  font-size: 14px;
+  padding: 0;
+  margin: 0;
+  min-height: 100vh;
 }
 
 .products {
+  position: relative;
+  margin: 66px auto 50px auto;
+  max-width: 500px;
+  .product {
     position: relative;
-    margin: 66px auto 50px auto;
-    max-width: 500px;
-    .product {
+    margin: 4px;
+    background-color: lighten($smoke, 3%);
+    border-radius: 5px;
+    border: 1px solid darken($smoke, 5%);
+    .content {
+      position: relative;
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: stretch;
+      border-radius: 5px;
+      min-height: 110px;
+      .thumbnail {
         position: relative;
-        margin: 4px;
-        background-color: lighten($smoke, 3%);
-        border-radius: 5px;
-        border: 1px solid darken($smoke, 5%);
-        .content {
-            position: relative;
-            display: flex;
-            flex-direction: row;
-            justify-content: space-between;
-            align-items: stretch;
-            border-radius: 5px;
-            min-height: 110px;
-            .thumbnail {
-                position: relative;
-                display: flex;
-                padding: 20px;
-                background-color: #ffffff;
-                border-radius: 5px 0 0 5px;
-                cursor: pointer;
-                .search-plus {
-                    pointer-events: none;
-                    position: absolute;
-                    top: 0;
-                    left: 0;
-                    padding: 0;
-                    margin: 0;
-                    font-size: 1.1em;
-                    svg {
-                        fill: lighten($blue, 50%);
-                        width: 1em;
-                        height: 1em;
-                    }
-                }
-                img {
-                    width: 50px;
-                    height: 50px;
-                    align-self: center;
-                }
-            }
-            .information {
-                margin: 15px;
-                flex-grow: 2;
-                align-self: center;
-                .price {
-                    margin: 5px 0 0 0;
-                    .current {
-                        font-size: 1.2em;
-                    }
-                    .previous {
-                        font-size: 0.8em;
-                    }
-                }
-            }
-            .controls {
-                padding: 4px;
-                display: flex;
-                flex-direction: column;
-                justify-content: space-between;
-                align-items: flex-start;
-                .favorite {
-                    font-size: 1.1em;
-                    svg {
-                        fill: lighten($green, 20%);
-                        width: 1em;
-                        height: 1em;
-                    }
-                    &.favorited {
-                        svg {
-                            fill: lighten($green, 20%);
-                        }
-                    }
-                }
-                .ignoring {
-                    font-size: 1.1em;
-                    svg {
-                        fill: lighten($blue, 50%);
-                        width: 1em;
-                        height: 1em;
-                    }
-                    &.ignored {
-                        svg {
-                            fill: lighten($red, 20%);
-                        }
-                    }
-                }
-                .dropdown {
-                    font-size: 1.2em;
-                    svg {
-                        transition: $transition;
-                        fill: lighten($blue, 30%);
-                        width: 1em;
-                        height: 1em;
-                    }
-                }
-            }
+        display: flex;
+        padding: 20px;
+        background-color: #ffffff;
+        border-radius: 5px 0 0 5px;
+        cursor: pointer;
+        .search-plus {
+          pointer-events: none;
+          position: absolute;
+          top: 0;
+          left: 0;
+          padding: 0;
+          margin: 0;
+          font-size: 1.1em;
+          svg {
+            fill: lighten($blue, 50%);
+            width: 1em;
+            height: 1em;
+          }
         }
-        .drawer {
-            margin: 0;
-            background-color: lighten($smoke, 4%);
-            border-radius: 0 0 5px 5px;
-            color: $text-color;
-            font-family: "Quicksand";
-            font-weight: 300;
-            font-size: 13px;
-            transition: $transition;
-            overflow-y: hidden;
-            max-height: 0;
-            .row {
-                margin: 5px 12px;
-                display: grid;
-                grid-template-columns: 93px auto;
-                &:first-child {
-                    margin: 12px 12px 5px 12px;
-                }
-                &:last-child {
-                    margin: 5px 12px 12px 12px;
-                }
-                span *:first-child {
-                    margin-top: 0;
-                }
-            }
+        img {
+          width: 50px;
+          height: 50px;
+          align-self: center;
         }
-        &.more {
-            .controls {
-                .dropdown {
-                    svg {
-                        transform: rotate(180deg);
-                    }
-                }
-            }
-            .drawer {
-                max-height: 800px;
-            }
+      }
+      .information {
+        margin: 15px;
+        flex-grow: 2;
+        align-self: center;
+        .price {
+          margin: 5px 0 0 0;
+          .current {
+            font-size: 1.2em;
+          }
+          .previous {
+            font-size: 0.8em;
+          }
         }
+      }
+      .controls {
+        padding: 4px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: flex-start;
+        .favorite {
+          font-size: 1.1em;
+          svg {
+            fill: lighten($green, 20%);
+            width: 1em;
+            height: 1em;
+          }
+          &.favorited {
+            svg {
+              fill: lighten($green, 20%);
+            }
+          }
+        }
+        .ignoring {
+          font-size: 1.1em;
+          svg {
+            fill: lighten($blue, 50%);
+            width: 1em;
+            height: 1em;
+          }
+          &.ignored {
+            svg {
+              fill: lighten($red, 20%);
+            }
+          }
+        }
+        .dropdown {
+          font-size: 1.2em;
+          svg {
+            transition: none;
+            fill: lighten($blue, 30%);
+            width: 1em;
+            height: 1em;
+          }
+        }
+      }
     }
+    .drawer {
+      margin: 0;
+      padding: 15px;
+      background-color: lighten($smoke, 4%);
+      border-radius: 0 0 5px 5px;
+      color: $text-color;
+      font-family: "Quicksand";
+      font-weight: 300;
+      font-size: 13px;
+      display: grid;
+      grid-template-columns: 93px auto;
+      column-gap: 10px;
+      row-gap: 5px;
+    }
+    &.more {
+      .controls {
+        .dropdown {
+          svg {
+            transform: rotate(180deg);
+          }
+        }
+      }
+    }
+  }
 }
 
 button {
-    &.svg {
-        cursor: pointer;
-        margin: 0;
-        padding: 0;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        background: transparent;
-        border-radius: 50%;
-        border: none;
-        outline: 0;
-        width: 30px;
-        height: 30px;
-        transition: $transition;
-        svg {
-            margin: 0;
-            padding: 0;
-            transition: $transition;
-        }
+  &.svg {
+    cursor: pointer;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: transparent;
+    border-radius: 50%;
+    border: none;
+    outline: 0;
+    width: 30px;
+    height: 30px;
+    transition: $transition;
+    svg {
+      margin: 0;
+      padding: 0;
+      transition: $transition;
     }
+  }
 }
 
 .lightbox {
-    position: relative;
-    margin: 20px;
-    padding: 40px;
+  position: relative;
+  margin: 20px;
+  padding: 40px;
+  background: #ffffff;
+  text-align: center;
+  button {
+    cursor: pointer;
+    position: absolute;
+    top: -18px;
+    right: -18px;
+    margin: 0;
+    padding: 0;
     background: #ffffff;
-    text-align: center;
-    button {
-        cursor: pointer;
-        position: absolute;
-        top: -18px;
-        right: -18px;
-        margin: 0;
-        padding: 0;
-        background: #ffffff;
-        border-radius: 50%;
-        border: 3px solid lighten($blue, 30%);
-        outline: 0;
-        width: 36px;
-        height: 36px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        svg {
-            fill: lighten($blue, 30%);
-            margin: 0;
-            padding: 0;
-            width: 80%;
-            height: 80%;
-        }
+    border-radius: 50%;
+    border: 3px solid lighten($blue, 30%);
+    outline: 0;
+    width: 36px;
+    height: 36px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    svg {
+      fill: lighten($blue, 30%);
+      margin: 0;
+      padding: 0;
+      width: 80%;
+      height: 80%;
     }
-    img {
-        margin: 0 auto;
-        width: 90%;
-    }
+  }
+  img {
+    margin: 0 auto;
+    width: 90%;
+  }
 }
 
 .logo {
-    text-align: center;
-    img {
-        width: 191px;
-    }
+  text-align: center;
+  img {
+    width: 191px;
+  }
 }
 
 .alert {
-    display: none;
+  display: none;
 }
 
 a {
+  background-color: transparent;
+  color: $text-anchor;
+  font-family: "Quicksand";
+  font-weight: 500;
+  font-size: 1em;
+  padding: 0;
+  margin: 0;
+  outline: 0;
+  text-decoration: none;
+  &:link,
+  &:visited {
     background-color: transparent;
     color: $text-anchor;
-    font-family: "Quicksand";
-    font-weight: 500;
-    font-size: 1em;
-    padding: 0;
+  }
+  &:hover,
+  &:focus,
+  &:active {
+    background-color: transparent;
+    color: $text-anchor;
+    text-decoration: underline;
+  }
+  &.svg {
+    cursor: pointer;
     margin: 0;
+    padding: 0;
+    background: transparent;
+    border: none;
     outline: 0;
-    text-decoration: none;
-    &:link,
-    &:visited {
-        background-color: transparent;
-        color: $text-anchor;
+    transition: $transition;
+    vertical-align: baseline;
+    svg {
+      margin: 0;
+      padding: 0;
+      width: 1em;
+      height: 1em;
+      transition: $transition;
     }
-    &:hover,
-    &:focus,
-    &:active {
-        background-color: transparent;
-        color: $text-anchor;
-        text-decoration: underline;
+    &.link {
+      font-size: 0.9em;
+      svg {
+        fill: $orange;
+      }
     }
-    &.svg {
-        cursor: pointer;
-        margin: 0;
-        padding: 0;
-        background: transparent;
-        border: none;
-        outline: 0;
-        transition: $transition;
-        vertical-align: baseline;
-        svg {
-            margin: 0;
-            padding: 0;
-            width: 1em;
-            height: 1em;
-            transition: $transition;
-        }
-        &.link {
-            font-size: 0.9em;
-            svg {
-                fill: $orange;
-            }
-        }
-    }
+  }
 }
 
 form {
-    max-width: 500px;
-    padding: 10px 26px 80px 26px;
-    margin: 0 auto;
-    .header {
-        font-weight: 300;
-        font-size: 24px;
+  max-width: 500px;
+  padding: 10px 26px 80px 26px;
+  margin: 0 auto;
+  .header {
+    font-weight: 300;
+    font-size: 24px;
+  }
+  .footer {
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    justify-content: flex-end;
+    margin: 24px 0 0 0;
+    &.columns {
+      justify-content: space-between;
     }
-    .footer {
-        display: flex;
-        align-items: center;
-        flex-direction: row;
-        justify-content: flex-end;
-        margin: 24px 0 0 0;
-        &.columns {
-            justify-content: space-between;
-        }
-    }
+  }
 }
 
 header {
-    position: fixed;
-    width: 100%;
-    height: 56px;
-    display: flex;
-    flex-direction: row;
-    justify-content: flex-start;
-    align-items: center;
-    align-content: stretch;
-    background-color: $background-color;
-    color: $text-color;
-    font-family: "Quicksand";
-    font-weight: 500;
-    font-size: 14px;
-    box-shadow: $box-shadow;
-    z-index: 98;
-    .logo {
-        margin: 0 20px;
-        width: 60px;
-        height: 60px;
+  position: fixed;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  width: 100%;
+  height: 56px;
+  background-color: $background-color;
+  color: $text-color;
+  font-family: "Quicksand";
+  font-weight: 500;
+  font-size: 14px;
+  box-shadow: $box-shadow;
+  z-index: 98;
+  .logo {
+    margin: 5px 0 0 7px;
+    font-size: 2.5em;
+    svg {
+      width: 1em;
+      height: 1em;
+      fill: $text-color;
     }
-    .statistics {
-        margin: 0 10px;
-    }
+  }
+  .statistics {
+    margin: 0 10px;
+  }
 }
 
 footer {
-    background: transparent;
-    div {
-        padding: 5px;
-        text-align: center;
-        img {
-            vertical-align: text-top;
-        }
+  background: transparent;
+  div {
+    padding: 5px;
+    text-align: center;
+    img {
+      vertical-align: text-top;
     }
+  }
 }
 
 .topper {
-    position: fixed;
-    bottom: 26px;
-    right: 26px;
-    text-align: center;
-    z-index: 99;
-    button {
-        cursor: pointer;
-        display: block;
-        width: 42px;
-        height: 42px;
-        padding: 14px;
-        border: none;
-        border-radius: 50%;
-        outline: 0;
-        opacity: 0;
-        transition: $transition;
-        background: $background-secondary;
-        box-shadow: $box-shadow;
-        svg {
-            width: 100%;
-            height: 100%;
-            fill: $text-primary;
-        }
-        &.activated {
-            opacity: 0.5;
-        }
+  position: fixed;
+  bottom: 26px;
+  right: 26px;
+  text-align: center;
+  z-index: 99;
+  button {
+    cursor: pointer;
+    display: block;
+    width: 42px;
+    height: 42px;
+    padding: 14px;
+    border: none;
+    border-radius: 50%;
+    outline: 0;
+    opacity: 0;
+    transition: $transition;
+    background: $background-secondary;
+    box-shadow: $box-shadow;
+    svg {
+      width: 100%;
+      height: 100%;
+      fill: $text-primary;
     }
+    &.activated {
+      opacity: 0.5;
+    }
+  }
 }

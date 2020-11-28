@@ -30,7 +30,7 @@ class AuthenticationController extends HtmlController
     {
         $user = $this->authentication->getUser();
         if ($user instanceof User) {
-            return $this->redirector->withSuccess('', "Already Authenticated");
+            return $this->redirector->withNothing('');
         }
 
         if ($this->authentication->hasRememberMeToken()) {

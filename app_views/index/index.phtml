@@ -1,5 +1,9 @@
 <header>
-    <img class="logo" src="<?php echo $this->url->getStatic('img/logo.png'); ?>" alt="on Special - Logo">
+    <a class="logo" href="<?php echo $this->url->get(''); ?>">
+        <svg>
+            <use xlink:href="<?php echo $this->url->getStatic('img/sprites.svg'); ?>#piggy-bank"></use>
+        </svg>
+    </a>
     <div class="statistics">
         <div>Seen <b><span id="seen">0</span></b> of <b><?php echo count($products); ?></b> Products Listed</div>
         <?php if ($statistics->ignoring > 0) : ?>
@@ -7,9 +11,10 @@
         <?php endif; ?>
     </div>
 </header>
+
 <div class="products">
-    <?php foreach ($products as $product) : ?>
-        <div class="product" data-id="<?php echo $product->id; ?>">
+    <?php foreach ($products as $index => $product) : ?>
+        <div class="product" data-id="<?php echo $product->id; ?>" data-position="<?php echo $index + 1; ?>" data-product='<?php echo urlencode(json_encode($product)); ?>'>
             <div class="content">
                 <div class="thumbnail">
                     <button class="svg search-plus">
@@ -59,38 +64,10 @@
                     </button>
                 </div>
             </div>
-            <div class="drawer">
-                <div class="row">
-                    <span>Brand:</span>
-                    <span><?php echo $product->brand ? $product->brand : null; ?></span>
-                </div>
-                <div class="row">
-                    <span>Store:</span>
-                    <span>
-                        <?php echo ucwords(strtolower($product->store)); ?>&nbsp;
-                        <a class="svg link" href="<?php echo $product->uri; ?>" target="_blank" rel="noopener">
-                            <svg>
-                                <use xlink:href="<?php echo $this->url->getStatic('img/sprites.svg'); ?>#external-link-alt"></use>
-                            </svg>
-                        </a>
-                    </span>
-                </div>
-                <div class="row">
-                    <span>Ratio:</span>
-                    <span><?php echo $product->ratio_price ?: '-'; ?></span>
-                </div>
-                <div class="row">
-                    <span>Description:</span>
-                    <span><?php echo $product->description ?: '-'; ?></span>
-                </div>
-                <div class="row">
-                    <span>Ingredients:</span>
-                    <span><?php echo $product->ingredients ?: '-'; ?></span>
-                </div>
-            </div>
         </div>
     <?php endforeach; ?>
 </div>
+
 <div class="topper">
     <button>
         <svg>
@@ -98,6 +75,7 @@
         </svg>
     </button>
 </div>
+
 <template id="lightbox">
     <div class="lightbox">
         <button class="close" onclick="window.lightbox.close()">

@@ -65,9 +65,10 @@ class IndexController extends HtmlController
                 AND specials.updated_at IS NULL
                 AND NOT IFNULL(productUsers.ignoring, 0)
             ORDER BY
-                productUsers.favorite DESC, 
+                IFNULL(productUsers.favorite, 0) DESC, 
                 brands.name ASC, 
                 products.name ASC
+            LIMIT 500
         ", [
             'userId' => $userId,
         ]));

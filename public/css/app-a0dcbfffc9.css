@@ -429,7 +429,7 @@ body {
 }
 
 .products .product .content .controls .dropdown svg {
-  transition: all 0.3s cubic-bezier(0.65, 0.05, 0.36, 1);
+  transition: none;
   fill: #66aacc;
   width: 1em;
   height: 1em;
@@ -437,41 +437,21 @@ body {
 
 .products .product .drawer {
   margin: 0;
+  padding: 15px;
   background-color: #fcfcfc;
   border-radius: 0 0 5px 5px;
   color: #265973;
   font-family: "Quicksand";
   font-weight: 300;
   font-size: 13px;
-  transition: all 0.3s cubic-bezier(0.65, 0.05, 0.36, 1);
-  overflow-y: hidden;
-  max-height: 0;
-}
-
-.products .product .drawer .row {
-  margin: 5px 12px;
   display: grid;
   grid-template-columns: 93px auto;
-}
-
-.products .product .drawer .row:first-child {
-  margin: 12px 12px 5px 12px;
-}
-
-.products .product .drawer .row:last-child {
-  margin: 5px 12px 12px 12px;
-}
-
-.products .product .drawer .row span *:first-child {
-  margin-top: 0;
+  column-gap: 10px;
+  row-gap: 5px;
 }
 
 .products .product.more .controls .dropdown svg {
   transform: rotate(180deg);
-}
-
-.products .product.more .drawer {
-  max-height: 800px;
 }
 
 button.svg {
@@ -625,13 +605,12 @@ form .footer.columns {
 
 header {
   position: fixed;
-  width: 100%;
-  height: 56px;
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
   align-items: center;
-  align-content: stretch;
+  width: 100%;
+  height: 56px;
   background-color: #f2f2f2;
   color: #265973;
   font-family: "Quicksand";
@@ -642,9 +621,14 @@ header {
 }
 
 header .logo {
-  margin: 0 20px;
-  width: 60px;
-  height: 60px;
+  margin: 5px 0 0 7px;
+  font-size: 2.5em;
+}
+
+header .logo svg {
+  width: 1em;
+  height: 1em;
+  fill: #265973;
 }
 
 header .statistics {
@@ -698,4 +682,4 @@ footer div img {
 }
 
 
-/*# sourceMappingURL=app-fe2fe29c0d.css.map */
+/*# sourceMappingURL=app-a0dcbfffc9.css.map */
