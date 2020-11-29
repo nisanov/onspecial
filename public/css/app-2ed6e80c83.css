@@ -220,6 +220,10 @@
 
 .fab {
   position: fixed;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: flex-end;
   top: 28px;
   right: 18px;
   text-align: center;
@@ -251,16 +255,26 @@
 }
 
 .fab .drawer {
+  margin-top: 7px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: flex-end;
   opacity: 0;
   transition: all 0.3s cubic-bezier(0.65, 0.05, 0.36, 1);
-  transform: scale(0);
+  transform: scaleY(0);
   transform-origin: top center;
 }
 
+.fab .drawer .pages {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
 .fab .drawer a {
-  cursor: pointer;
   display: block;
-  margin: 11px auto 0 auto;
+  margin: 6px;
   width: 18px;
   height: 18px;
   padding: 13px;
@@ -269,6 +283,7 @@
   outline: 0;
   box-shadow: 0 2.8px 2.2px rgba(0, 0, 0, 0.034), 0 6.7px 5.3px rgba(0, 0, 0, 0.048), 0 12.5px 10px rgba(0, 0, 0, 0.06), 0 22.3px 17.9px rgba(0, 0, 0, 0.072), 0 41.8px 33.4px rgba(0, 0, 0, 0.086), 0 100px 80px rgba(0, 0, 0, 0.12);
   pointer-events: all;
+  cursor: pointer;
 }
 
 .fab .drawer a svg {
@@ -292,13 +307,30 @@
   background: #9f6060;
 }
 
+.fab .drawer a.page {
+  margin: 5px;
+  width: 12px;
+  height: 12px;
+  line-height: 12px;
+  background: #6a9f60;
+  font-family: "Quicksand";
+  font-weight: 700;
+  font-size: 18px;
+  color: white;
+  text-decoration: none;
+}
+
+.fab .drawer a.page.active {
+  background: rgba(96, 157, 159, 0.7);
+}
+
 .fab.activated button svg {
   transform: rotate(180deg);
 }
 
 .fab.activated .drawer {
   opacity: 1;
-  transform: scale(1);
+  transform: scaleY(1);
 }
 
 .topper {
@@ -691,4 +723,4 @@ footer div img {
 }
 
 
-/*# sourceMappingURL=app-00a564cbb8.css.map */
+/*# sourceMappingURL=app-2ed6e80c83.css.map */

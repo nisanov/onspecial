@@ -6,11 +6,22 @@
     </button>
     <div class="drawer">
         <?php if ($this->authentication->hasUser()) : ?>
-            <a class="home" href="<?php echo $this->url->get(''); ?>">
-                <svg>
-                    <use xlink:href="<?php echo $this->url->getStatic('img/sprites.svg'); ?>#piggy-bank"></use>
-                </svg>
-            </a>
+            <div class="pages">
+                <?php if (isset($statistics)) : ?>
+                    <?php for ($page = 1; $page <= $statistics->pages; $page++) : ?>
+                        <?php if ($page === $statistics->page) : ?>
+                            <a class="page active" href="javascript:void(0);"><?php echo $page; ?></a>
+                        <?php else : ?>
+                            <a class="page" href="<?php echo $this->url->get('specials/page/' . $page); ?>"><?php echo $page; ?></a>
+                        <?php endif; ?>
+                    <?php endfor; ?>
+                <?php endif; ?>
+                <a class="home" href="<?php echo $this->url->get(''); ?>">
+                    <svg>
+                        <use xlink:href="<?php echo $this->url->getStatic('img/sprites.svg'); ?>#piggy-bank"></use>
+                    </svg>
+                </a>
+            </div>
             <a class="profile" href="<?php echo $this->url->get('profile'); ?>">
                 <svg>
                     <use xlink:href="<?php echo $this->url->getStatic('img/sprites.svg'); ?>#user-edit"></use>
