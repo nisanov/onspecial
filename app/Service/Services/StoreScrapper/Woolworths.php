@@ -17,7 +17,7 @@ class Woolworths extends StoreScrapper
      */
     public function getName(): string
     {
-        return 'WOOLWORTHS';
+        return 'Woolworths';
     }
 
     /**

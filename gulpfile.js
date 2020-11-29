@@ -1,3 +1,5 @@
+require('dotenv').config();
+
 const fancyLog = require('fancy-log');
 const watchify = require('watchify');
 const tsify = require('tsify');
@@ -10,6 +12,7 @@ const resolveUrl = require('gulp-resolve-url');
 const buffer = require('gulp-buffer');
 const concat = require('gulp-concat');
 const source = require('vinyl-source-stream');
+const envify = require('envify/custom');
 const browserify = require('browserify');
 
 sass.compiler = require('dart-sass');
@@ -56,7 +59,6 @@ function vendorCss(cb) {
   gulp
     .src([
       './node_modules/notyf/notyf.min.css',
-      './node_modules/basiclightbox/dist/basicLightbox.min.css',
     ])
     .pipe(concat({ path: 'vendor.css', cwd: '' }))
     .pipe(revision())
@@ -76,15 +78,17 @@ function watchCss() {
   gulp.watch('./public_src/css/**/*.scss', bundleCss);
 }
 
-const watchedBrowserify = watchify(
-  browserify({
+const watchedBrowserify = watchify(browserify(
+  {
     basedir: '.',
     debug: true,
     entries: ['public_src/js/main.ts'],
     cache: {},
     packageCache: {},
-  }).plugin(tsify),
-);
+  },
+).plugin(tsify).transform(envify({
+  APP_BASE_URL: process.env.APP_BASE_URL,
+})));
 
 function bundleJs() {
   return watchedBrowserify
@@ -108,7 +112,6 @@ function vendorJs(cb) {
   gulp
     .src([
       './node_modules/smoothscroll-polyfill/dist/smoothscroll.min.js',
-      './node_modules/basiclightbox/dist/basicLightbox.min.js',
     ])
     .pipe(concat({ path: 'vendor.js', cwd: '' }))
     .pipe(revision())

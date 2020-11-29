@@ -301,6 +301,83 @@
   transform: scale(1);
 }
 
+.topper {
+  position: fixed;
+  bottom: 26px;
+  right: 26px;
+  text-align: center;
+  z-index: 99;
+}
+
+.topper button {
+  cursor: pointer;
+  display: block;
+  width: 42px;
+  height: 42px;
+  padding: 14px;
+  border: none;
+  border-radius: 50%;
+  outline: 0;
+  opacity: 0;
+  transition: all 0.3s cubic-bezier(0.65, 0.05, 0.36, 1);
+  background: #265973;
+  box-shadow: 0 2.8px 2.2px rgba(0, 0, 0, 0.034), 0 6.7px 5.3px rgba(0, 0, 0, 0.048), 0 12.5px 10px rgba(0, 0, 0, 0.06), 0 22.3px 17.9px rgba(0, 0, 0, 0.072), 0 41.8px 33.4px rgba(0, 0, 0, 0.086), 0 100px 80px rgba(0, 0, 0, 0.12);
+}
+
+.topper button svg {
+  width: 100%;
+  height: 100%;
+  fill: #f2f2f2;
+}
+
+.topper button.activated {
+  opacity: 0.5;
+}
+
+.lightbox {
+  position: fixed;
+  display: flex;
+  top: 0;
+  right: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 999;
+  background: rgba(0, 0, 0, 0.8);
+  transition: all 0.3s cubic-bezier(0.65, 0.05, 0.36, 1);
+  transform: scale(0);
+}
+
+.lightbox .close {
+  position: fixed;
+  margin: 0;
+  padding: 0;
+  top: 0;
+  right: 0;
+  width: 60px;
+  height: 60px;
+  background: transparent;
+  outline: 0;
+  border: none;
+  font-family: "Quicksand";
+  font-weight: 300;
+  font-size: 60px;
+  line-height: 40px;
+  color: rgba(255, 255, 255, 0.7);
+  cursor: pointer;
+}
+
+.lightbox .image {
+  margin: auto;
+  padding: 30px;
+  background: white;
+  max-height: 70%;
+  max-width: 70%;
+}
+
+.lightbox.open {
+  transform: scale(1);
+}
+
 body {
   display: flex;
   flex-direction: column;
@@ -450,6 +527,10 @@ body {
   row-gap: 5px;
 }
 
+.products .product .drawer span :first-child {
+  margin-top: 0;
+}
+
 .products .product.more .controls .dropdown svg {
   transform: rotate(180deg);
 }
@@ -474,45 +555,6 @@ button.svg svg {
   margin: 0;
   padding: 0;
   transition: all 0.3s cubic-bezier(0.65, 0.05, 0.36, 1);
-}
-
-.lightbox {
-  position: relative;
-  margin: 20px;
-  padding: 40px;
-  background: #ffffff;
-  text-align: center;
-}
-
-.lightbox button {
-  cursor: pointer;
-  position: absolute;
-  top: -18px;
-  right: -18px;
-  margin: 0;
-  padding: 0;
-  background: #ffffff;
-  border-radius: 50%;
-  border: 3px solid #66aacc;
-  outline: 0;
-  width: 36px;
-  height: 36px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.lightbox button svg {
-  fill: #66aacc;
-  margin: 0;
-  padding: 0;
-  width: 80%;
-  height: 80%;
-}
-
-.lightbox img {
-  margin: 0 auto;
-  width: 90%;
 }
 
 .logo {
@@ -648,38 +690,5 @@ footer div img {
   vertical-align: text-top;
 }
 
-.topper {
-  position: fixed;
-  bottom: 26px;
-  right: 26px;
-  text-align: center;
-  z-index: 99;
-}
 
-.topper button {
-  cursor: pointer;
-  display: block;
-  width: 42px;
-  height: 42px;
-  padding: 14px;
-  border: none;
-  border-radius: 50%;
-  outline: 0;
-  opacity: 0;
-  transition: all 0.3s cubic-bezier(0.65, 0.05, 0.36, 1);
-  background: #265973;
-  box-shadow: 0 2.8px 2.2px rgba(0, 0, 0, 0.034), 0 6.7px 5.3px rgba(0, 0, 0, 0.048), 0 12.5px 10px rgba(0, 0, 0, 0.06), 0 22.3px 17.9px rgba(0, 0, 0, 0.072), 0 41.8px 33.4px rgba(0, 0, 0, 0.086), 0 100px 80px rgba(0, 0, 0, 0.12);
-}
-
-.topper button svg {
-  width: 100%;
-  height: 100%;
-  fill: #f2f2f2;
-}
-
-.topper button.activated {
-  opacity: 0.5;
-}
-
-
-/*# sourceMappingURL=app-a0dcbfffc9.css.map */
+/*# sourceMappingURL=app-00a564cbb8.css.map */

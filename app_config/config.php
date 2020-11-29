@@ -4,7 +4,7 @@ $basePath = dirname(__DIR__);
 
 return [
     'application' => [
-        'baseUri' => $_ENV['APP_BASE_URI'],
+        'baseUri' => $_ENV['APP_BASE_URL'],
         'crypticKey' => $_ENV['APP_CRYPTIC_KEY'],
     ],
     'mailer' => [

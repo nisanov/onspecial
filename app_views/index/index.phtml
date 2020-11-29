@@ -5,7 +5,7 @@
         </svg>
     </a>
     <div class="statistics">
-        <div>Seen <b><span id="seen">0</span></b> of <b><?php echo count($products); ?></b> Products Listed</div>
+        <div>Seen <b><span id="seen">0</span></b> of <b>1</b> - <b><?php echo count($products); ?></b> Products Listed</div>
         <?php if ($statistics->ignoring > 0) : ?>
             <div>Ignored <b><span id="ignoring"><?php echo $statistics->ignoring; ?></span></b> of <b><?php echo $statistics->products; ?></b> Products Available</div>
         <?php endif; ?>
@@ -67,22 +67,3 @@
         </div>
     <?php endforeach; ?>
 </div>
-
-<div class="topper">
-    <button>
-        <svg>
-            <use xlink:href="<?php echo $this->url->getStatic('img/sprites.svg'); ?>#arrow-up"></use>
-        </svg>
-    </button>
-</div>
-
-<template id="lightbox">
-    <div class="lightbox">
-        <button class="close" onclick="window.lightbox.close()">
-            <svg>
-                <use xlink:href="<?php echo $this->url->getStatic('img/sprites.svg'); ?>#times"></use>
-            </svg>
-        </button>
-        <img alt="Product Image" onerror="this.src='<?php echo $this->url->getStatic('img/placeholder.jpg'); ?>'">
-    </div>
-</template>

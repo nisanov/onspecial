@@ -3,7 +3,7 @@ import axios, { AxiosInstance } from "axios";
 
 export default class Http {
   static axios: AxiosInstance = axios.create({
-    baseURL: "http://192.168.1.109/",
+    baseURL: process.env.APP_BASE_URL,
   });
   static favorite = (productId: string, state: boolean): any => {
     return Http.axios.post("/product/favorite/" + productId, {

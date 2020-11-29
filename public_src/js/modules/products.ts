@@ -1,9 +1,15 @@
 import http from './http';
+import topper from './topper';
+import lightbox from './lightbox';
+
+topper.initialize();
+lightbox.initialize();
 
 export default class Products {
   static seen: number = 0;
   static instance: HTMLElement = document.querySelector('.products');
   static observer: IntersectionObserver;
+  // static lightbox = GLightbox();
   static initialize = () => {
     if (Products.instance === null) {
       return;
@@ -68,7 +74,7 @@ export default class Products {
               <span>${json.store}&nbsp;
                   <a class="svg link" href="${json.uri}" target="_blank" rel="noopener">
                       <svg>
-                          <use xlink:href="img/sprites-ade01fd951.svg#external-link-alt"></use>
+                          <use xlink:href="${document.querySelector('head').dataset.sprites}#external-link-alt"></use>
                       </svg>
                   </a>
               </span>
@@ -87,6 +93,10 @@ export default class Products {
             product.querySelector('.drawer').remove();
           }
           product.classList.toggle('more');
+          break;
+        case (source = target.closest('.product .content .thumbnail')) !== null:
+          const image: HTMLImageElement = source.querySelector('img') as HTMLImageElement;
+          lightbox.open(image.dataset.image);
           break;
       }
     });
