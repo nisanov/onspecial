@@ -192,6 +192,11 @@ class Authentication extends Generic
 
         $identify = $this->session->get('auth-identity');
         if ($identify === null) {
+            if ($this->hasRememberMeToken()) {
+                if ($this->viaRememberMeToken()) {
+                    return $this->user;
+                }
+            }
             return null;
         }
 

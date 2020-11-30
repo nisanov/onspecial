@@ -30,13 +30,7 @@ class AuthenticationController extends HtmlController
     {
         $user = $this->authentication->getUser();
         if ($user instanceof User) {
-            return $this->redirector->withNothing('');
-        }
-
-        if ($this->authentication->hasRememberMeToken()) {
-            if ($this->authentication->viaRememberMeToken()) {
-                return $this->redirector->withNothing('');
-            }
+            return $this->redirector->withNothing('specials/page/1');
         }
 
         $this->view->setVar('form', new LoginForm);
