@@ -22,7 +22,7 @@
                             <use xlink:href="<?php echo $this->url->getStatic('img/sprites.svg'); ?>#search-plus"></use>
                         </svg>
                     </button>
-                    <img data-image="<?php echo $product->image; ?>" data-src="<?php echo $product->thumb; ?>" src="<?php echo $this->url->getStatic('img/placeholder.jpg'); ?>" onerror="this.src='<?php echo $this->url->getStatic('img/placeholder.jpg'); ?>'" alt="<?php echo $product->name; ?>" />
+                    <img data-image="<?php echo $product->image; ?>" data-src="<?php echo $product->thumb; ?>" src="<?php echo $this->url->getStatic('img/loader.gif'); ?>" onerror="this.src='<?php echo $this->url->getStatic('img/placeholder.jpg'); ?>'" alt="<?php echo $product->name; ?>" />
                 </div>
                 <div class="information">
                     <div><?php echo $product->name; ?></div>
