@@ -526,9 +526,9 @@ body {
 }
 
 .products .product .content .controls .ignoring svg {
-  fill: #b3d5e6;
   width: 1em;
   height: 1em;
+  fill: #b3d5e6;
 }
 
 .products .product .content .controls .ignoring.ignored svg {
@@ -547,6 +547,7 @@ body {
 }
 
 .products .product .drawer {
+  position: relative;
   margin: 0;
   padding: 15px;
   background-color: #fcfcfc;
@@ -563,6 +564,23 @@ body {
 
 .products .product .drawer span :first-child {
   margin-top: 0;
+}
+
+.products .product .drawer .ignoring {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  font-size: 1.2em;
+}
+
+.products .product .drawer .ignoring svg {
+  width: 1em;
+  height: 1em;
+  fill: #b3d5e6;
+}
+
+.products .product .drawer .ignoring.ignored svg {
+  fill: #c69f9f;
 }
 
 .products .product.more .controls .dropdown svg {
@@ -725,4 +743,4 @@ footer div img {
 }
 
 
-/*# sourceMappingURL=app-a3570ec395.css.map */
+/*# sourceMappingURL=app-d942faa92a.css.map */

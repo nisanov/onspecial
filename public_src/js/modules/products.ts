@@ -14,12 +14,32 @@ export default class Products {
     if (Products.instance === null) {
       return;
     }
+    const onScroll = () => {
+      if ((window.innerHeight + Math.ceil(window.pageYOffset)) >= document.body.offsetHeight) {
+        const loader: string = document.querySelector('head').dataset.loader;
+        [].slice.call(document.querySelector('.products').querySelectorAll('.product')).reverse().some((product: HTMLElement) => {
+          const image: HTMLImageElement = product.querySelector('.thumbnail img');
+          const position: number = parseInt(product.dataset.position, 10);
+          if (image.src === loader) {
+            image.src = image.dataset.src;
+            Products.observer.unobserve(product);
+            if (position > Products.seen) {
+              Products.seen = position;
+              document.getElementById('seen').innerText = Products.seen.toString();
+            }
+            return false;
+          }
+          return true;
+        });
+        window.removeEventListener('scroll', onScroll);
+      }
+    };
+    window.addEventListener('scroll', onScroll, { passive: true });
     Products.observer = new IntersectionObserver((entries: Array<IntersectionObserverEntry>) => {
       let inPosition: boolean = true;
       entries.some((entry: IntersectionObserverEntry) => {
         const product: HTMLElement = entry.target as HTMLElement;
         const position: number = parseInt(product.dataset.position, 10);
-        console.log();
         if (!entry.isIntersecting) {
           if (position === 1) {
             inPosition = false;
@@ -29,18 +49,21 @@ export default class Products {
         } else {
           inPosition = true;
         }
-        const image: HTMLImageElement = entry.target.querySelector('.thumbnail img');
+        const image: HTMLImageElement = product.querySelector('.thumbnail img');
         image.src = image.dataset.src;
-        Products.observer.unobserve(product);
-        if (position > Products.seen) {
-          Products.seen = position;
-          document.getElementById('seen').innerText = Products.seen.toString();
+        if (entry.intersectionRatio >= 0.75) {
+          Products.observer.unobserve(product);
+          if (position > Products.seen) {
+            Products.seen = position;
+            document.getElementById('seen').innerText = Products.seen.toString();
+          }
         }
+        return false;
       });
     }, {
       root: null,
       rootMargin: '0px',
-      threshold: 0.75,
+      threshold: [0.10, 0.75],
     });
     Products.instance.querySelectorAll('.product').forEach((product: HTMLElement) => Products.observer.observe(product));
     Products.instance.addEventListener('click', (event: MouseEvent): void => {
@@ -48,19 +71,23 @@ export default class Products {
       const product: HTMLElement = target.closest('.product');
       let source: HTMLElement = null;
       switch (true) {
+        case (source = target.closest('.product .content .thumbnail')) !== null:
+          const image: HTMLImageElement = source.querySelector('img') as HTMLImageElement;
+          lightbox.open(image.dataset.image);
+          break;
         case (source = target.closest('.product .controls .favorite')) !== null:
-          const favorited = !source.classList.contains('favorited');
-          http.favorite(product.dataset.id, favorited).then(() => {
+          const favoritedProduct = !source.classList.contains('favorited');
+          http.favoriteProduct(product.dataset.id, favoritedProduct).then(() => {
             const svg: SVGAElement = source.querySelector('svg use');
-            svg.href.baseVal = svg.href.baseVal.replace(/#heart.*$/, favorited ? '#heart-solid' : '#heart');
+            svg.href.baseVal = svg.href.baseVal.replace(/#heart.*$/, favoritedProduct ? '#heart-solid' : '#heart');
             source.classList.toggle('favorited');
           });
           break;
         case (source = target.closest('.product .controls .ignoring')) !== null:
-          const ignored = !source.classList.contains('ignored');
-          http.ignore(product.dataset.id, ignored).then(() => {
+          const ignoredProduct = !source.classList.contains('ignored');
+          http.ignoreProduct(product.dataset.id, ignoredProduct).then(() => {
             const ignoring = parseInt(document.getElementById('ignoring').innerText, 10);
-            document.getElementById('ignoring').innerText = (ignored ? ignoring + 1 : ignoring - 1).toString();
+            document.getElementById('ignoring').innerText = (ignoredProduct ? ignoring + 1 : ignoring - 1).toString();
             source.classList.toggle('ignored');
           });
           break;
@@ -68,6 +95,11 @@ export default class Products {
           if (!product.classList.contains('more')) {
             const json = JSON.parse(decodeURIComponent(product.dataset.product.replace(/\+/g, ' ')));
             const template = `
+              <button class="svg ignoring ${json.ignoring_brand === "1" ? 'ignored' : ''}">
+                <svg>
+                  <use xlink:href="${document.querySelector('head').dataset.sprites}#ban"></use>
+                </svg>
+              </button>
               <span>Brand:</span>
               <span>${json.brand}</span>
               <span>Store:</span>
@@ -94,9 +126,12 @@ export default class Products {
           }
           product.classList.toggle('more');
           break;
-        case (source = target.closest('.product .content .thumbnail')) !== null:
-          const image: HTMLImageElement = source.querySelector('img') as HTMLImageElement;
-          lightbox.open(image.dataset.image);
+        case (source = target.closest('.product .drawer .ignoring')) !== null:
+          const ignoredBrand = !source.classList.contains('ignored');
+          http.ignoreBrand(product.dataset.brandId, ignoredBrand).then((response) => {
+            document.getElementById('ignoring').innerText = response.data.ignoring;
+            source.classList.toggle('ignored');
+          });
           break;
       }
     });

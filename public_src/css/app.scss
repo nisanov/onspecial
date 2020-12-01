@@ -106,9 +106,9 @@ body {
         .ignoring {
           font-size: 1.1em;
           svg {
-            fill: lighten($blue, 50%);
             width: 1em;
             height: 1em;
+            fill: lighten($blue, 50%);
           }
           &.ignored {
             svg {
@@ -128,6 +128,7 @@ body {
       }
     }
     .drawer {
+      position: relative;
       margin: 0;
       padding: 15px;
       background-color: lighten($smoke, 4%);
@@ -142,6 +143,22 @@ body {
       row-gap: 5px;
       span :first-child {
         margin-top: 0;
+      }
+      .ignoring {
+        position: absolute;
+        top: 5px;
+        right: 5px;
+        font-size: 1.2em;
+        svg {
+          width: 1em;
+          height: 1em;
+          fill: lighten($blue, 50%);
+        }
+        &.ignored {
+          svg {
+            fill: lighten($red, 20%);
+          }
+        }
       }
     }
     &.more {

@@ -155,3 +155,12 @@ gulp.task('default', gulp.series(
   images,
   watchCss,
 ));
+
+gulp.task('build', gulp.series(
+  clean,
+  bundleCss,
+  vendorCss,
+  bundleJs,
+  vendorJs,
+  images,
+));

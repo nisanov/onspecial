@@ -14,7 +14,7 @@
 
 <div class="products">
     <?php foreach ($products as $index => $product) : ?>
-        <div class="product" data-id="<?php echo $product->id; ?>" data-position="<?php echo $index + 1; ?>" data-product='<?php echo urlencode(json_encode($product)); ?>'>
+        <div class="product" data-id="<?php echo $product->id; ?>" data-brand-id="<?php echo $product->brand_id; ?>" data-position="<?php echo $index + 1; ?>" data-product='<?php echo urlencode(json_encode($product)); ?>'>
             <div class="content">
                 <div class="thumbnail">
                     <button class="svg search-plus">
@@ -31,7 +31,7 @@
                     </div>
                 </div>
                 <div class="controls">
-                    <?php if ($product->favorite) : ?>
+                    <?php if ($product->favorite_product) : ?>
                         <button class="svg favorite favorited">
                             <svg>
                                 <use xlink:href="<?php echo $this->url->getStatic('img/sprites.svg'); ?>#heart-solid"></use>
@@ -44,7 +44,7 @@
                             </svg>
                         </button>
                     <?php endif; ?>
-                    <?php if ($product->ignoring) : ?>
+                    <?php if ($product->ignoring_product) : ?>
                         <button class="svg ignoring ignored">
                             <svg>
                                 <use xlink:href="<?php echo $this->url->getStatic('img/sprites.svg'); ?>#ban"></use>

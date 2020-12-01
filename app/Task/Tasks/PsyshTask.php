@@ -28,6 +28,7 @@ class PsyshTask extends Task
         'Store' => 'App\Model\Models\Store',
         'User' => 'App\Model\Models\User',
         'UserProduct' => 'App\Model\Models\UserProduct',
+        'UserBrand' => 'App\Model\Models\UserBrand',
         'Woolworths' => 'App\Service\Services\StoreScrapper\Woolworths',
         'Authentication' => 'App\Service\Services\Authentication',
         'Mailer' => 'App\Service\Services\Mailer',
@@ -39,6 +40,7 @@ class PsyshTask extends Task
         'ProfileController' => 'App\Controller\Controllers\ProfileController',
         'RecoveryController' => 'App\Controller\Controllers\RecoveryController',
         'RegistrationController' => 'App\Controller\Controllers\RegistrationController',
+        'ProductRepository' => 'App\Repository\Repositories\Product',
     ];
 
     /**

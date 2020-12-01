@@ -5,13 +5,18 @@ export default class Http {
   static axios: AxiosInstance = axios.create({
     baseURL: process.env.APP_BASE_URL,
   });
-  static favorite = (productId: string, state: boolean): any => {
+  static favoriteProduct = (productId: string, state: boolean): any => {
     return Http.axios.post("/product/favorite/" + productId, {
       state,
     });
   }
-  static ignore = (productId: string, state: boolean): any => {
+  static ignoreProduct = (productId: string, state: boolean): any => {
     return Http.axios.post("/product/ignore/" + productId, {
+      state,
+    });
+  }
+  static ignoreBrand = (brandId: string, state: boolean): any => {
+    return Http.axios.post("/brand/ignore/" + brandId, {
       state,
     });
   }
@@ -24,6 +29,9 @@ export default class Http {
         return response;
       },
       (error: any) => {
+        if (error.response.data.message !== undefined) {
+          notify.error(error.response.data.message);
+        }
         return Promise.reject(error);
       }
     );

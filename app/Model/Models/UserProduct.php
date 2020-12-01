@@ -6,6 +6,10 @@ namespace App\Model\Models;
 
 use App\Model\Generic;
 
+/**
+ * @method User getUser()
+ * @method Product getProduct()
+ */
 class UserProduct extends Generic
 {
     /**
