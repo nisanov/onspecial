@@ -117,9 +117,9 @@ A supermarket products on special aggregator web application.
 - Updating a single container:
 
     ```bash
-    docker-compose pull graylog
+    docker-compose pull php
     ```
 
     ```bash
-    docker-compose up -d --no-deps --build graylog
+    docker-compose up -d --no-deps --build php
     ```
