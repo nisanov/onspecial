@@ -7,8 +7,11 @@ namespace App\Model\Models;
 use App\Model\Generic;
 
 /**
- * @method User getUser()
- * @method Product getProduct()
+ * @method static \App\Model\Models\UserProduct[] find(array $parameters = null)
+ * @method static \App\Model\Models\UserProduct findFirst(array $parameters = null)
+ * @method static \App\Model\Models\UserProduct findFirstByName(string $name)
+ * @method \App\Model\Models\User getUser()
+ * @method \App\Model\Models\Product getProduct()
  */
 class UserProduct extends Generic
 {

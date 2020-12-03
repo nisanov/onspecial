@@ -8,12 +8,12 @@ use App\Model\Generic;
 use App\Model\Traits\HasTimestamps;
 
 /**
- * @method static Product[] find(array $parameters = null)
- * @method static Product findFirst(array $parameters = null)
- * @method Brand getBrand()
- * @method Store getStore()
- * @method Special getSpecial()
- * @method Simple|Special[] getSpecials()
+ * @method static \App\Model\Models\Product[] find(array $parameters = null)
+ * @method static \App\Model\Models\Product findFirst(array $parameters = null)
+ * @method \App\Model\Models\Brand getBrand()
+ * @method \App\Model\Models\Store getStore()
+ * @method \App\Model\Models\Special getSpecial()
+ * @method \Phalcon\Mvc\Model\Resultset\Simple|\App\Model\Models\Special[] getSpecials()
  */
 class Product extends Generic
 {

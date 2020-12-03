@@ -8,9 +8,9 @@ use App\Model\Generic;
 use App\Model\Traits\HasTimestamps;
 
 /**
- * @method static Scrape[] find(array $parameters = null)
- * @method static Scrape findFirst(array $parameters = null)
- * @method Store getStore()
+ * @method static \App\Model\Models\Scrape[] find(array $parameters = null)
+ * @method static \App\Model\Models\Scrape findFirst(array $parameters = null)
+ * @method \App\Model\Models\Store getStore()
  */
 class Scrape extends Generic
 {

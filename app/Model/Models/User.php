@@ -9,9 +9,9 @@ use App\Model\Traits\HasTimestamps;
 use Carbon\Carbon;
 
 /**
- * @method static Simple|User[] find(array $parameters = null)
- * @method static User findFirst(array $parameters = null)
- * @method static User findFirstByEmail(string $email)
+ * @method static \Phalcon\Mvc\Model\Resultset\Simple|\App\Model\Models\User[] find(array $parameters = null)
+ * @method static \App\Model\Models\User findFirst(array $parameters = null)
+ * @method static \App\Model\Models\User findFirstByEmail(string $email)
  */
 class User extends Generic
 {

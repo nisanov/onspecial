@@ -8,10 +8,10 @@ use App\Model\Generic;
 use App\Model\Traits\HasTimestamps;
 
 /**
- * @method static Special[] find(array $parameters = null)
- * @method static Special findFirst(array $parameters = null)
- * @method Store getStore()
- * @method Store getProduct()
+ * @method static \App\Model\Models\Special[] find(array $parameters = null)
+ * @method static \App\Model\Models\Special findFirst(array $parameters = null)
+ * @method \App\Model\Models\Store getStore()
+ * @method \App\Model\Models\Store getProduct()
  */
 class Special extends Generic
 {
