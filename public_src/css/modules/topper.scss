@@ -16,12 +16,12 @@
     outline: 0;
     opacity: 0;
     transition: $transition;
-    background: $background-secondary;
+    background: $blue;
     box-shadow: $box-shadow;
     svg {
       width: 100%;
       height: 100%;
-      fill: $text-primary;
+      fill: $smoke;
     }
     &.activated {
       opacity: 0.5;

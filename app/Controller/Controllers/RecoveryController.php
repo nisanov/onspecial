@@ -40,7 +40,7 @@ class RecoveryController extends HtmlController
     public function recoverAction(): ResponseInterface
     {
         if (!$this->request->isPost()) {
-            return $this->redirector->withError('recovery', "Invalid Request Type");
+            return $this->redirector->toLocation('recovery')->withError("Invalid Request Type");
         }
 
         $data = $this->request->getPost();
@@ -57,13 +57,13 @@ class RecoveryController extends HtmlController
             $data['link'] = $this->url->get("recovery/activate/$token");
 
             if ($this->mailer->sendTo([$data['email'] => $data['name']], 'recovery', ['data' => $data])) {
-                return $this->redirector->withSuccess('authentication', "Recovery Instructions Sent");
+                return $this->redirector->toLocation('authentication')->withSuccess("Recovery Instructions Sent");
             } else {
-                return $this->redirector->withError('authentication', "Activation Instructions Sent");
+                return $this->redirector->toLocation('authentication')->withError("Activation Instructions Sent");
             }
         }
 
-        return $this->redirector->withSuccess('recovery', "Invalid Recovery Information");
+        return $this->redirector->toLocation('recovery')->withSuccess("Invalid Recovery Information");
     }
 
     /**
@@ -76,14 +76,14 @@ class RecoveryController extends HtmlController
     {
         $userId = $this->cache->get($token);
         if ($userId === null) {
-            return $this->redirector->withError('recovery', "Expired or Missing Token");
+            return $this->redirector->toLocation('recovery')->withError("Expired or Missing Token");
         }
 
         $this->cache->delete($token);
 
         $user = User::findFirst($userId);
         if (!$user instanceof User) {
-            return $this->redirector->withError('recovery', "Expired or Missing User");
+            return $this->redirector->toLocation('recovery')->withError("Expired or Missing User");
         }
 
         $message = "Recovery Token Verified";
@@ -95,6 +95,6 @@ class RecoveryController extends HtmlController
 
         $this->authentication->authenticateUser($user);
 
-        return $this->redirector->withSuccess('profile', $message);
+        return $this->redirector->toLocation('profile')->withSuccess($message);
     }
 }

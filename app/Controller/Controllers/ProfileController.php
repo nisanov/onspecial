@@ -41,7 +41,7 @@ class ProfileController extends HtmlController
     public function updateAction(): ResponseInterface
     {
         if (!$this->request->isPost()) {
-            return $this->redirector->withError('profile', "Invalid Request Type");
+            return $this->redirector->toLocation('profile')->withError("Invalid Request Type");
         }
 
         $user = $this->authentication->getUser();
@@ -61,10 +61,43 @@ class ProfileController extends HtmlController
             }
 
             return !empty($user->getUpdatedFields())
-                ? $this->redirector->withSuccess('profile', "Updated Profile")
-                : $this->redirector->withSuccess('profile', "Unchanged Profile");
+                ? $this->redirector->toLocation('profile')->withSuccess("Updated Profile")
+                : $this->redirector->toLocation('profile')->withSuccess("Unchanged Profile");
         }
 
-        return $this->redirector->withSuccess('profile', "Invalid Profile");
+        return $this->redirector->toLocation('profile')->withSuccess("Invalid Profile");
+    }
+
+    /**
+     * Set the show state on the specified attribute.
+     *
+     * @param string $segment
+     * @param bool $state
+     * @return ResponseInterface
+     */
+    public function showAction(string $attribute, bool $state): ResponseInterface
+    {
+        $user = $this->authentication->getUser();
+
+        switch ($attribute) {
+            case 'seen':
+                $user->isShowingSeen($state);
+                $message = "Configured to " . ($state ? "show" : "hide") . " seen specials";
+                break;
+            case 'favorites':
+                $user->isShowingFavorites($state);
+                $message = "Configured to " . ($state ? "show" : "hide") . " favorite products";
+                break;
+            case 'ignored':
+                $user->isShowingIgnored($state);
+                $message = "Configured to " . ($state ? "show" : "hide") . " ignored products/brands";
+                break;
+            default:
+                return $this->redirector->toRequest()->withError("The attribute specified is unknown: {$attribute}");
+        }
+
+        $user->save();
+
+        return $this->redirector->toRequest()->withSuccess($message);
     }
 }

@@ -46,6 +46,27 @@ class User extends Generic
     private string $password = "";
 
     /**
+     * Whether to show seen specials.
+     * 
+     * @var int
+     */
+    private int $show_seen = 1;
+
+    /**
+     * Whether to show favorite products.
+     * 
+     * @var int
+     */
+    private int $show_favorites = 1;
+
+    /**
+     * Whether to show ignored products/brands.
+     * 
+     * @var int
+     */
+    private int $show_ignored = 0;
+
+    /**
      * The email verification timestamp.
      * 
      * @var string|null
@@ -117,6 +138,51 @@ class User extends Generic
     public function getPassword(): string
     {
         return $this->password;
+    }
+
+    /**
+     * Get or set whether to show seen specials.
+     *
+     * @param bool $state
+     * @return bool
+     */
+    public function isShowingSeen(bool $state = null): bool
+    {
+        if ($state !== null) {
+            $this->show_seen = (int)$state;
+        }
+
+        return (bool)$this->show_seen;
+    }
+
+    /**
+     * Get or set whether to show favorite products.
+     *
+     * @param bool $state
+     * @return bool
+     */
+    public function isShowingFavorites(bool $state = null): bool
+    {
+        if ($state !== null) {
+            $this->show_favorites = (int)$state;
+        }
+
+        return (bool)$this->show_favorites;
+    }
+
+    /**
+     * Get or set whether to show ignored products/brands.
+     *
+     * @param bool $state
+     * @return bool
+     */
+    public function isShowingIgnored(bool $state = null): bool
+    {
+        if ($state !== null) {
+            $this->show_ignored = (int)$state;
+        }
+
+        return (bool)$this->show_ignored;
     }
 
     /**

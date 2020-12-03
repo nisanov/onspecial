@@ -94,12 +94,17 @@ export default class Products {
         case (source = target.closest('.product .controls .dropdown')) !== null:
           if (!product.classList.contains('more')) {
             const json = JSON.parse(decodeURIComponent(product.dataset.product.replace(/\+/g, ' ')));
-            const template = `
-              <button class="svg ignoring ${json.ignoring_brand === "1" ? 'ignored' : ''}">
-                <svg>
-                  <use xlink:href="${document.querySelector('head').dataset.sprites}#ban"></use>
-                </svg>
-              </button>
+            const template = (
+              json.brand_id !== null 
+                ? `
+                  <button class="svg ignoring ${json.ignoring_brand === "1" ? 'ignored' : ''}">
+                    <svg>
+                      <use xlink:href="${document.querySelector('head').dataset.sprites}#ban"></use>
+                    </svg>
+                  </button>
+                  ` 
+                : `` 
+              ) + `
               <span>Brand:</span>
               <span>${json.brand}</span>
               <span>Store:</span>

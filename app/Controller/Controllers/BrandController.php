@@ -6,9 +6,6 @@ namespace App\Controller\Controllers;
 
 use App\Controller\JsonController;
 use App\Controller\Traits\RequiresAuthentication;
-use App\Exception\Exceptions\ModelNotFound;
-use App\Model\Models\Brand;
-use App\Model\Models\UserBrand;
 use App\Repository\Repositories\Product as ProductRepository;
 
 class BrandController extends JsonController
@@ -22,35 +19,15 @@ class BrandController extends JsonController
      */
     public function ignoreAction(int $brandId): array
     {
-        $brand = Brand::findFirst($brandId);
-        if (!$brand instanceof Brand) {
-            throw new ModelNotFound("The specified brand #[{$brandId}] does not exist");
-        }
-
-        $state = ['ignoring' => (bool)($this->request->getJsonRawBody()->state ?? true)];
-
-        $userBrand = UserBrand::findFirst([
-            'user_id = :userId: AND brand_id = :brandId:',
-            'bind' => [
-                'userId' => $this->authentication->getUser()->getId(),
-                'brandId' => $brand->getId(),
-            ]
-        ]);
-
-        if ($userBrand === null) {
-            $userBrand = new UserBrand;
-            $userBrand->setUserId($this->authentication->getUser()->getId());
-            $userBrand->setBrandId($brand->getId());
-        }
-
-        $userBrand->assign($state);
-        $userBrand->save();
+        $user = $this->authentication->getUser();
+        $state = (bool)($this->request->getJsonRawBody()->state ?? true);
+        $brand = $this->toggle->setUser($user)->ignoreBrand($brandId, $state);
 
         return [
-            'message' => $state['ignoring'] === true
+            'message' => $state === true
                 ? $brand->getName() . " has been marked as an ignored brand"
                 : $brand->getName() . " is no longer marked as an ignored brand",
-            'ignoring' => (new ProductRepository)->getStatistics($userBrand->getUser())->ignoring,
+            'ignoring' => (new ProductRepository)->getStatistics($user)->ignoring,
         ];
     }
 }

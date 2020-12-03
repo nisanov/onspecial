@@ -7,7 +7,7 @@ namespace App\Exception\Exceptions;
 use App\Exception\Generic;
 use Throwable;
 
-class ModelNotFound extends Generic
+class ModelNotFoundException extends Generic
 {
     /**
      * Constuct the model not found exception instance.

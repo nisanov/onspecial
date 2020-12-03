@@ -14,8 +14,8 @@ body {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  background-color: $background-color;
-  color: $text-color;
+  background-color: $smoke;
+  color: $blue;
   font-family: "Quicksand";
   font-weight: 400;
   font-size: 14px;
@@ -133,7 +133,7 @@ body {
       padding: 15px;
       background-color: lighten($smoke, 4%);
       border-radius: 0 0 5px 5px;
-      color: $text-color;
+      color: $blue;
       font-family: "Quicksand";
       font-weight: 300;
       font-size: 13px;
@@ -209,7 +209,7 @@ button {
 
 a {
   background-color: transparent;
-  color: $text-anchor;
+  color: $cadet;
   font-family: "Quicksand";
   font-weight: 500;
   font-size: 1em;
@@ -220,13 +220,13 @@ a {
   &:link,
   &:visited {
     background-color: transparent;
-    color: $text-anchor;
+    color: $cadet;
   }
   &:hover,
   &:focus,
   &:active {
     background-color: transparent;
-    color: $text-anchor;
+    color: $cadet;
     text-decoration: underline;
   }
   &.svg {
@@ -282,8 +282,8 @@ header {
   align-items: center;
   width: 100%;
   height: 56px;
-  background-color: $background-color;
-  color: $text-color;
+  background-color: $smoke;
+  color: $blue;
   font-family: "Quicksand";
   font-weight: 500;
   font-size: 14px;
@@ -295,7 +295,7 @@ header {
     svg {
       width: 1em;
       height: 1em;
-      fill: $text-color;
+      fill: $blue;
     }
   }
   .statistics {

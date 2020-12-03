@@ -58,6 +58,7 @@ abstract class Generic extends MvcModel
      * Inserts or updates a model instance. Returning true on success or false otherwise.
      *
      * @return bool
+     * @throws Exception when a failure occurs during the database save.
      */
     public function save(): bool
     {

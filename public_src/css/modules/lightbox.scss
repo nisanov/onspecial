@@ -10,6 +10,7 @@
   transition: $transition;
   transform: scale(0);
   transform-origin: center center;  
+  opacity: 0.0;
   .close {
     position: fixed;
     margin: 0;
@@ -37,5 +38,6 @@
   }
   &.open {
     transform: scale(1);
+    opacity: 1.0;
   }
 }

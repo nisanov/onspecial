@@ -4,16 +4,16 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
-use Phalcon\Http\ResponseInterface;
 use Phalcon\Mvc\Controller;
 use Phalcon\Mvc\Dispatcher;
 
 /**
- * @property Logger $logger
- * @property Redirector $redirector
- * @property Authentication $authentication
- * @property Mailer $mailer
- * @property Cache $cache
+ * @property \Phalcon\Logger $logger
+ * @property \App\Service\Services\Redirector $redirector
+ * @property \App\Service\Services\Authentication $authentication
+ * @property \App\Service\Services\Mailer $mailer
+ * @property \Phalcon\Cache $cache
+ * @property \App\Service\Services\Toggle $toggle
  */
 abstract class JsonController extends Controller
 {

@@ -40,7 +40,7 @@ class RegistrationController extends HtmlController
     public function registerAction(): ResponseInterface
     {
         if (!$this->request->isPost()) {
-            return $this->redirector->withError('registration', "Invalid Request Type");
+            return $this->redirector->toLocation('registration')->withError("Invalid Request Type");
         }
 
         $user = new User;
@@ -58,13 +58,13 @@ class RegistrationController extends HtmlController
             $data['link'] = $this->url->get("registration/activate/$token");
 
             if ($this->mailer->sendTo([$data['email'] => $data['name']], 'registration', ['data' => $data])) {
-                return $this->redirector->withSuccess('authentication', "Activation Instructions Sent");
+                return $this->redirector->toLocation('authentication')->withSuccess("Activation Instructions Sent");
             } else {
-                return $this->redirector->withError('registration', "Failed to Send Activation Instructions");
+                return $this->redirector->toLocation('registration')->withError("Failed to Send Activation Instructions");
             }
         }
 
-        return $this->redirector->withSuccess('registration', "Invalid Registration");
+        return $this->redirector->toLocation('registration')->withSuccess("Invalid Registration");
     }
 
     /**
@@ -77,14 +77,14 @@ class RegistrationController extends HtmlController
     {
         $userId = $this->cache->get($token);
         if ($userId === null) {
-            return $this->redirector->withError('registration', "Expired or Missing Token");
+            return $this->redirector->toLocation('registration')->withError("Expired or Missing Token");
         }
 
         $this->cache->delete($token);
 
         $user = User::findFirst($userId);
         if (!$user instanceof User) {
-            return $this->redirector->withError('registration', "Expired or Missing User");
+            return $this->redirector->toLocation('registration')->withError("Expired or Missing User");
         }
 
         $message = "Already Activated";

@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App;
 
 use App\Provider\GenericInterface;
+use App\Service\Services\Toggle;
 use Dotenv\Dotenv;
 use Exception;
 use Phalcon\Cli\Console;
@@ -85,6 +86,7 @@ class Application
 
         $this->container = $this->cli ? new Cli : new FactoryDefault();
         $this->container->setShared(self::IDENTIFIER, $this);
+        $this->container->setShared('toggle', Toggle::class);
 
         if ($this->cli) {
             $this->console = new Console($this->container);
@@ -108,6 +110,7 @@ class Application
         $response = $this->application->handle($request);
         if ($response instanceof ResponseInterface) {
             echo $response->getContent();
+            $_SESSION['requested'] = $request;
         }
     }
 

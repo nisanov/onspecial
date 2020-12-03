@@ -6,6 +6,8 @@ return [
     'application' => [
         'baseUri' => $_ENV['APP_BASE_URL'],
         'crypticKey' => $_ENV['APP_CRYPTIC_KEY'],
+        'debug' => $_ENV['APP_DEBUG'],
+        'environment' => $_ENV['APP_ENV'],
     ],
     'mailer' => [
         'host' => $_ENV['MAIL_HOST'],

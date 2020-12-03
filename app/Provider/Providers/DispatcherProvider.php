@@ -31,21 +31,20 @@ class DispatcherProvider extends Generic
 
         $this->container->setShared(static::IDENTIFIER, function () use ($isCommandLine, $container) {
 
-            $handler = new ExceptionHandler;
-            $handler->setDI($container);
-
-            $manager = new Manager;
-            $manager->attach('dispatch:beforeException', $handler);
-
             if ($isCommandLine) {
                 $dispatcher = new CliDispatcher;
                 $dispatcher->setDefaultNamespace('App\Task\Tasks');
             } else {
+                $handler = new ExceptionHandler;
+                $handler->setDI($container);
+
+                $manager = new Manager;
+                $manager->attach('dispatch:beforeException', $handler);
+
                 $dispatcher = new MvcDispatcher;
                 $dispatcher->setDefaultNamespace('App\Controller\Controllers');
+                $dispatcher->setEventsManager($manager);
             }
-
-            $dispatcher->setEventsManager($manager);
 
             return $dispatcher;
         });

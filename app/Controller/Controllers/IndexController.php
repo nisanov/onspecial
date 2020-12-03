@@ -15,12 +15,9 @@ class IndexController extends HtmlController
      */
     public function indexAction(): void
     {
-        // Forward flow to another action
-        $this->dispatcher->forward(
-            [
-                'controller' => 'specials',
-                'action'     => 'page',
-            ]
-        );
+        $this->dispatcher->forward([
+            'controller' => 'specials',
+            'action' => 'page',
+        ]);
     }
 }

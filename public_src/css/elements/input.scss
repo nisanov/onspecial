@@ -2,14 +2,14 @@
   padding: 0 0 0 8px;
   margin: 0;
   border: none;
-  border-bottom: solid 1px $border-color;
+  border-bottom: solid 1px $blue;
   position: relative;
   label {
     position: absolute;
     font-family: "Quicksand";
     font-weight: 300;
     font-size: 16px;
-    color: $text-color;
+    color: $blue;
     transform: translate(0, 16px) scale(1);
     transform-origin: top left;
     transition: $transition;
@@ -21,7 +21,7 @@
   }
   &.invalid {
     label {
-      color: $text-invalid;
+      color: $red;
     }
   }
   input {
@@ -33,7 +33,7 @@
     font-weight: 500;
     font-size: 16px;
     background-color: transparent;
-    color: $text-input;
+    color: darken($blue, 10%);
   }
   .underline {
     position: absolute;
@@ -41,7 +41,7 @@
     left: 50%;
     width: 0;
     height: 1px;
-    background-color: $border-highlight;
+    background-color: lighten($blue, 25%);
     transition: $transition;
   }
   &.focused {
@@ -60,5 +60,5 @@
     font-family: "Quicksand";
     font-weight: 500;
     font-size: 14px;
-    color: $text-invalid;
+    color: $red;
 }

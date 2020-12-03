@@ -142,7 +142,7 @@ class UserProduct extends Generic
      * @param bool|null $state
      * @return bool
      */
-    public function isIgnored(?bool $state = null): bool
+    public function isIgnoring(?bool $state = null): bool
     {
         if ($state !== null) {
             $this->ignoring = (int)$state;

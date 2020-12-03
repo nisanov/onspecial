@@ -30,7 +30,7 @@ class AuthenticationController extends HtmlController
     {
         $user = $this->authentication->getUser();
         if ($user instanceof User) {
-            return $this->redirector->withNothing('specials/page/1');
+            return $this->redirector->toLocation('specials/page/1')->withNothing();
         }
 
         $this->view->setVar('form', new LoginForm);
@@ -46,14 +46,14 @@ class AuthenticationController extends HtmlController
     public function loginAction(): ResponseInterface
     {
         if (!$this->request->isPost()) {
-            return $this->redirector->withError('authentication', "Invalid Request Type");
+            return $this->redirector->toLocation('authentication')->withError("Invalid Request Type");
         }
 
         if ($this->authentication->viaForm(new LoginForm)) {
-            return $this->redirector->withSuccess('', "Credentials Authenticated");
+            return $this->redirector->toLocation('')->withSuccess("Credentials Authenticated");
         }
 
-        return $this->redirector->withError('authentication', "Invalid Credentials");
+        return $this->redirector->toLocation('authentication')->withError("Invalid Credentials");
     }
 
     /**
@@ -65,6 +65,6 @@ class AuthenticationController extends HtmlController
     {
         $this->authentication->remove();
 
-        return $this->redirector->withSuccess('authentication', "Credentials Cleared");
+        return $this->redirector->toLocation('authentication')->withSuccess("Credentials Cleared");
     }
 }

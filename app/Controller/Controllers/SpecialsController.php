@@ -7,6 +7,7 @@ namespace App\Controller\Controllers;
 use App\Controller\Traits\RequiresAuthentication;
 use App\Controller\HtmlController;
 use App\Repository\Repositories\Product as ProductRepository;
+use stdClass;
 
 class SpecialsController extends HtmlController
 {
@@ -20,11 +21,18 @@ class SpecialsController extends HtmlController
     public function pageAction(int $number = 1): void
     {
         $user = $this->authentication->getUser();
-        $statistics = (new ProductRepository)->getStatistics($user);
 
-        $statistics->page = $number;
+        $show = new stdClass;
+        $show->seen = $user->isShowingSeen();
+        $show->favorites = $user->isShowingFavorites();
+        $show->ignored = $user->isShowingIgnored();
+
+        $this->view->setVar('show', $show);
+
+        $statistics = (new ProductRepository)->getStatistics($user);
         $statistics->listed = $statistics->products - $statistics->ignoring;
-        $statistics->pages = ceil($statistics->listed / 500);
+        $statistics->pages = (int)ceil($statistics->listed / 500);
+        $statistics->page = $number > $statistics->pages ? $statistics->pages : $number;
         $statistics->offset = ($statistics->page - 1) * 500;
 
         $this->view->setVar('statistics', $statistics);
@@ -43,7 +51,7 @@ class SpecialsController extends HtmlController
                 specials.previous_price,
                 specials.ratio_price,
                 brands.id brand_id,
-                brands.name brand,
+                IFNULL(brands.name, '-') brand,
                 IFNULL(productUsers.favorite, 0) favorite_product,
                 IFNULL(productUsers.ignoring, 0) ignoring_product,
                 IFNULL(brandUsers.ignoring, 0) ignoring_brand
@@ -53,7 +61,7 @@ class SpecialsController extends HtmlController
                 App\Model\Models\Store stores ON products.store_id = stores.id
             INNER JOIN
                 App\Model\Models\Special specials ON products.id = specials.product_id
-            INNER JOIN
+            LEFT JOIN
                 App\Model\Models\Brand brands ON products.brand_id = brands.id
             LEFT JOIN 
                 App\Model\Models\UserProduct productUsers ON productUsers.product_id = products.id AND productUsers.user_id = :userId:
@@ -62,15 +70,16 @@ class SpecialsController extends HtmlController
             WHERE
                 products.on_special
                 AND specials.updated_at IS NULL
-                AND NOT IFNULL(productUsers.ignoring, 0)
-                AND NOT IFNULL(brandUsers.ignoring, 0)
+                AND (" . ($user->isShowingIgnored() ? 'TRUE' : 'FALSE') . " OR (NOT IFNULL(productUsers.ignoring, 0) AND NOT IFNULL(brandUsers.ignoring, 0)))
+                AND (" . ($user->isShowingFavorites() ? 'TRUE' : 'FALSE') . " OR NOT IFNULL(productUsers.favorite, 0))
             ORDER BY
                 IFNULL(productUsers.favorite, 0) DESC, 
+                IFNULL(productUsers.ignoring, 0) OR IFNULL(brandUsers.ignoring, 0) ASC,
                 brands.name ASC, 
                 products.name ASC
             LIMIT {$statistics->offset}, 500
         ", [
-            'userId' => $user->getId()
+            'userId' => $user->getId(),
         ]));
     }
 }

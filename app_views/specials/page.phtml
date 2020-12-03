@@ -5,10 +5,8 @@
         </svg>
     </a>
     <div class="statistics">
-        <div>Seen <b><span id="seen">0</span></b> of <b><?php echo $statistics->offset + 1; ?></b> - <b><?php echo $statistics->offset + count($products); ?></b> Products Listed</div>
-        <?php if ($statistics->ignoring > 0) : ?>
-            <div>Ignored <b><span id="ignoring"><?php echo $statistics->ignoring; ?></span></b> of <b><?php echo $statistics->products; ?></b> Products Available</div>
-        <?php endif; ?>
+        <div><b><?php echo $statistics->products; ?></b> Products Available - Ignored <b><span id="ignoring"><?php echo $statistics->ignoring; ?></span></b></div>
+        <div><b><?php echo $statistics->offset + 1; ?></b> - <b><?php echo $statistics->offset + count($products); ?></b> Products Listed - Seen <b><span id="seen">0</span></b></div>
     </div>
 </header>
 
@@ -44,7 +42,7 @@
                             </svg>
                         </button>
                     <?php endif; ?>
-                    <?php if ($product->ignoring_product) : ?>
+                    <?php if ($product->ignoring_product || $product->ignoring_brand) : ?>
                         <button class="svg ignoring ignored">
                             <svg>
                                 <use xlink:href="<?php echo $this->url->getStatic('img/sprites.svg'); ?>#ban"></use>

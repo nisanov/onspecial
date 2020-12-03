@@ -266,7 +266,8 @@
   transform-origin: top center;
 }
 
-.fab .drawer .pages {
+.fab .drawer .pages,
+.fab .drawer .settings {
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -309,9 +310,12 @@
 
 .fab .drawer a.page {
   margin: 5px;
-  width: 12px;
-  height: 12px;
-  line-height: 12px;
+  padding: 0;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   background: #6a9f60;
   font-family: "Quicksand";
   font-weight: 700;
@@ -322,6 +326,28 @@
 
 .fab .drawer a.page.active {
   background: rgba(96, 157, 159, 0.7);
+}
+
+.fab .drawer a.setting {
+  margin: 5px;
+  padding: 0;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #265973;
+  font-size: 1.1em;
+}
+
+.fab .drawer a.setting svg {
+  width: 1em;
+  height: 1em;
+  fill: white;
+}
+
+.fab .drawer a.setting.inactive {
+  background: rgba(38, 89, 115, 0.5);
 }
 
 .fab.activated button svg {
@@ -378,6 +404,7 @@
   transition: all 0.3s cubic-bezier(0.65, 0.05, 0.36, 1);
   transform: scale(0);
   transform-origin: center center;
+  opacity: 0;
 }
 
 .lightbox .close {
@@ -409,6 +436,7 @@
 
 .lightbox.open {
   transform: scale(1);
+  opacity: 1;
 }
 
 body {
@@ -743,4 +771,4 @@ footer div img {
 }
 
 
-/*# sourceMappingURL=app-d942faa92a.css.map */
+/*# sourceMappingURL=app-01cc6a0aca.css.map */

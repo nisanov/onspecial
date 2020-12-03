@@ -4,19 +4,15 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
-use App\Service\Services\Authentication;
-use App\Service\Services\Mailer;
-use App\Service\Services\Redirector;
-use Phalcon\Cache;
-use Phalcon\Logger;
 use Phalcon\Mvc\Controller;
 
 /**
- * @property Logger $logger
- * @property Redirector $redirector
- * @property Authentication $authentication
- * @property Mailer $mailer
- * @property Cache $cache
+ * @property \Phalcon\Logger $logger
+ * @property \App\Service\Services\Redirector $redirector
+ * @property \App\Service\Services\Authentication $authentication
+ * @property \App\Service\Services\Mailer $mailer
+ * @property \Phalcon\Cache $cache
+ * @property \App\Service\Services\Toggle $toggle
  */
 abstract class HtmlController extends Controller
 {
