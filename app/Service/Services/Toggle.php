@@ -40,7 +40,7 @@ class Toggle extends Generic
      *
      * @param int $productId
      * @param bool $state
-     * @return Brand
+     * @return Product
      * @throws InvalidArgumentException when the user has not been initialised.
      * @throws ModelNotFoundException when the specified brand is not found.
      */
@@ -55,11 +55,6 @@ class Toggle extends Generic
             throw new ModelNotFoundException("The specified product #[{$productId}] does not exist");
         }
 
-        $state = ['favorite' => $state];
-        if ($state['favorite'] === true) {
-            $state['ignoring'] = false;
-        }
-
         $userProduct = UserProduct::findFirst([
             'user_id = :userId: AND product_id = :productId:',
             'bind' => [
@@ -74,8 +69,12 @@ class Toggle extends Generic
             $userProduct->setProductId($product->getId());
         }
 
-        $userProduct->assign($state);
+        $userProduct->assign(['favorite' => $state]);
         $userProduct->save();
+
+        if ($userProduct->isFavorite()) {
+            $this->ignoreProduct($userProduct->getProduct()->getBrandId(), false);
+        }
 
         return $product;
     }
@@ -85,7 +84,7 @@ class Toggle extends Generic
      *
      * @param int $productId
      * @param bool $state
-     * @return Brand
+     * @return Product
      * @throws InvalidArgumentException when the user has not been initialised.
      * @throws ModelNotFoundException when the specified brand is not found.
      */
@@ -100,11 +99,6 @@ class Toggle extends Generic
             throw new ModelNotFoundException("The specified product #[{$productId}] does not exist");
         }
 
-        $state = ['ignoring' => (bool)($this->request->getJsonRawBody()->state ?? true)];
-        if ($state['ignoring'] === true) {
-            $state['favorite'] = false;
-        }
-
         $userProduct = UserProduct::findFirst([
             'user_id = :userId: AND product_id = :productId:',
             'bind' => [
@@ -119,8 +113,12 @@ class Toggle extends Generic
             $userProduct->setProductId($product->getId());
         }
 
-        $userProduct->assign($state);
+        $userProduct->assign(['ignoring' => $state]);
         $userProduct->save();
+
+        if (!$userProduct->isIgnoring()) {
+            $this->ignoreBrand($userProduct->getProduct()->getBrandId(), false);
+        }
 
         return $product;
     }
