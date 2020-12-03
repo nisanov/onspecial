@@ -66,6 +66,20 @@ class Application
     protected string $basePath;
 
     /**
+     * The MVC application request.
+     * 
+     * @var string|null
+     */
+    protected string $request;
+
+    /**
+     * The MVC application response.
+     * 
+     * @var ResponseInterface|null
+     */
+    protected ResponseInterface $response;
+
+    /**
      * Whether the application is being run at the command line.
      */
     protected bool $cli = false;
@@ -107,10 +121,10 @@ class Application
      */
     public function run(string $request): void
     {
-        $response = $this->application->handle($request);
-        if ($response instanceof ResponseInterface) {
-            echo $response->getContent();
-            $_SESSION['requested'] = $request;
+        $this->request = $request;
+        $this->response = $this->application->handle($this->request);
+        if ($this->response instanceof ResponseInterface) {
+            echo $this->response->getContent();
         }
     }
 
@@ -127,6 +141,26 @@ class Application
         } catch (Throwable $exception) {
             fwrite(STDERR, Formatter::formatExceptionPlain(new Inspector($exception)));
         }
+    }
+
+    /**
+     * Get the MVC application request.
+     *
+     * @return string|null
+     */
+    public function getRequest(): ?string
+    {
+        return $this->request;
+    }
+
+    /**
+     * Get the MVC application response.
+     *
+     * @return ResponseInterface|null
+     */
+    public function getResponse(): ?ResponseInterface
+    {
+        return $this->response;
     }
 
     /**

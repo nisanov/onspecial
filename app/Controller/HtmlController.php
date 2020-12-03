@@ -7,6 +7,7 @@ namespace App\Controller;
 use Phalcon\Mvc\Controller;
 
 /**
+ * @property \App\Application $application
  * @property \Phalcon\Logger $logger
  * @property \App\Service\Services\Redirector $redirector
  * @property \App\Service\Services\Authentication $authentication
@@ -16,4 +17,13 @@ use Phalcon\Mvc\Controller;
  */
 abstract class HtmlController extends Controller
 {
+    /**
+     * Handle the after excecute route event.
+     *
+     * @return void
+     */
+    public function afterExecuteRoute(): void
+    {
+        $this->session->set('requested', $this->application->getRequest());
+    }
 }
