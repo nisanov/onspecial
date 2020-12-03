@@ -21,6 +21,23 @@ class EmailController extends HtmlController
     }
 
     /**
+     * Handle the before execute route event.
+     *
+     * @return bool
+     */
+    public function beforeExecuteRoute(): bool
+    {
+        if ($this->config->path('application.environment') !== 'development') {
+
+            $this->redirector->toLocation('specials/page/1')->withError("The Email Controller is only accessible during development");
+
+            return false;
+        }
+
+        return true;
+    }
+
+    /**
      * Show the registration email.
      *
      * @return void

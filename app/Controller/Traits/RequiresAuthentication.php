@@ -15,7 +15,7 @@ use App\Service\Services\Redirector;
 trait RequiresAuthentication
 {
     /**
-     * Execute before every found action.
+     * Handles the before exceute route event.
      * 
      * @return bool
      */
