@@ -5,12 +5,10 @@ declare(strict_types=1);
 namespace App\Controller\Traits;
 
 use App\Controller\JsonController;
-use App\Service\Services\Authentication;
-use App\Service\Services\Redirector;
 
 /**
- * @property Authentication $authentication
- * @property Redirector $redirector
+ * @property \App\Service\Services\Authentication $authentication
+ * @property \App\Service\Services\Redirector $redirector
  */
 trait RequiresAuthentication
 {
@@ -30,7 +28,7 @@ trait RequiresAuthentication
                 $this->response->setJsonContent(['message' => "Authentication Required"]);
                 $this->response->send();
             } else {
-                $this->redirector->withNothing('authentication');
+                $this->redirector->toLocation('authentication')->withNothing();
             }
 
             return false;
