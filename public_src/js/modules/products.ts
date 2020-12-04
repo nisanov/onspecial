@@ -1,6 +1,7 @@
 import http from './http';
 import topper from './topper';
 import lightbox from './lightbox';
+import { DateTime, Interval } from 'luxon';
 
 topper.initialize();
 lightbox.initialize();
@@ -9,7 +10,6 @@ export default class Products {
   static seen: number = 0;
   static instance: HTMLElement = document.querySelector('.products');
   static observer: IntersectionObserver;
-  // static lightbox = GLightbox();
   static initialize = () => {
     if (Products.instance === null) {
       return;
@@ -115,6 +115,8 @@ export default class Products {
                       </svg>
                   </a>
               </span>
+              <span>Since:</span>
+              <span>${DateTime.fromSQL(json.created_at).toLocaleString(DateTime.DATE_MED_WITH_WEEKDAY)} (${parseInt(Interval.fromDateTimes(DateTime.fromSQL(json.created_at), DateTime.local()).length('days').toString(), 10)} days)</span>
               <span>Ratio:</span>
               <span>${json.ratio_price}</span>
               <span>Description:</span>

@@ -50,6 +50,7 @@ class SpecialsController extends HtmlController
                 specials.current_price,
                 specials.previous_price,
                 specials.ratio_price,
+                specials.created_at,
                 brands.id brand_id,
                 IFNULL(brands.name, '-') brand,
                 IFNULL(productUsers.favorite, 0) favorite_product,
