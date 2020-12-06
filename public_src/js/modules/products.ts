@@ -116,7 +116,7 @@ export default class Products {
                   </a>
               </span>
               <span>Since:</span>
-              <span>${DateTime.fromSQL(json.created_at).toLocaleString(DateTime.DATE_MED_WITH_WEEKDAY)} (${parseInt(Interval.fromDateTimes(DateTime.fromSQL(json.created_at), DateTime.local()).length('days').toString(), 10)} days)</span>
+              <span>${DateTime.fromSQL(json.created_at).toLocaleString(DateTime.DATE_MED_WITH_WEEKDAY)} (${parseInt(Interval.fromDateTimes(DateTime.fromSQL(json.created_at).startOf('day'), DateTime.local().startOf('day')).length('days').toString(), 10)} days)</span>
               <span>Ratio:</span>
               <span>${json.ratio_price}</span>
               <span>Description:</span>

@@ -36,7 +36,7 @@ class SessionProvider extends Generic
 
         $this->container->setShared(static::IDENTIFIER, function () use ($params) {
 
-            $session = new Manager();
+            $session = new Manager(['lifetime' => 3600 * 24]);
             $session->setAdapter(new Redis(new AdapterFactory(new SerializerFactory), $params));
             $session->start();
 

@@ -126,6 +126,22 @@ body {
           }
         }
       }
+      .new-badge {
+        position: absolute;
+        top: 0;
+        right: 0;
+        padding: 0 3px;
+        font-weight: 700;
+        font-size: 10px;
+        line-height: 12px;
+        letter-spacing: 1px;
+        background: $green;
+        color: $white;
+        opacity: 0.5;
+        text-transform: lowercase;
+        pointer-events: none;
+        cursor: default;
+      }
     }
     .drawer {
       position: relative;

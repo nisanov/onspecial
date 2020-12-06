@@ -574,6 +574,23 @@ body {
   height: 1em;
 }
 
+.products .product .content .new-badge {
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  padding: 0 3px;
+  font-weight: 700;
+  font-size: 10px;
+  line-height: 12px;
+  letter-spacing: 1px;
+  background: #6a9f60;
+  color: white;
+  opacity: 0.5;
+  text-transform: lowercase;
+  pointer-events: none;
+  cursor: default;
+}
+
 .products .product .drawer {
   position: relative;
   margin: 0;
@@ -771,4 +788,4 @@ footer div img {
 }
 
 
-/*# sourceMappingURL=app-01cc6a0aca.css.map */
+/*# sourceMappingURL=app-83412ac4cd.css.map */

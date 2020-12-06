@@ -81,6 +81,13 @@ class User extends Generic
     private ?string $authenticated_at = null;
 
     /**
+     * The last visited timestamp.
+     * 
+     * @var string|null
+     */
+    private ?string $last_visited_at = null;
+
+    /**
      * Initialize the model.
      *
      * @return void
@@ -214,6 +221,20 @@ class User extends Generic
     }
 
     /**
+     * Get the last visited timestamp.
+     *
+     * @return Carbon|null
+     */
+    public function getLastVisitedAt(): ?Carbon
+    {
+        if ($this->last_visited_at === null) {
+            return null;
+        }
+
+        return Carbon::parse($this->last_visited_at);
+    }
+
+    /**
      * Set the full name.
      *
      * @param string $value
@@ -266,5 +287,16 @@ class User extends Generic
     public function setAuthenticatedAt(Carbon $carbon): void
     {
         $this->authenticated_at = $carbon->toDateTimeString();
+    }
+
+    /**
+     * Set the last visted timestamp.
+     *
+     * @param Carbon $carbon
+     * @return void
+     */
+    public function setLastVisitedAt(Carbon $carbon): void
+    {
+        $this->last_visited_at = $carbon->toDateTimeString();
     }
 }

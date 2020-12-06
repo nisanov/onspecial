@@ -119,6 +119,7 @@ class Authentication extends Generic
     {
         $this->user = $user;
 
+        $this->user->setLastVisitedAt($this->user->getAuthenticatedAt());
         $this->user->setAuthenticatedAt(Carbon::now());
         $this->user->save();
 
