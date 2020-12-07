@@ -576,8 +576,8 @@ body {
 
 .products .product .content .new-badge {
   position: absolute;
-  top: 0px;
-  right: 0px;
+  top: 0;
+  right: 0;
   padding: 0 3px;
   font-weight: 700;
   font-size: 10px;
@@ -788,4 +788,4 @@ footer div img {
 }
 
 
-/*# sourceMappingURL=app-83412ac4cd.css.map */
+/*# sourceMappingURL=app-e45846d95b.css.map */
