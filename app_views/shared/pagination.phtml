@@ -1,0 +1,59 @@
+<div class="pagination <?php echo $position; ?>">
+    <div class="wrapper">
+        <div class="navigation">
+            <?php if ($statistics->page === 1) : ?>
+                <a class="first inactive" href="javascript:void(0);">
+                    <svg>
+                        <use xlink:href="<?php echo $this->url->getStatic('img/sprites.svg'); ?>#angle-double-left"></use>
+                    </svg>
+                </a>
+                <a class="previous inactive" href="javascript:void(0);">
+                    <svg>
+                        <use xlink:href="<?php echo $this->url->getStatic('img/sprites.svg'); ?>#angle-left"></use>
+                    </svg>
+                </a>
+            <?php else : ?>
+                <a class="first" href="<?php echo $this->url->get('specials/page/1'); ?>">
+                    <svg>
+                        <use xlink:href="<?php echo $this->url->getStatic('img/sprites.svg'); ?>#angle-double-left"></use>
+                    </svg>
+                </a>
+                <a class="previous" href="<?php echo $this->url->get('specials/page/' . ($statistics->page - 1)); ?>">
+                    <svg>
+                        <use xlink:href="<?php echo $this->url->getStatic('img/sprites.svg'); ?>#angle-left"></use>
+                    </svg>
+                </a>
+            <?php endif; ?>
+            <?php for ($page = 1; $page <= $statistics->pages; $page++) : ?>
+                <?php if ($page === $statistics->page) : ?>
+                    <a class="page active" href="javascript:void(0);"><span><?php echo $page; ?></span></a>
+                <?php else : ?>
+                    <a class="page" href="<?php echo $this->url->get('specials/page/' . $page); ?>"><?php echo $page; ?></a>
+                <?php endif; ?>
+            <?php endfor; ?>
+            <?php if ($statistics->page === $statistics->pages) : ?>
+                <a class="next inactive" href="javascript:void(0);">
+                    <svg>
+                        <use xlink:href="<?php echo $this->url->getStatic('img/sprites.svg'); ?>#angle-right"></use>
+                    </svg>
+                </a>
+                <a class="last inactive" href="javascript:void(0);">
+                    <svg>
+                        <use xlink:href="<?php echo $this->url->getStatic('img/sprites.svg'); ?>#angle-double-right"></use>
+                    </svg>
+                </a>
+            <?php else : ?>
+                <a class="next" href="<?php echo $this->url->get('specials/page/' . ($statistics->page + 1)); ?>">
+                    <svg>
+                        <use xlink:href="<?php echo $this->url->getStatic('img/sprites.svg'); ?>#angle-right"></use>
+                    </svg>
+                </a>
+                <a class="last" href="<?php echo $this->url->get('specials/page/' . $statistics->pages); ?>">
+                    <svg>
+                        <use xlink:href="<?php echo $this->url->getStatic('img/sprites.svg'); ?>#angle-double-right"></use>
+                    </svg>
+                </a>
+            <?php endif; ?>
+        </div>
+    </div>
+</div>

@@ -20,6 +20,7 @@ class SpecialsController extends HtmlController
      */
     public function pageAction(int $number = 1): void
     {
+        $offset = 250;
         $user = $this->authentication->getUser();
 
         $show = new stdClass;
@@ -30,10 +31,10 @@ class SpecialsController extends HtmlController
         $this->view->setVar('show', $show);
 
         $statistics = (new ProductRepository)->getStatistics($user);
-        $statistics->listed = $statistics->products - $statistics->ignoring;
-        $statistics->pages = (int)ceil($statistics->listed / 500);
-        $statistics->page = $number > $statistics->pages ? $statistics->pages : $number;
-        $statistics->offset = ($statistics->page - 1) * 500;
+        $statistics->listed = $statistics->products - ($user->isShowingIgnored() ? 0 : $statistics->ignoring);
+        $statistics->pages = (int)ceil($statistics->listed / $offset);
+        $statistics->page = ($number > $statistics->pages) ? $statistics->pages : $number;
+        $statistics->offset = ($statistics->page - 1) * $offset;
 
         $this->view->setVar('statistics', $statistics);
 
@@ -62,7 +63,7 @@ class SpecialsController extends HtmlController
             INNER JOIN
                 App\Model\Models\Store stores ON products.store_id = stores.id
             INNER JOIN
-                App\Model\Models\Special specials ON products.id = specials.product_id
+                App\Model\Models\Special specials ON products.id = specials.product_id AND specials.updated_at IS NULL
             LEFT JOIN
                 App\Model\Models\Brand brands ON products.brand_id = brands.id
             LEFT JOIN 
@@ -80,7 +81,7 @@ class SpecialsController extends HtmlController
                 IF(specials.created_at > :lastVisitedAt:, specials.created_at, 0) DESC,
                 IFNULL(brands.name, 'zzz') ASC, 
                 products.name ASC
-            LIMIT {$statistics->offset}, 500
+            LIMIT {$statistics->offset}, {$offset}
         ", [
             'userId' => $user->getId(),
             'lastVisitedAt' => $user->getLastVisitedAt(),

@@ -9,6 +9,7 @@
 @import "modules/fab";
 @import "modules/topper";
 @import "modules/lightbox";
+@import "modules/pagination";
 
 body {
   display: flex;
@@ -26,7 +27,7 @@ body {
 
 .products {
   position: relative;
-  margin: 66px auto 50px auto;
+  margin: 4px auto;
   max-width: 500px;
   .product {
     position: relative;

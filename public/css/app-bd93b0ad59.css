@@ -439,6 +439,79 @@
   opacity: 1;
 }
 
+.pagination {
+  max-width: 500px;
+}
+
+.pagination.top {
+  margin: 66px auto 4px auto;
+}
+
+.pagination.bottom {
+  margin: 4px auto 66px auto;
+}
+
+.pagination .wrapper {
+  display: flex;
+  flex-direction: column;
+  margin: 4px;
+  padding: 4px;
+  background-color: #fafafa;
+  border-radius: 5px;
+  border: 1px solid #e6e6e6;
+}
+
+.pagination .wrapper .navigation {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding: 4px;
+}
+
+.pagination .wrapper .navigation a {
+  width: 40px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  font-weight: 700;
+  color: #539fc6;
+  font-size: 1.1em;
+  text-decoration: none;
+  outline: none;
+  cursor: pointer;
+}
+
+.pagination .wrapper .navigation a span {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: #c2afcf;
+  color: white;
+}
+
+.pagination .wrapper .navigation a svg {
+  width: 1.2em;
+  height: 1.2em;
+  fill: #539fc6;
+}
+
+.pagination .wrapper .navigation a.inactive {
+  cursor: default;
+  opacity: 0.25;
+}
+
+.pagination .wrapper .navigation a.active {
+  cursor: default;
+  color: #609d9f;
+  opacity: 0.75;
+}
+
 body {
   display: flex;
   flex-direction: column;
@@ -455,7 +528,7 @@ body {
 
 .products {
   position: relative;
-  margin: 66px auto 50px auto;
+  margin: 4px auto;
   max-width: 500px;
 }
 
@@ -788,4 +861,4 @@ footer div img {
 }
 
 
-/*# sourceMappingURL=app-e45846d95b.css.map */
+/*# sourceMappingURL=app-bd93b0ad59.css.map */

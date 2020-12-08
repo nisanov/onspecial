@@ -94,6 +94,7 @@ export default class Products {
         case (source = target.closest('.product .controls .dropdown')) !== null:
           if (!product.classList.contains('more')) {
             const json = JSON.parse(decodeURIComponent(product.dataset.product.replace(/\+/g, ' ')));
+            const days = parseInt(Interval.fromDateTimes(DateTime.fromSQL(json.created_at).startOf('day'), DateTime.local().startOf('day')).length('days').toString(), 10);
             const template = (
               json.brand_id !== null 
                 ? `
@@ -116,7 +117,7 @@ export default class Products {
                   </a>
               </span>
               <span>Since:</span>
-              <span>${DateTime.fromSQL(json.created_at).toLocaleString(DateTime.DATE_MED_WITH_WEEKDAY)} (${parseInt(Interval.fromDateTimes(DateTime.fromSQL(json.created_at).startOf('day'), DateTime.local().startOf('day')).length('days').toString(), 10)} days)</span>
+              <span>${DateTime.fromSQL(json.created_at).toLocaleString(DateTime.DATE_MED_WITH_WEEKDAY)} (${days} ${days === 1 ? 'day' : 'days'})</span>
               <span>Ratio:</span>
               <span>${json.ratio_price}</span>
               <span>Description:</span>
