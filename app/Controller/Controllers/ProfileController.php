@@ -93,11 +93,11 @@ class ProfileController extends HtmlController
                 $message = "Configured to " . ($state ? "show" : "hide") . " ignored products/brands";
                 break;
             default:
-                return $this->redirector->toRequest()->withError("The attribute specified is unknown: {$attribute}");
+                return $this->redirector->toRequest('specials/page/1')->withError("The attribute specified is unknown: {$attribute}");
         }
 
         $user->save();
 
-        return $this->redirector->toRequest()->withSuccess($message);
+        return $this->redirector->toRequest('specials/page/1')->withSuccess($message);
     }
 }

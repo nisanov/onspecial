@@ -20,7 +20,7 @@ class Redirector extends Generic
      * @param string $default
      * @return self
      */
-    public function toRequest(string $default = null): self
+    public function toRequest(string $default = ''): self
     {
         $this->location = $this->session->get('requested', $default);
 
