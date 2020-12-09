@@ -46,6 +46,13 @@ class User extends Generic
     private string $password = "";
 
     /**
+     * The number of specials to display per page.
+     * 
+     * @var string
+     */
+    private int $specials_per_page = 250;
+
+    /**
      * Whether to show seen specials.
      * 
      * @var int
@@ -145,6 +152,16 @@ class User extends Generic
     public function getPassword(): string
     {
         return $this->password;
+    }
+
+    /**
+     * Get the number of specials to display per page.
+     *
+     * @return int
+     */
+    public function getSpecialsPerPage(): int
+    {
+        return $this->specials_per_page;
     }
 
     /**
@@ -265,6 +282,17 @@ class User extends Generic
     public function setPassword(string $value): void
     {
         $this->password = $value;
+    }
+
+    /**
+     * Set the number of specials to display per page.
+     *
+     * @param int $value
+     * @return void
+     */
+    public function setSpecialsPerPage(int $value): void
+    {
+        $this->specials_per_page = $value;
     }
 
     /**

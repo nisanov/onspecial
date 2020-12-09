@@ -20,8 +20,8 @@ class SpecialsController extends HtmlController
      */
     public function pageAction(int $number = 1): void
     {
-        $offset = 250;
         $user = $this->authentication->getUser();
+        $offset = $user->getSpecialsPerPage();
 
         $show = new stdClass;
         $show->seen = $user->isShowingSeen();

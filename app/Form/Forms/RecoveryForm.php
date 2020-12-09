@@ -23,7 +23,7 @@ class RecoveryForm extends GenericForm
     {
         $email = new Input('email', ['type' => 'email', 'value' => $this->getSessionStoredValue('email')]);
         $email->setLabel('Email');
-        $email->setFilters(['string', 'trim']);
+        $email->setFilters(['trim', 'string']);
         $email->setUserOption('message', $this->getSessionStoredMessage('email'));
         $email->addValidator(new PresenceOf(['message' => "The email must be specified"]));
         $email->addValidator(new Email(['message' => "The email must be a valid format"]));

@@ -26,13 +26,13 @@ class RegistrationForm extends GenericForm
     {
         $name = new Input('name', ['type' => 'text', 'value' => $this->getSessionStoredValue('name', $user->getName())]);
         $name->setLabel('Name');
-        $name->setFilters(['string', 'trim']);
+        $name->setFilters(['trim', 'string']);
         $name->setUserOption('message', $this->getSessionStoredMessage('name'));
         $name->addValidator(new PresenceOf(['message' => "The name must be specified"]));
 
         $email = new Input('email', ['type' => 'email', 'value' => $this->getSessionStoredValue('email')]);
         $email->setLabel('Email');
-        $email->setFilters(['string', 'trim']);
+        $email->setFilters(['trim', 'string']);
         $email->setUserOption('message', $this->getSessionStoredMessage('email'));
         $email->addValidator(new PresenceOf(['message' => "The email must be specified"]));
         $email->addValidator(new Email(['message' => "The email must be a valid format"]));
@@ -40,14 +40,14 @@ class RegistrationForm extends GenericForm
 
         $password = new Input('password', ['type' => 'password', 'value' => $this->getSessionStoredValue('password')]);
         $password->setLabel('Password');
-        $password->setFilters(['string', 'trim']);
+        $password->setFilters(['trim', 'string']);
         $password->setUserOption('message', $this->getSessionStoredMessage('password'));
         $password->addValidator(new PresenceOf(['message' => "The password must be specified"]));
         $password->addValidator(new StringLength(['message' => "The password is too short; min(8)", 'min' => 8]));
 
         $passwordConfirm = new Input('password_confirm', ['type' => 'password', 'value' => $this->getSessionStoredValue('password_confirm')]);
         $passwordConfirm->setLabel('Confirm Password');
-        $passwordConfirm->setFilters(['string', 'trim']);
+        $passwordConfirm->setFilters(['trim', 'string']);
         $passwordConfirm->setUserOption('message', $this->getSessionStoredMessage('password_confirm'));
         $passwordConfirm->addValidator(new PresenceOf(['message' => "The password confirmation must be specified"]));
         $passwordConfirm->addValidator(new Confirmation(['message' => "The confirmation must match the password", 'with' => 'password']));

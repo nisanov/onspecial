@@ -23,7 +23,7 @@ final class AddLastVisitedAtColumnToUsersTable extends AbstractMigration
     {
         $table = $this->table('users');
         $table
-            ->addColumn('last_visited_at', 'timestamp', ['null' => true, 'default' => null, 'after' => 'authenticated_at'])
+            ->addColumn('last_visited_at', 'timestamp', ['precision' => 4, 'null' => true, 'default' => null, 'after' => 'authenticated_at'])
             ->update();
     }
 }

@@ -23,14 +23,14 @@ class LoginForm extends GenericForm
     {
         $email = new Input('email', ['type' => 'email', 'value' => $this->getSessionStoredValue('email')]);
         $email->setLabel('Email');
-        $email->setFilters(['string', 'trim']);
+        $email->setFilters(['trim', 'string']);
         $email->setUserOption('message', $this->getSessionStoredMessage('email'));
         $email->addValidator(new PresenceOf(['message' => "The email must be specified"]));
         $email->addValidator(new Email(['message' => "The email must be a valid format"]));
 
         $password = new Input('password', ['type' => 'password', 'value' => $this->getSessionStoredValue('password')]);
         $password->setLabel('Password');
-        $password->setFilters(['string', 'trim']);
+        $password->setFilters(['trim', 'string']);
         $password->setUserOption('message', $this->getSessionStoredMessage('password'));
         $password->addValidator(new PresenceOf(['message' => "The password must be specified"]));
         $password->addValidator(new StringLength(['message' => "The password is too short; min(8)", 'min' => 8]));
