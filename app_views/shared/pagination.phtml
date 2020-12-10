@@ -1,5 +1,41 @@
 <div class="pagination <?php echo $position; ?>">
     <div class="wrapper">
+        <div class="configuration">
+            <?php if ($show->ignored) : ?>
+                <a class="btn" href="<?php echo $this->url->get('profile/show/ignored/0'); ?>">
+                    Hide
+                    <svg>
+                        <use xlink:href="<?php echo $this->url->getStatic('img/sprites.svg'); ?>#ban"></use>
+                    </svg>
+                    Ignored
+                </a>
+            <?php else : ?>
+                <a class="btn" href="<?php echo $this->url->get('profile/show/ignored/1'); ?>">
+                    Show
+                    <svg>
+                        <use xlink:href="<?php echo $this->url->getStatic('img/sprites.svg'); ?>#ban"></use>
+                    </svg>
+                    Ignored
+                </a>
+            <?php endif; ?>
+            <?php if ($show->favorites) : ?>
+                <a class="btn" href="<?php echo $this->url->get('profile/show/favorites/0'); ?>">
+                    Hide
+                    <svg>
+                        <use xlink:href="<?php echo $this->url->getStatic('img/sprites.svg'); ?>#heart"></use>
+                    </svg>
+                    Favorites
+                </a>
+            <?php else : ?>
+                <a class="btn" href="<?php echo $this->url->get('profile/show/favorites/1'); ?>">
+                    Show
+                    <svg>
+                        <use xlink:href="<?php echo $this->url->getStatic('img/sprites.svg'); ?>#heart"></use>
+                    </svg>
+                    Favorites
+                </a>
+            <?php endif; ?>
+        </div>
         <div class="navigation">
             <?php if ($statistics->page === 1) : ?>
                 <a class="first inactive" href="javascript:void(0);">

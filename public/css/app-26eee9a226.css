@@ -447,13 +447,38 @@
   margin: 66px auto 4px auto;
 }
 
+.pagination.top .wrapper {
+  flex-direction: column;
+}
+
+.pagination.top .wrapper .configuration {
+  padding: 4px 4px 6px 4px;
+  border-bottom: 1px solid #e6e6e6;
+}
+
+.pagination.top .wrapper .navigation {
+  padding: 8px 4px 4px 4px;
+}
+
 .pagination.bottom {
   margin: 4px auto 66px auto;
 }
 
+.pagination.bottom .wrapper {
+  flex-direction: column-reverse;
+}
+
+.pagination.bottom .wrapper .configuration {
+  padding: 6px 4px 4px 4px;
+  border-top: 1px solid #e6e6e6;
+}
+
+.pagination.bottom .wrapper .navigation {
+  padding: 4px 4px 8px 4px;
+}
+
 .pagination .wrapper {
   display: flex;
-  flex-direction: column;
   margin: 4px;
   padding: 4px;
   background-color: #fafafa;
@@ -461,12 +486,34 @@
   border: 1px solid #e6e6e6;
 }
 
+.pagination .wrapper .configuration {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.pagination .wrapper .configuration a {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  text-decoration: none;
+  box-shadow: none;
+}
+
+.pagination .wrapper .configuration a svg {
+  margin: 0 5px;
+  width: 1.2em;
+  height: 1.2em;
+  fill: #539fc6;
+}
+
 .pagination .wrapper .navigation {
   display: flex;
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  padding: 4px;
 }
 
 .pagination .wrapper .navigation a {
@@ -861,4 +908,4 @@ footer div img {
 }
 
 
-/*# sourceMappingURL=app-bd93b0ad59.css.map */
+/*# sourceMappingURL=app-26eee9a226.css.map */
