@@ -15,6 +15,14 @@ export const notify = new Notyf({
       icon: false,
     },
     {
+      background: "hsl(40, 25%, 50%)",
+      type: "warning",
+      duration: 6000,
+      dismissible: true,
+      ripple: false,
+      icon: false,
+    },
+    {
       background: "hsl(0, 25%, 50%)",
       type: "error",
       duration: 6000,

@@ -54,6 +54,19 @@ class Redirector extends Generic
     }
 
     /**
+     * Set session flash warning message and redirect.
+     *
+     * @param string $message
+     * @return ResponseInterface
+     */
+    public function withWarning(string $message): ResponseInterface
+    {
+        $this->flashSession->warning($message);
+
+        return $this->response->redirect($this->location);
+    }
+
+    /**
      * Set session flash error message and redirect.
      *
      * @param string $message

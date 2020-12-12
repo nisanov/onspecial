@@ -62,7 +62,7 @@ class ProfileController extends HtmlController
 
             return !empty($user->getUpdatedFields())
                 ? $this->redirector->toLocation('profile')->withSuccess("Updated Profile")
-                : $this->redirector->toLocation('profile')->withSuccess("Unchanged Profile");
+                : $this->redirector->toLocation('profile')->withWarning("Unchanged Profile");
         }
 
         return $this->redirector->toLocation('profile')->withSuccess("Invalid Profile");

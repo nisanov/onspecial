@@ -9,6 +9,11 @@ if (danger !== null && danger.innerHTML !== '') {
   notify.error(danger.innerHTML);
 }
 
+const warning = document.querySelector('.alert.alert-warning');
+if (warning !== null && warning.innerHTML !== '') {
+  notify.open({type: 'warning', message: warning.innerHTML});
+}
+
 const success = document.querySelector('.alert.alert-success');
 if (success !== null && success.innerHTML !== '') {
   notify.success(success.innerHTML);
