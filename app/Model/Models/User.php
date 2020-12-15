@@ -320,11 +320,11 @@ class User extends Generic
     /**
      * Set the last visted timestamp.
      *
-     * @param Carbon $carbon
+     * @param Carbon|null $carbon
      * @return void
      */
-    public function setLastVisitedAt(Carbon $carbon): void
+    public function setLastVisitedAt(Carbon $carbon = null): void
     {
-        $this->last_visited_at = $carbon->toDateTimeString();
+        $this->last_visited_at = $carbon ? $carbon->toDateTimeString() : null;
     }
 }
