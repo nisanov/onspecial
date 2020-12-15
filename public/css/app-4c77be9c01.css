@@ -879,18 +879,28 @@ header {
   z-index: 98;
 }
 
-header .logo {
+header .wrapper {
+  margin: 4px auto;
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  width: 500px;
+}
+
+header .wrapper .logo {
   margin: 5px 0 0 7px;
   font-size: 2.5em;
 }
 
-header .logo svg {
+header .wrapper .logo svg {
   width: 1em;
   height: 1em;
   fill: #265973;
 }
 
-header .statistics {
+header .wrapper .statistics {
   margin: 0 10px;
 }
 
@@ -908,4 +918,4 @@ footer div img {
 }
 
 
-/*# sourceMappingURL=app-26eee9a226.css.map */
+/*# sourceMappingURL=app-4c77be9c01.css.map */

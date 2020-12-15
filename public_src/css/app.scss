@@ -306,17 +306,26 @@ header {
   font-size: 14px;
   box-shadow: $box-shadow;
   z-index: 98;
-  .logo {
-    margin: 5px 0 0 7px;
-    font-size: 2.5em;
-    svg {
-      width: 1em;
-      height: 1em;
-      fill: $blue;
+  .wrapper {
+    margin: 4px auto;
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    width: 500px;
+    .logo {
+      margin: 5px 0 0 7px;
+      font-size: 2.5em;
+      svg {
+        width: 1em;
+        height: 1em;
+        fill: $blue;
+      }
     }
-  }
-  .statistics {
-    margin: 0 10px;
+    .statistics {
+      margin: 0 10px;
+    }
   }
 }
 

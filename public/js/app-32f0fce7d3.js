@@ -10559,7 +10559,7 @@ var Http = /** @class */ (function () {
     function Http() {
     }
     Http.axios = axios_1["default"].create({
-        baseURL: "http://192.168.1.109/"
+        baseURL: "http://onspecial.info/"
     });
     Http.favoriteProduct = function (productId, state) {
         return Http.axios.post("/product/favorite/" + productId, {

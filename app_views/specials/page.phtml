@@ -1,16 +1,18 @@
 <header>
-    <a class="logo" href="<?php echo $this->url->get(''); ?>">
-        <svg>
-            <use xlink:href="<?php echo $this->url->getStatic('img/sprites.svg'); ?>#piggy-bank"></use>
-        </svg>
-    </a>
-    <div class="statistics">
-        <?php if ($show->ignored) : ?>
-            <div><b><?php echo $statistics->products; ?></b> Products Available</div>
-        <?php else : ?>
-            <div><b><?php echo $statistics->products; ?></b> Products Available - Ignored <b><span id="ignoring"><?php echo $statistics->ignoring; ?></span></b></div>
-        <?php endif; ?>
-        <div><b><?php echo $statistics->offset + 1; ?></b> - <b><?php echo $statistics->offset + count($products); ?></b> Products Listed - Seen <b><span id="seen">0</span></b></div>
+    <div class="wrapper">
+        <a class="logo" href="<?php echo $this->url->get(''); ?>">
+            <svg>
+                <use xlink:href="<?php echo $this->url->getStatic('img/sprites.svg'); ?>#piggy-bank"></use>
+            </svg>
+        </a>
+        <div class="statistics">
+            <?php if ($show->ignored) : ?>
+                <div><b><?php echo $statistics->products; ?></b> Products Available</div>
+            <?php else : ?>
+                <div><b><?php echo $statistics->products; ?></b> Products Available - Ignored <b><span id="ignoring"><?php echo $statistics->ignoring; ?></span></b></div>
+            <?php endif; ?>
+            <div><b><?php echo $statistics->offset + 1; ?></b> - <b><?php echo $statistics->offset + count($products); ?></b> Products Listed - Seen <b><span id="seen">0</span></b></div>
+        </div>
     </div>
 </header>
 
