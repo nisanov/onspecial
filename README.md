@@ -123,3 +123,9 @@ A supermarket products on special aggregator web application.
     ```bash
     docker-compose up -d --no-deps --build php
     ```
+
+- Install and renew lets encrypt certificate:
+
+    ```bash
+    docker-compose exec nginx certbot --nginx -d onspecial.info
+    ```
