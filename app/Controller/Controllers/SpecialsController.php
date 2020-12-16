@@ -78,7 +78,7 @@ class SpecialsController extends HtmlController
             ORDER BY
                 IFNULL(productUsers.favorite, 0) DESC, 
                 IFNULL(productUsers.ignoring, 0) OR IFNULL(brandUsers.ignoring, 0) ASC,
-                IF(specials.created_at > :lastVisitedAt:, specials.created_at, 0) DESC,
+                IF(specials.created_at > :lastVisitedAt:, 1, 0) DESC,
                 IFNULL(brands.name, 'zzz') ASC, 
                 products.name ASC
             LIMIT {$statistics->offset}, {$offset}
