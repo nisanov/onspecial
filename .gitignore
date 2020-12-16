@@ -1,6 +1,10 @@
 /node_modules
 /vendor
 /tmp
+/public/css
+/public/js
+/public/img
+manifest.json
 .env
 .vscode
 .phalcon
