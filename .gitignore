@@ -1,9 +1,12 @@
 /node_modules
 /vendor
 /tmp
-/public/css
-/public/js
-/public/img
+/public/css/*
+!/public/css/.gitkeep
+/public/js/*
+!/public/js/.gitkeep
+/public/img/*
+!/public/img/.gitkeep
 manifest.json
 .env
 .vscode
