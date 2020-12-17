@@ -6,7 +6,6 @@ namespace App;
 
 use App\Provider\GenericInterface;
 use App\Service\Services\Toggle;
-use Dotenv\Dotenv;
 use Exception;
 use Phalcon\Cli\Console;
 use Phalcon\Config;
@@ -96,7 +95,7 @@ class Application
 
         date_default_timezone_set('Australia/Melbourne');
 
-        Dotenv::createImmutable($this->basePath)->load();
+        \Dotenv\Dotenv::createImmutable($this->basePath)->load();
 
         $this->container = $this->cli ? new Cli : new FactoryDefault();
         $this->container->setShared(self::IDENTIFIER, $this);
@@ -141,6 +140,16 @@ class Application
         } catch (Throwable $exception) {
             fwrite(STDERR, Formatter::formatExceptionPlain(new Inspector($exception)));
         }
+    }
+
+    /**
+     * Determine whether the current application environment is production.
+     *
+     * @return bool
+     */
+    public function isProduction(): bool
+    {
+        return $this->getConfig()->path('application.environment') === 'production';
     }
 
     /**

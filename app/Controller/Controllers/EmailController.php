@@ -27,7 +27,7 @@ class EmailController extends HtmlController
      */
     public function beforeExecuteRoute(): bool
     {
-        if ($this->config->path('application.environment') !== 'development') {
+        if ($this->application->isProduction()) {
 
             $this->redirector->toLocation('specials/page/1')->withError("The Email Controller is only accessible during development");
 

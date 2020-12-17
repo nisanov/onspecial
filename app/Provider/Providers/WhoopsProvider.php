@@ -27,7 +27,7 @@ class WhoopsProvider extends Generic
      */
     public function register(): void
     {
-        if ($this->application->isCommandLine()) {
+        if ($this->application->isCommandLine() || $this->application->isProduction()) {
             $handler = new PlainTextHandler;
         } else {
             $handler = new PrettyPageHandler;
