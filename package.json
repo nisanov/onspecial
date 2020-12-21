@@ -3,11 +3,6 @@
   "version": "1.0.0",
   "description": "A supermarket on special aggregator web application.",
   "private": true,
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "watch": "webpack --watch",
-    "build": "webpack"
-  },
   "keywords": [],
   "author": "Yasha Nisanov",
   "license": "Proprietary",
@@ -36,6 +31,7 @@
     "gulp-sass": "^4.1.0",
     "gulp-sourcemaps": "^2.6.5",
     "gulp-typescript": "^6.0.0-alpha.1",
+    "gulp-uglify": "^3.0.2",
     "luxon": "^1.25.0",
     "notyf": "^3.9.0",
     "rollup": "^1.4.1",
@@ -43,7 +39,6 @@
     "smoothscroll-polyfill": "^0.4.4",
     "tsify": "^5.0.2",
     "typescript": "^4.1.2",
-    "vinyl-source-stream": "^2.0.0",
-    "watchify": "^3.11.1"
+    "vinyl-source-stream": "^2.0.0"
   }
 }
