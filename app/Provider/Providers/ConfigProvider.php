@@ -33,7 +33,7 @@ class ConfigProvider extends Generic
                 throw new Exception("Missing or unreadable configuration file at path: " . $path);
             }
 
-            $configuration = require_once $path;
+            $configuration = require $path;
 
             return new Config($configuration);
         });

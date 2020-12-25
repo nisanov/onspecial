@@ -26,20 +26,26 @@ class DbProvider extends Generic
      */
     public function register(): void
     {
-        $config = $this->application->getConfig()->path('database')->toArray();
-        $profiler = $this->application->getProfiler();
-        $logger = $this->application->getLogger();
+        $application = $this->application;
 
-        $params = [
-            'host' => $config['host'],
-            'username' => $config['username'],
-            'password' => $config['password'],
-            'dbname' => $config['dbname'],
-            'charset' => $config['charset'],
-            'collation' => $config['collation'],
-        ];
+        $this->container->setShared(static::IDENTIFIER, function () use ($application) {
 
-        $this->container->setShared(static::IDENTIFIER, function () use ($profiler, $logger, $params) {
+            $config = $application->getConfig()->path('database')->toArray();
+            $params = [
+                'host' => $config['host'],
+                'username' => $config['username'],
+                'password' => $config['password'],
+                'dbname' => $config['dbname'],
+                'charset' => $config['charset'],
+                'collation' => $config['collation'],
+            ];
+
+            if (!$application->isDebug()) {
+                return new Mysql($params);
+            }
+
+            $profiler = $application->getProfiler();
+            $logger = $application->getLogger();
 
             $manager = new Manager;
             $manager->attach('db:beforeQuery', function (Event $event, Mysql $connection) use ($profiler) {

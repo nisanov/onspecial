@@ -30,6 +30,14 @@ A supermarket products on special aggregator web application.
     docker-compose exec php php ./vendor/bin/phinx migrate -e development
     ```
 
+## Testing
+
+- Run the complete test suite:
+
+    ```bash
+    docker-compose exec php ./vendor/bin/phpunit
+    ```
+
 ## Commands
 
 - Using psy shell to interact with the application:

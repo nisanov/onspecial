@@ -17,8 +17,8 @@ class LoginFormTest extends FeatureTestCase
         return [
             'all invalid' => [
                 [
-                    'email' => null,
-                    'password' => null,
+                    'email' => "",
+                    'password' => "",
                 ], 4, false
             ],
             'invalid email' => [

@@ -6,6 +6,7 @@ namespace App;
 
 use App\Provider\GenericInterface;
 use App\Service\Services\Toggle;
+use Dotenv\Dotenv;
 use Exception;
 use Phalcon\Cli\Console;
 use Phalcon\Config;
@@ -95,7 +96,7 @@ class Application
 
         date_default_timezone_set('Australia/Melbourne');
 
-        \Dotenv\Dotenv::createImmutable($this->basePath)->load();
+        Dotenv::createImmutable($this->basePath)->load();
 
         $this->container = $this->cli ? new Cli : new FactoryDefault();
         $this->container->setShared(self::IDENTIFIER, $this);
@@ -150,6 +151,16 @@ class Application
     public function isProduction(): bool
     {
         return $this->getConfig()->path('application.environment') === 'production';
+    }
+
+    /**
+     * Determine whether the current application is in debug mode.
+     *
+     * @return bool
+     */
+    public function isDebug(): bool
+    {
+        return $this->getConfig()->path('application.debug') === true;
     }
 
     /**
@@ -264,7 +275,7 @@ class Application
             throw new Exception('Missing or unreadable providers file at path: ' . $path);
         }
 
-        $providers = require_once $path;
+        $providers = require $path;
         foreach ($providers as $className) {
             /** @var GenericInterface $provider */
             $provider = new $className($this->container);
