@@ -21,7 +21,8 @@ class Product extends Generic
         $query = "
             SELECT
                 COUNT(products.id) products,
-                SUM(IFNULL(productUsers.ignoring, 0) OR IFNULL(brandUsers.ignoring, 0)) ignoring
+                SUM(IFNULL(productUsers.ignoring, 0) OR IFNULL(brandUsers.ignoring, 0)) ignoring,
+                SUM(IFNULL(productUsers.favorite, 0)) favoriting
             FROM 
                 App\Model\Models\Product products          
             LEFT JOIN 

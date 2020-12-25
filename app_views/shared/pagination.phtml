@@ -2,7 +2,7 @@
     <div class="wrapper">
         <div class="configuration">
             <?php if ($show->ignored) : ?>
-                <a class="btn" href="<?php echo $this->url->get('profile/show/ignored/0'); ?>">
+                <a class="<?php echo $statistics->ignoring === '0' ? 'btn disabled' : 'btn'; ?>" href="<?php echo $statistics->ignoring === '0' ? 'javascript:void(0);' : $this->url->get('profile/show/ignored/0'); ?>">
                     Hide
                     <svg>
                         <use xlink:href="<?php echo $this->url->getStatic('img/sprites.svg'); ?>#ban"></use>
@@ -10,7 +10,7 @@
                     Ignored
                 </a>
             <?php else : ?>
-                <a class="btn" href="<?php echo $this->url->get('profile/show/ignored/1'); ?>">
+                <a class="<?php echo $statistics->ignoring === '0' ? 'btn disabled' : 'btn'; ?>" href="<?php echo $statistics->ignoring === '0' ? 'javascript:void(0);' : $this->url->get('profile/show/ignored/1'); ?>">
                     Show
                     <svg>
                         <use xlink:href="<?php echo $this->url->getStatic('img/sprites.svg'); ?>#ban"></use>
@@ -19,7 +19,7 @@
                 </a>
             <?php endif; ?>
             <?php if ($show->favorites) : ?>
-                <a class="btn" href="<?php echo $this->url->get('profile/show/favorites/0'); ?>">
+                <a class="<?php echo $statistics->favoriting === '0' ? 'btn disabled' : 'btn'; ?>" href="<?php echo $statistics->favoriting === '0' ? 'javascript:void(0);' : $this->url->get('profile/show/favorites/0'); ?>">
                     Hide
                     <svg>
                         <use xlink:href="<?php echo $this->url->getStatic('img/sprites.svg'); ?>#heart"></use>
@@ -27,7 +27,7 @@
                     Favorites
                 </a>
             <?php else : ?>
-                <a class="btn" href="<?php echo $this->url->get('profile/show/favorites/1'); ?>">
+                <a class="<?php echo $statistics->favoriting === '0' ? 'btn disabled' : 'btn'; ?>" href="<?php echo $statistics->favoriting === '0' ? 'javascript:void(0);' : $this->url->get('profile/show/favorites/1'); ?>">
                     Show
                     <svg>
                         <use xlink:href="<?php echo $this->url->getStatic('img/sprites.svg'); ?>#heart"></use>

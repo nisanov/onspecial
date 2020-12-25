@@ -87,11 +87,11 @@
                     fill: lighten($blue, 25%);
                 }
                 &.inactive {
-                    cursor: default;
+                    cursor: not-allowed;
                     opacity: 0.25;
                 }
                 &.active {
-                    cursor: default;
+                    cursor: not-allowed;
                     color: $cadet;
                     opacity: 0.75;
                 }
