@@ -96,6 +96,6 @@ class RegistrationController extends HtmlController
 
         $this->authentication->authenticateUser($user);
 
-        return $this->redirector->withSuccess('', $message);
+        return $this->redirector->toLocation('')->withSuccess($message);
     }
 }
