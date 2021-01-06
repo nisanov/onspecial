@@ -8,4 +8,7 @@ COPY GeoLiteCity.dat /etc/nginx/GeoLiteCity.dat
 RUN apt-get update && apt-get install -y \
     certbot \
     python-certbot-nginx \
-    vim
+    vim \
+    gnupg \
+    wget \
+    procps
