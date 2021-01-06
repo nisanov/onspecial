@@ -30,6 +30,7 @@ class PsyshTask extends Task
         'UserProduct' => 'App\Model\Models\UserProduct',
         'UserBrand' => 'App\Model\Models\UserBrand',
         'Woolworths' => 'App\Service\Services\StoreScrapper\Woolworths',
+        'Coles' => 'App\Service\Services\StoreScrapper\Coles',
         'Authentication' => 'App\Service\Services\Authentication',
         'Mailer' => 'App\Service\Services\Mailer',
         'Redirector' => 'App\Service\Services\Redirector',
@@ -41,6 +42,7 @@ class PsyshTask extends Task
         'RecoveryController' => 'App\Controller\Controllers\RecoveryController',
         'RegistrationController' => 'App\Controller\Controllers\RegistrationController',
         'ProductRepository' => 'App\Repository\Repositories\Product',
+        'Panther' => 'Symfony\Component\Panther\Client',
     ];
 
     /**
