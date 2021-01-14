@@ -1,7 +1,7 @@
 <div class="pagination <?php echo $position; ?>">
     <div class="wrapper">
         <div class="configuration">
-            <?php if ($show->ignored) : ?>
+            <?php if ($user->show_ignored) : ?>
                 <a class="<?php echo $statistics->ignoring === '0' ? 'btn disabled' : 'btn'; ?>" href="<?php echo $statistics->ignoring === '0' ? 'javascript:void(0);' : $this->url->get('profile/show/ignored/0'); ?>">
                     Hide
                     <svg>
@@ -18,7 +18,7 @@
                     Ignored
                 </a>
             <?php endif; ?>
-            <?php if ($show->favorites) : ?>
+            <?php if ($user->show_favorites) : ?>
                 <a class="<?php echo $statistics->favoriting === '0' ? 'btn disabled' : 'btn'; ?>" href="<?php echo $statistics->favoriting === '0' ? 'javascript:void(0);' : $this->url->get('profile/show/favorites/0'); ?>">
                     Hide
                     <svg>

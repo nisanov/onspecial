@@ -33,6 +33,6 @@ class Product extends Generic
                 products.on_special
         ";
 
-        return $this->manager->executeQuery($query, ['userId' => $user->getId()])->getFirst();
+        return $this->manager->executeQuery($query, ['userId' => $user->id])->getFirst();
     }
 }

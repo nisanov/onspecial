@@ -12,7 +12,6 @@ use Phalcon\Validation\Validator\Between;
 use Phalcon\Validation\Validator\Callback;
 use Phalcon\Validation\Validator\Confirmation;
 use Phalcon\Validation\Validator\Email;
-use Phalcon\Validation\Validator\Numericality;
 use Phalcon\Validation\Validator\PresenceOf;
 use Phalcon\Validation\Validator\StringLength;
 
@@ -26,20 +25,20 @@ class ProfileForm extends GenericForm
      */
     public function initialize(User $user): void
     {
-        $name = new Input('name', ['type' => 'text', 'value' => $this->getSessionStoredValue('name', $user->getName())]);
+        $name = new Input('name', ['type' => 'text', 'value' => $this->getSessionStoredValue('name', $user->name)]);
         $name->setLabel('Name');
         $name->setFilters(['trim', 'string']);
         $name->setUserOption('message', $this->getSessionStoredMessage('name'));
         $name->addValidator(new PresenceOf(['message' => "The name must be specified"]));
 
-        $email = new Input('email', ['type' => 'email', 'value' => $this->getSessionStoredValue('email', $user->getEmail())]);
+        $email = new Input('email', ['type' => 'email', 'value' => $this->getSessionStoredValue('email', $user->email)]);
         $email->setLabel('Email');
         $email->setFilters(['trim', 'string']);
         $email->setUserOption('message', $this->getSessionStoredMessage('email'));
         $email->addValidator(new PresenceOf(['message' => "The email must be specified"]));
         $email->addValidator(new Email(['message' => "The email must be a valid format"]));
 
-        $specialsPerPage = new Input('specials_per_page', ['type' => 'number', 'value' => $this->getSessionStoredValue('specials_per_page', (string)$user->getSpecialsPerPage())]);
+        $specialsPerPage = new Input('specials_per_page', ['type' => 'number', 'value' => $this->getSessionStoredValue('specials_per_page', (string)$user->specials_per_page)]);
         $specialsPerPage->setLabel(('Specials Per Page (between 250-2000)'));
         $specialsPerPage->setFilters(['trim', 'absint']);
         $specialsPerPage->setUserOption('message', $this->getSessionStoredMessage('specials_per_page'));

@@ -85,6 +85,11 @@ class Application
     protected bool $cli = false;
 
     /**
+     * The unique request life cycle token.
+     */
+    protected string $token;
+
+    /**
      * Construct the application class instance.
      * 
      * @return void
@@ -93,6 +98,7 @@ class Application
     {
         $this->cli = php_sapi_name() === 'cli';
         $this->basePath = dirname(__DIR__);
+        $this->token = uniqid();
 
         date_default_timezone_set('Australia/Melbourne');
 
@@ -201,6 +207,16 @@ class Application
     public function getBasePath(): string
     {
         return $this->basePath;
+    }
+
+    /**
+     * Get the unique request life cycle token.
+     *
+     * @return string
+     */
+    public function getToken(): string
+    {
+        return $this->token;
     }
 
     /**

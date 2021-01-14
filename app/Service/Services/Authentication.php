@@ -38,7 +38,7 @@ class Authentication extends Generic
             return false;
         }
 
-        if ($this->user->getEmailVerifiedAt() === null) {
+        if ($this->user->email_verified_at === null) {
             $form->setSessionStoredData($data, ['email' => "The email has not been activated"]);
             return false;
         }
@@ -82,7 +82,7 @@ class Authentication extends Generic
             return false;
         }
 
-        if ($this->cache->get($token) !== $this->user->getId()) {
+        if ($this->cache->get($token) !== $this->user->id) {
             return false;
         }
 
@@ -103,8 +103,8 @@ class Authentication extends Generic
         $token = $this->getRememberToken($user);
         $expires = Carbon::now()->addWeek()->timestamp;
 
-        if ($this->cache->set($token, $user->getId(), $expires) !== false) {
-            $this->cookies->set('RMU', $user->getId(), $expires);
+        if ($this->cache->set($token, $user->id, $expires) !== false) {
+            $this->cookies->set('RMU', $user->id, $expires);
             $this->cookies->set('RMT', $token, $expires);
         }
     }
@@ -119,13 +119,13 @@ class Authentication extends Generic
     {
         $this->user = $user;
 
-        $this->user->setLastVisitedAt($this->user->getAuthenticatedAt());
-        $this->user->setAuthenticatedAt(Carbon::now());
+        $this->user->last_visited_at = $this->user->authenticated_at;
+        $this->user->authenticated_at = Carbon::now()->toDateTimeString('microseconds');
         $this->user->save();
 
         $this->session->set('auth-identity', [
-            'id' => $this->user->getId(),
-            'name' => $this->user->getName(),
+            'id' => $this->user->id,
+            'name' => $this->user->name,
         ]);
     }
 
@@ -148,8 +148,8 @@ class Authentication extends Generic
     public function getRememberToken(User $user): string
     {
         $parts = [
-            $user->getEmail(),
-            $user->getPassword(),
+            $user->email,
+            $user->password,
             $this->request->getUserAgent(),
             $this->request->getClientAddress(),
         ];

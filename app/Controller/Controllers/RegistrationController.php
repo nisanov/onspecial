@@ -47,12 +47,12 @@ class RegistrationController extends HtmlController
         $form = new RegistrationForm($user);
         if ($form->isValid($this->request->getPost())) {
 
-            $user->setPassword($this->security->hash($user->getPassword()));
+            $user->password = $this->security->hash($user->password);
             $user->save();
 
             $token = $this->security->getRandom()->uuid();
 
-            $this->cache->set($token, $user->getId(), 60 * 60 * 5); // token expires in 5 hours
+            $this->cache->set($token, $user->id, 60 * 60 * 5); // token expires in 5 hours
 
             $data = $user->toArray();
             $data['link'] = $this->url->get("registration/activate/$token");
@@ -88,8 +88,8 @@ class RegistrationController extends HtmlController
         }
 
         $message = "Already Activated";
-        if ($user->getEmailVerifiedAt() === null) {
-            $user->setEmailVerifiedAt(Carbon::now());
+        if ($user->email_verified_at === null) {
+            $user->email_verified_at = Carbon::now()->toDateTimeString('microseconds');
             $user->save();
             $message = "Account Activated";
         }

@@ -24,70 +24,70 @@ class Product extends Generic
      * 
      * @var int|null
      */
-    private ?int $id = null;
+    public ?int $id = null;
 
     /**
      * The brand record identifier.
      * 
      * @var int|null
      */
-    private ?int $brand_id = null;
+    public ?int $brand_id = null;
 
     /**
      * The store record identifier.
      * 
      * @var int|null
      */
-    private ?int $store_id = null;
+    public ?int $store_id = null;
 
     /**
      * The store record reference identifier.
      * 
      * @var string|null
      */
-    private ?string $store_reference = null;
+    public ?string $store_reference = null;
 
     /**
      * The product name.
      * 
      * @var string|null
      */
-    private ?string $name = null;
+    public ?string $name = null;
 
     /**
      * The product description.
      * 
      * @var string|null
      */
-    private ?string $description = null;
+    public ?string $description = null;
 
     /**
      * The ingredients.
      * 
      * @var string|null
      */
-    private ?string $ingredients = null;
+    public ?string $ingredients = null;
 
     /**
      * The link to the store product.
      * 
      * @var string|null
      */
-    private ?string $uri = null;
+    public ?string $uri = null;
 
     /**
      * The link to the store product thumbnail image.
      * 
      * @var string|null
      */
-    private ?string $thumb = null;
+    public ?string $thumb = null;
 
     /**
      * The link to the store product image.
      * 
      * @var string|null
      */
-    private ?string $image = null;
+    public ?string $image = null;
 
     /**
      * The size information.
@@ -95,14 +95,14 @@ class Product extends Generic
      * @var string|null
      * 
      */
-    private ?string $size = null;
+    public ?string $size = null;
 
     /**
      * Whether the product is currently on special.
      * 
      * @var int
      */
-    private int $on_special = 1;
+    public int $on_special = 1;
 
     /**
      * Initialize the model.
@@ -148,220 +148,6 @@ class Product extends Generic
     }
 
     /**
-     * Get the unique record identifier.
-     *
-     * @return int|null
-     */
-    public function getId(): ?int
-    {
-        return $this->id;
-    }
-
-    /**
-     * Get the brand record identifier.
-     *
-     * @return int|null
-     */
-    public function getBrandId(): ?int
-    {
-        return $this->brand_id;
-    }
-
-    /**
-     * Get the store record identifier.
-     *
-     * @return int|null
-     */
-    public function getStoreId(): ?int
-    {
-        return $this->store_id;
-    }
-
-    /**
-     * Get the store record reference identifier.
-     *
-     * @return string|null
-     */
-    public function getStoreReference(): ?string
-    {
-        return $this->store_reference;
-    }
-
-    /**
-     * Get the product name.
-     *
-     * @return string|null
-     */
-    public function getName(): ?string
-    {
-        return $this->name;
-    }
-
-    /**
-     * Get the product description.
-     *
-     * @return string|null
-     */
-    public function getDescription(): ?string
-    {
-        return $this->description;
-    }
-
-    /**
-     * Get the link to the store product.
-     *
-     * @return string|null
-     */
-    public function getUri(): ?string
-    {
-        return $this->uri;
-    }
-
-    /**
-     * Get the link to the store product thumbnail image.
-     *
-     * @return string|null
-     */
-    public function getThumb(): ?string
-    {
-        return $this->thumb;
-    }
-
-    /**
-     * Get the link to the store product image.
-     *
-     * @return string|null
-     */
-    public function getImage(): ?string
-    {
-        return $this->image;
-    }
-
-    /**
-     * Get whether this product is currently on special.
-     *
-     * @return string|null
-     */
-    public function getSize(): ?string
-    {
-        return $this->size;
-    }
-
-    /**
-     * Get or set whether this product is currently on special.
-     *
-     * @param bool|null $state
-     * @return bool
-     */
-    public function isOnSpecial(?bool $state = null): bool
-    {
-        if ($state !== null) {
-            $this->on_special = (int)$state;
-        }
-
-        return (bool)$this->on_special;
-    }
-
-    /**
-     * Set the brand record identifier.
-     *
-     * @param int|null $value
-     * @return void
-     */
-    public function setBrandId(?int $value = null): void
-    {
-        $this->brand_id = $value;
-    }
-
-    /**
-     * Set the store record identifier.
-     *
-     * @param int $value
-     * @return void
-     */
-    public function setStoreId(int $value): void
-    {
-        $this->store_id = $value;
-    }
-
-    /**
-     * Set the store record reference identifier.
-     *
-     * @param string $value
-     * @return void
-     */
-    public function setStoreReference(string $value): void
-    {
-        $this->store_reference = $value;
-    }
-
-    /**
-     * Set the product name.
-     *
-     * @param string $value
-     * @return void
-     */
-    public function setName(string $value): void
-    {
-        $this->name = $value;
-    }
-
-    /**
-     * Set the product description.
-     *
-     * @param string $value
-     * @return void
-     */
-    public function setDescription(string $value): void
-    {
-        $this->description = $value;
-    }
-
-    /**
-     * Set the link to the store product.
-     *
-     * @param string $value
-     * @return void
-     */
-    public function setUri(string $value): void
-    {
-        $this->uri = $value;
-    }
-
-    /**
-     * Set the link to the store product thumbnail image.
-     *
-     * @param string $value
-     * @return void
-     */
-    public function setThumb(string $value): void
-    {
-        $this->thumb = $value;
-    }
-
-    /**
-     * Set the link to the store product image.
-     *
-     * @param string $value
-     * @return void
-     */
-    public function setImage(string $value): void
-    {
-        $this->image = $value;
-    }
-
-    /**
-     * Set whether this product is currently on special.
-     *
-     * @param string $value
-     * @return void
-     */
-    public function setSize(string $value): void
-    {
-        $this->size = $value;
-    }
-
-    /**
      * Get the first updated or created product matching store.
      *
      * @param int $storeId
@@ -382,8 +168,8 @@ class Product extends Generic
         $product = self::findFirst($condition);
         if ($product === null) {
             $product = new self;
-            $product->setStoreId($storeId);
-            $product->setStoreReference($storeReference);
+            $product->store_id = $storeId;
+            $product->store_reference = $storeReference;
         }
 
         $product->assign($assignment);

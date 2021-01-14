@@ -22,14 +22,14 @@ class Brand extends Generic
      * 
      * @var int|null
      */
-    private ?int $id = null;
+    public ?int $id = null;
 
     /**
      * The brand name.
      * 
      * @var string|null
      */
-    private ?string $name = null;
+    public ?string $name = null;
 
     /**
      * Initialize the model.
@@ -47,37 +47,6 @@ class Brand extends Generic
     }
 
     /**
-     * Get the unique record identifier.
-     *
-     * @return int|null
-     */
-    public function getId(): ?int
-    {
-        return $this->id;
-    }
-
-    /**
-     * Get the brand name.
-     *
-     * @return string|null
-     */
-    public function getName(): ?string
-    {
-        return $this->name;
-    }
-
-    /**
-     * Set the brand name.
-     *
-     * @param string $value
-     * @return void
-     */
-    public function setName(string $value): void
-    {
-        $this->name = $value;
-    }
-
-    /**
      * Get the first matching or created brand by name.
      *
      * @param string $name
@@ -88,7 +57,7 @@ class Brand extends Generic
         $brand = Brand::findFirstByName($name);
         if ($brand === null) {
             $brand = new Brand;
-            $brand->setName($name);
+            $brand->name = $name;
             $brand->save();
         }
 

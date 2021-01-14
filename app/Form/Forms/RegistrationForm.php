@@ -24,7 +24,7 @@ class RegistrationForm extends GenericForm
      */
     public function initialize(User $user): void
     {
-        $name = new Input('name', ['type' => 'text', 'value' => $this->getSessionStoredValue('name', $user->getName())]);
+        $name = new Input('name', ['type' => 'text', 'value' => $this->getSessionStoredValue('name', $user->name)]);
         $name->setLabel('Name');
         $name->setFilters(['trim', 'string']);
         $name->setUserOption('message', $this->getSessionStoredMessage('name'));

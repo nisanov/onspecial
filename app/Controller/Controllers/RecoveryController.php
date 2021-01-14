@@ -51,7 +51,7 @@ class RecoveryController extends HtmlController
 
             $token = $this->security->getRandom()->uuid();
 
-            $this->cache->set($token, $user->getId(), 60 * 60 * 5); // token expires in 5 hours
+            $this->cache->set($token, $user->id, 60 * 60 * 5); // token expires in 5 hours
 
             $data = $user->toArray();
             $data['link'] = $this->url->get("recovery/activate/$token");
@@ -87,8 +87,8 @@ class RecoveryController extends HtmlController
         }
 
         $message = "Recovery Token Verified";
-        if ($user->getEmailVerifiedAt() === null) {
-            $user->setEmailVerifiedAt(Carbon::now());
+        if ($user->email_verified_at === null) {
+            $user->email_verified_at = Carbon::now()->toDateTimeString('microseconds');
             $user->save();
             $message .= " - Account Activated";
         }

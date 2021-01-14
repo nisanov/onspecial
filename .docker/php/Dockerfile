@@ -1,7 +1,7 @@
 FROM php:7.4-fpm
 
-ARG PSR_VERSION=1.0.0
-ARG PHALCON_VERSION=4.0.6
+ARG PSR_VERSION=1.0.1
+ARG PHALCON_VERSION=4.1.0
 ARG PHALCON_EXT_PATH=php7/64bits
 
 RUN apt-get update && apt-get install -y \

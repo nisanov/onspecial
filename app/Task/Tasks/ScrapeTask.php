@@ -18,11 +18,11 @@ class ScrapeTask extends Task
     {
         foreach (Store::find('active') as $store) {
 
-            fwrite(STDOUT, "Performing scrape for store: " . $store->getName() . PHP_EOL);
+            fwrite(STDOUT, "Performing scrape for store: {$store->name}" . PHP_EOL);
 
             $store->getScrapperInstance()->performScrape();
 
-            fwrite(STDOUT, "Completed scrape for store: " . $store->getName() . PHP_EOL);
+            fwrite(STDOUT, "Completed scrape for store: {$store->name}" . PHP_EOL);
         }
 
         return 0;

@@ -58,22 +58,22 @@ class Toggle extends Generic
         $userProduct = UserProduct::findFirst([
             'user_id = :userId: AND product_id = :productId:',
             'bind' => [
-                'userId' => $this->user->getId(),
-                'productId' => $product->getId(),
+                'userId' => $this->user->id,
+                'productId' => $product->id,
             ]
         ]);
 
         if ($userProduct === null) {
             $userProduct = new UserProduct;
-            $userProduct->setUserId($this->user->getId());
-            $userProduct->setProductId($product->getId());
+            $userProduct->user_id = $this->user->id;
+            $userProduct->product_id = $product->id;
         }
 
         $userProduct->assign(['favorite' => $state]);
         $userProduct->save();
 
-        if ($userProduct->isFavorite()) {
-            $this->ignoreProduct($userProduct->getProduct()->getBrandId(), false);
+        if ($userProduct->favorite) {
+            $this->ignoreProduct($userProduct->product->brand_id, false);
         }
 
         return $product;
@@ -102,22 +102,22 @@ class Toggle extends Generic
         $userProduct = UserProduct::findFirst([
             'user_id = :userId: AND product_id = :productId:',
             'bind' => [
-                'userId' => $this->user->getId(),
-                'productId' => $product->getId(),
+                'userId' => $this->user->id,
+                'productId' => $product->id,
             ]
         ]);
 
         if ($userProduct === null) {
             $userProduct = new UserProduct;
-            $userProduct->setUserId($this->user->getId());
-            $userProduct->setProductId($product->getId());
+            $userProduct->user_id = $this->user->id;
+            $userProduct->product_id = $product->id;
         }
 
         $userProduct->assign(['ignoring' => $state]);
         $userProduct->save();
 
-        if (!$userProduct->isIgnoring()) {
-            $this->ignoreBrand($userProduct->getProduct()->getBrandId(), false);
+        if (!$userProduct->ignoring) {
+            $this->ignoreBrand($userProduct->product->brand_id, false);
         }
 
         return $product;
@@ -146,15 +146,15 @@ class Toggle extends Generic
         $userBrand = UserBrand::findFirst([
             'user_id = :userId: AND brand_id = :brandId:',
             'bind' => [
-                'userId' => $this->user->getId(),
-                'brandId' => $brand->getId(),
+                'userId' => $this->user->id,
+                'brandId' => $brand->id,
             ]
         ]);
 
         if ($userBrand === null) {
             $userBrand = new UserBrand;
-            $userBrand->setUserId($this->user->getId());
-            $userBrand->setBrandId($brand->getId());
+            $userBrand->user_id = $this->user->id;
+            $userBrand->brand_id = $brand->id;
         }
 
         $userBrand->assign(['ignoring' => $state]);

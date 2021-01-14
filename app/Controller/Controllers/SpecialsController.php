@@ -7,7 +7,6 @@ namespace App\Controller\Controllers;
 use App\Controller\Traits\RequiresAuthentication;
 use App\Controller\HtmlController;
 use App\Repository\Repositories\Product as ProductRepository;
-use stdClass;
 
 class SpecialsController extends HtmlController
 {
@@ -21,23 +20,15 @@ class SpecialsController extends HtmlController
     public function pageAction(int $number = 1): void
     {
         $user = $this->authentication->getUser();
-        $offset = $user->getSpecialsPerPage();
-
-        $show = new stdClass;
-        $show->seen = $user->isShowingSeen();
-        $show->favorites = $user->isShowingFavorites();
-        $show->ignored = $user->isShowingIgnored();
-
-        $this->view->setVar('show', $show);
 
         $statistics = (new ProductRepository)->getStatistics($user);
-        $statistics->listed = $statistics->products - ($user->isShowingIgnored() ? 0 : $statistics->ignoring);
-        $statistics->pages = (int)ceil($statistics->listed / $offset);
+        $statistics->listed = $statistics->products - ($user->show_ignored ? 0 : $statistics->ignoring);
+        $statistics->pages = (int)ceil($statistics->listed / $user->specials_per_page);
         $statistics->page = ($number > $statistics->pages) ? $statistics->pages : $number;
-        $statistics->offset = ($statistics->page - 1) * $offset;
+        $statistics->offset = ($statistics->page - 1) * $user->specials_per_page;
 
+        $this->view->setVar('user', $user);
         $this->view->setVar('statistics', $statistics);
-
         $this->view->setVar('products', $this->modelsManager->executeQuery("
             SELECT 
                 products.id,
@@ -73,18 +64,18 @@ class SpecialsController extends HtmlController
             WHERE
                 products.on_special
                 AND specials.updated_at IS NULL
-                AND (" . ($user->isShowingIgnored() ? 'TRUE' : 'FALSE') . " OR (NOT IFNULL(productUsers.ignoring, 0) AND NOT IFNULL(brandUsers.ignoring, 0)))
-                AND (" . ($user->isShowingFavorites() ? 'TRUE' : 'FALSE') . " OR NOT IFNULL(productUsers.favorite, 0))
+                AND (" . ($user->show_ignored ? 'TRUE' : 'FALSE') . " OR (NOT IFNULL(productUsers.ignoring, 0) AND NOT IFNULL(brandUsers.ignoring, 0)))
+                AND (" . ($user->show_favorites ? 'TRUE' : 'FALSE') . " OR NOT IFNULL(productUsers.favorite, 0))
             ORDER BY
                 IFNULL(productUsers.favorite, 0) DESC, 
                 IFNULL(productUsers.ignoring, 0) OR IFNULL(brandUsers.ignoring, 0) ASC,
                 IF(specials.created_at > :lastVisitedAt:, 1, 0) DESC,
                 IFNULL(brands.name, 'zzz') ASC, 
                 products.name ASC
-            LIMIT {$statistics->offset}, {$offset}
+            LIMIT {$statistics->offset}, {$user->specials_per_page}
         ", [
-            'userId' => $user->getId(),
-            'lastVisitedAt' => $user->getLastVisitedAt(),
+            'userId' => $user->id,
+            'lastVisitedAt' => $user->last_visited_at,
         ]));
     }
 }

@@ -38,7 +38,7 @@ class Woolworths extends StoreScrapper
         $this->client->request('GET', $url);
         $crawler = $this->client->waitFor('.paging-pageNumber');
 
-        $pages = $crawler->filter('.paging-pageNumber')->last()->text();
+        $pages = (int)($crawler->filter('.paging-pageNumber')->last()->text() ?: 0);
         if (empty($pages)) {
             $now = Carbon::now()->format('YmdHis');
             $this->client->takeScreenshot("/code/{$now}_{$this->getName()}_page_1_pages.png");
@@ -76,7 +76,7 @@ class Woolworths extends StoreScrapper
         $this->client->request('GET', $url);
         $this->client->waitFor('.paging-pageNumber');
 
-        sleep(rand(2, 4));
+        sleep(rand(2, 3));
         $products = $this->client->executeScript("return wowDataLayer.browseResults.products") ?? [];
         if (empty($products)) {
             $now = Carbon::now()->format('YmdHis');
@@ -97,7 +97,7 @@ class Woolworths extends StoreScrapper
 
             $data = [
                 'record' => $records,
-                'store_id' => $this->store->getId(),
+                'store_id' => $this->store->id,
                 'store_reference' => trim((string)$product['Stockcode']),
                 'brand' => ucwords(html_entity_decode(trim((string)$product['Brand']))),
                 'name' => html_entity_decode(trim(preg_replace('!\s+!', ' ', (string)$product['Name']))),

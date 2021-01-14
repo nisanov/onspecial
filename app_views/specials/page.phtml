@@ -6,7 +6,7 @@
             </svg>
         </a>
         <div class="statistics">
-            <?php if ($show->ignored) : ?>
+            <?php if ($user->show_ignored) : ?>
                 <div><b><?php echo $statistics->products; ?></b> Products Available</div>
             <?php else : ?>
                 <div><b><?php echo $statistics->products; ?></b> Products Available - Ignored <b><span id="ignoring"><?php echo $statistics->ignoring; ?></span></b></div>

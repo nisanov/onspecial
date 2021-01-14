@@ -45,7 +45,7 @@ class ProfileController extends HtmlController
         }
 
         $user = $this->authentication->getUser();
-        $password = $user->getPassword();
+        $password = $user->password;
 
         $form = new ProfileForm($user);
         if ($form->isValid($this->request->getPost())) {
@@ -54,7 +54,7 @@ class ProfileController extends HtmlController
                 $password = $this->security->hash($form->getValue('password'));
             }
 
-            $user->setPassword($password);
+            $user->password = $password;
 
             if (!empty($user->getChangedFields())) {
                 $user->save();
@@ -78,19 +78,20 @@ class ProfileController extends HtmlController
     public function showAction(string $attribute, bool $state): ResponseInterface
     {
         $user = $this->authentication->getUser();
+        $action = $state ? "show" : "hide";
 
         switch ($attribute) {
             case 'seen':
-                $user->isShowingSeen($state);
-                $message = "Configured to " . ($state ? "show" : "hide") . " seen specials";
+                $user->show_seen = $state;
+                $message = "Configured to {$action} seen specials";
                 break;
             case 'favorites':
-                $user->isShowingFavorites($state);
-                $message = "Configured to " . ($state ? "show" : "hide") . " favorite products";
+                $user->show_favorites = $state;
+                $message = "Configured to {$action} favorite products";
                 break;
             case 'ignored':
-                $user->isShowingIgnored($state);
-                $message = "Configured to " . ($state ? "show" : "hide") . " ignored products/brands";
+                $user->show_ignored = $state;
+                $message = "Configured to {$action} ignored products/brands";
                 break;
             default:
                 return $this->redirector->toRequest('specials/page/1')->withError("The attribute specified is unknown: {$attribute}");
