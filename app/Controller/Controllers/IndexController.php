@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Controller\Controllers;
 
 use App\Controller\HtmlController;
+use App\Service\Services\Captcha;
 
 class IndexController extends HtmlController
 {
@@ -19,5 +20,20 @@ class IndexController extends HtmlController
             'controller' => 'specials',
             'action' => 'page',
         ]);
+    }
+
+    /**
+     * Generate and respond with a captcha image.
+     *
+     * @return void
+     */
+    public function captchaAction(Captcha $captcha): void
+    {
+        $image = $captcha->getImage();
+
+        $this->response->setHeader('Content-type', 'image/png');
+
+        imagepng($image);
+        imagedestroy($image);
     }
 }

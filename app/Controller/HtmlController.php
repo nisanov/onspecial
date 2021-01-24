@@ -26,6 +26,7 @@ abstract class HtmlController extends Controller
     {
         $this->response->setHeader('X-Username', $this->authentication->hasUser() ? $this->authentication->getUser()->email : 'anonymous');
         $this->response->setHeader('X-Token', $this->application->getToken());
+
         $this->session->set('requested', $this->application->getRequest());
     }
 }

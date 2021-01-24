@@ -5,9 +5,11 @@ declare(strict_types=1);
 namespace App\Form\Forms;
 
 use App\Form\Elements\Button;
+use App\Form\Elements\Captcha;
 use App\Form\Elements\Input;
 use App\Form\Generic as GenericForm;
 use App\Model\Models\User;
+use Phalcon\Validation\Validator\Callback;
 use Phalcon\Validation\Validator\Confirmation;
 use Phalcon\Validation\Validator\Email;
 use Phalcon\Validation\Validator\PresenceOf;
@@ -52,10 +54,21 @@ class RegistrationForm extends GenericForm
         $passwordConfirm->addValidator(new PresenceOf(['message' => "The password confirmation must be specified"]));
         $passwordConfirm->addValidator(new Confirmation(['message' => "The confirmation must match the password", 'with' => 'password']));
 
+        $captcha = new Captcha('captcha', ['type' => 'text']);
+        $captcha->setLabel('Captcha Value');
+        $captcha->setFilters(['trim', 'string']);
+        $captcha->setUserOption('message', $this->getSessionStoredMessage('captcha'));
+        $captcha->addValidator(new PresenceOf(['message' => "The captcha value must be specified"]));
+        $captcha->addValidator(new Callback([
+            'callback' => fn (array $data) => $data['captcha'] === $this->session->get('captcha'),
+            'message' => "The capture value must match the captcha image",
+        ]));
+
         $this->add($name);
         $this->add($email);
         $this->add($password);
         $this->add($passwordConfirm);
+        $this->add($captcha);
         $this->add(new Button('Register'));
     }
 }

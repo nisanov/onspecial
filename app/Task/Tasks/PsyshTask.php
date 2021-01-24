@@ -43,6 +43,7 @@ class PsyshTask extends Task
         'RegistrationController' => 'App\Controller\Controllers\RegistrationController',
         'ProductRepository' => 'App\Repository\Repositories\Product',
         'Panther' => 'Symfony\Component\Panther\Client',
+        'Captcha' => 'App\Service\Services\Captcha',
     ];
 
     /**

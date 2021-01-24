@@ -8,12 +8,18 @@ RUN apt-get update && apt-get install -y \
     libzip-dev \
     libpcre3-dev \
     libicu-dev \
+    libpng-dev \
+    zlib1g-dev \
+    libfreetype6-dev \
     unzip \
     git \
-    chromium
+    chromium \
+    vim
 
 RUN docker-php-ext-configure zip
 RUN docker-php-ext-install zip
+RUN docker-php-ext-configure gd --with-freetype
+RUN docker-php-ext-install gd
 
 RUN set -xe && \
         curl -LO https://github.com/jbboehr/php-psr/archive/v${PSR_VERSION}.tar.gz && \
@@ -39,10 +45,11 @@ RUN pecl install redis; \
     docker-php-ext-enable redis; \
     pecl install xdebug; \
     docker-php-ext-enable xdebug; \
-    echo "xdebug.remote_enable = 1" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini; \
-    echo "xdebug.remote_autostart = 1" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini; \
-    echo "xdebug.remote_connect_back = 1" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini; \
-    echo "xdebug.remote_port = 9005" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini; \
+    echo "xdebug.mode=debug" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini; \
+    echo "xdebug.start_with_request=yes" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini; \
+    echo "xdebug.discover_client_host=true" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini; \
+    echo "xdebug.client_port=9005" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini; \
+    echo "#xdebug.log=/tmp/xdebug.log" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini; \
     rm -rf /tmp/pear
 
 WORKDIR /code
