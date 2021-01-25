@@ -7,11 +7,12 @@ namespace App\Model\Models;
 use App\Model\Generic;
 
 /**
+ * @property-read \App\Model\Models\User $user
+ * @property-read \App\Model\Models\Brand $brand
+ * 
  * @method static \App\Model\Models\UserBrand[] find(array $parameters = null)
  * @method static \App\Model\Models\UserBrand findFirst(array $parameters = null)
  * @method static \App\Model\Models\UserBrand findFirstByName(string $name)
- * @property-read \App\Model\Models\User $user
- * @property-read \App\Model\Models\Brand $brand
  */
 class UserBrand extends Generic
 {

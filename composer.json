@@ -12,14 +12,15 @@
   "minimum-stability": "stable",
   "require": {
     "php": ">=7.4",
-    "ext-phalcon": "~4.0.0",
+    "ext-phalcon": "~4.1.0",
     "vlucas/phpdotenv": "^5.2",
     "robmorgan/phinx": "^0.12.4",
     "psy/psysh": "^0.10.4",
     "filp/whoops": "^2.9",
     "nesbot/carbon": "^2.41",
     "swiftmailer/swiftmailer": "^6.2",
-    "symfony/panther": "^0.8.0"
+    "symfony/panther": "^0.8.0",
+    "guzzlehttp/guzzle": "^7.0"
   },
   "require-dev": {
     "phalcon/ide-stubs": "^4.0",

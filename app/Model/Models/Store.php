@@ -9,12 +9,13 @@ use App\Model\Traits\HasTimestamps;
 use App\Service\Services\StoreScrapperInterface;
 
 /**
+ * @property-read \Phalcon\Mvc\Model\Resultset\Simple|\App\Model\Models\Product[] $products
+ * @property-read \Phalcon\Mvc\Model\Resultset\Simple|\App\Model\Models\Special[] $specials
+ * @property-read \Phalcon\Mvc\Model\Resultset\Simple|\App\Model\Models\Scrape[] $scrapes
+ * 
  * @method static \App\Model\Models\Store[] find(array $parameters = null)
  * @method static \App\Model\Models\Store findFirst(array $parameters = null)
  * @method static \App\Model\Models\Store findFirstByName(string $name)
- * @method \Phalcon\Mvc\Model\Resultset\Simple|\App\Model\Models\Product[] getProducts()
- * @method \Phalcon\Mvc\Model\Resultset\Simple|\App\Model\Models\Special[] getSpecials()
- * @method \Phalcon\Mvc\Model\Resultset\Simple|\App\Model\Models\Scrape[] getScrapes()
  */
 class Store extends Generic
 {

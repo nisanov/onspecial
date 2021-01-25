@@ -6,12 +6,14 @@ namespace App\Model\Models;
 
 use App\Model\Generic;
 use App\Model\Traits\HasTimestamps;
+use App\Service\Services\SlackNotification\StoreScrapper as StoreScrapperSlackNotification;
 use Carbon\Carbon;
 
 /**
+ * @property-read \App\Model\Models\Store $store
+ * 
  * @method static \App\Model\Models\Scrape[] find(array $parameters = null)
  * @method static \App\Model\Models\Scrape findFirst(array $parameters = null)
- * @method \App\Model\Models\Store getStore()
  */
 class Scrape extends Generic
 {
@@ -70,10 +72,20 @@ class Scrape extends Generic
     {
         parent::initialize();
 
-        $this->belongsTo('id', Store::class, 'store_id', [
+        $this->belongsTo('store_id', Store::class, 'id', [
             'reusable' => true,
             'alias' => 'store',
         ]);
+    }
+
+    /**
+     * Handle the after updating record event.
+     *
+     * @return void
+     */
+    public function afterUpdate(): void
+    {
+        (new StoreScrapperSlackNotification)->setScrape($this)->send();
     }
 
     /**

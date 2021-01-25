@@ -11,6 +11,7 @@ use Exception;
 use Phalcon\Cli\Console;
 use Phalcon\Config;
 use Phalcon\Db\Profiler;
+use Phalcon\Di;
 use Phalcon\Di\FactoryDefault;
 use Phalcon\Di\FactoryDefault\Cli;
 use Phalcon\Http\ResponseInterface;
@@ -120,6 +121,19 @@ class Application
     }
 
     /**
+     * Get the default application.
+     *
+     * @return Application
+     */
+    public static function getDefault(): Application
+    {
+        /** @var FactoryDefault $container */
+        $container = Di::getDefault();
+
+        return $container->getApplication();
+    }
+
+    /**
      * Run the application.
      * 
      * @param string $request
@@ -150,13 +164,23 @@ class Application
     }
 
     /**
+     * Get the application environment.
+     *
+     * @return string
+     */
+    public function getEnvironment(): string
+    {
+        return $this->getConfig()->path('application.environment');
+    }
+
+    /**
      * Determine whether the current application environment is production.
      *
      * @return bool
      */
     public function isProduction(): bool
     {
-        return $this->getConfig()->path('application.environment') === 'production';
+        return $this->getEnvironment() === 'production';
     }
 
     /**

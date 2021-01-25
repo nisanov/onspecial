@@ -7,11 +7,12 @@ namespace App\Model\Models;
 use App\Model\Generic;
 
 /**
+ * @property-read \App\Model\Models\User $user
+ * @property-read \App\Model\Models\Product $product
+ * 
  * @method static \App\Model\Models\UserProduct[] find(array $parameters = null)
  * @method static \App\Model\Models\UserProduct findFirst(array $parameters = null)
  * @method static \App\Model\Models\UserProduct findFirstByName(string $name)
- * @property-read \App\Model\Models\User $user
- * @property-read \App\Model\Models\Product $product
  */
 class UserProduct extends Generic
 {

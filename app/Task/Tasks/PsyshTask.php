@@ -44,6 +44,7 @@ class PsyshTask extends Task
         'ProductRepository' => 'App\Repository\Repositories\Product',
         'Panther' => 'Symfony\Component\Panther\Client',
         'Captcha' => 'App\Service\Services\Captcha',
+        'StoreScrapperNotification' => 'App\Service\Services\SlackNotification\StoreScrapper',
     ];
 
     /**

@@ -8,10 +8,11 @@ use App\Model\Generic;
 use App\Model\Traits\HasTimestamps;
 
 /**
+ * @property-read \Phalcon\Mvc\Model\Resultset\Simple|\App\Model\Models\Product[] $products
+ * 
  * @method static \App\Model\Models\Brand[] find(array $parameters = null)
  * @method static \App\Model\Models\Brand findFirst(array $parameters = null)
  * @method static \App\Model\Models\Brand findFirstByName(string $name)
- * @method \Phalcon\Mvc\Model\Resultset\Simple|\App\Model\Models\Product[] getProducts()
  */
 class Brand extends Generic
 {
