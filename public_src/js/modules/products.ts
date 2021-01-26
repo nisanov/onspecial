@@ -65,7 +65,7 @@ export default class Products {
       rootMargin: '0px',
       threshold: [0.10, 0.75],
     });
-    Products.instance.querySelectorAll('.product').forEach((product: HTMLElement) => Products.observer.observe(product));
+    Products.instance.querySelectorAll('.product').forEach((product: Element) => Products.observer.observe(product));
     Products.instance.addEventListener('click', (event: MouseEvent): void => {
       const target: HTMLElement = event.target as HTMLElement;
       const product: HTMLElement = target.closest('.product');
@@ -96,16 +96,18 @@ export default class Products {
             const json = JSON.parse(decodeURIComponent(product.dataset.product.replace(/\+/g, ' ')));
             const days = parseInt(Interval.fromDateTimes(DateTime.fromSQL(json.created_at).startOf('day'), DateTime.local().startOf('day')).length('days').toString(), 10);
             const template = (
-              json.brand_id !== null 
+              json.brand_id !== null
                 ? `
                   <button class="svg ignoring ${json.ignoring_brand === "1" ? 'ignored' : ''}">
                     <svg>
                       <use xlink:href="${document.querySelector('head').dataset.sprites}#ban"></use>
                     </svg>
                   </button>
-                  ` 
-                : `` 
-              ) + `
+                  `
+                : ``
+            ) + `
+              <span>&nbsp;</span>
+              <span>&nbsp;</span>
               <span>Brand:</span>
               <span>${json.brand}</span>
               <span>Store:</span>
@@ -124,13 +126,23 @@ export default class Products {
               <span>${json.description ? json.description : '-'}</span>
               <span>Ingredients:</span>
               <span>${json.ingredients ? json.ingredients : '-'}</span>
+              <span>&nbsp;</span>
+              <span>&nbsp;</span>
             `;
             const drawer = document.createElement('div');
             drawer.classList.add('drawer');
+            drawer.style.maxHeight = '0';
             drawer.innerHTML = template;
             product.insertAdjacentElement('beforeend', drawer);
+            setTimeout(() => {
+              drawer.style.maxHeight = '2000px';
+            }, 50);
           } else {
-            product.querySelector('.drawer').remove();
+            const drawer = product.querySelector('.drawer') as HTMLElement;
+            drawer.ontransitionend = () => {
+              drawer.remove();
+            };
+            drawer.style.maxHeight = '0';
           }
           product.classList.toggle('more');
           break;
