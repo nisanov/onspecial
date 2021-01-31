@@ -10,14 +10,14 @@ trait HasTimestamps
 {
     /**
      * The creation timestamp,
-     * 
+     *
      * @var string|null
      */
     public ?string $created_at = null;
 
     /**
      * The modification timestamp,
-     * 
+     *
      * @var string|null
      */
     public ?string $updated_at = null;

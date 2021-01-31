@@ -12,21 +12,21 @@ abstract class Generic implements GenericInterface
 {
     /**
      * Identifies this class instance in the service container.
-     * 
+     *
      * @var string|null
      */
     const IDENTIFIER = null;
 
     /**
      * The application instance.
-     * 
+     *
      * @var Application
      */
     protected Application $application;
 
     /**
-     * The dependecy intefection container.
-     * 
+     * The dependency injection container.
+     *
      * @var FactoryDefault
      */
     protected FactoryDefault $container;
@@ -36,6 +36,7 @@ abstract class Generic implements GenericInterface
      *
      * @param FactoryDefault $container
      * @return void
+     * @throws Exception
      */
     public function __construct(FactoryDefault $container)
     {

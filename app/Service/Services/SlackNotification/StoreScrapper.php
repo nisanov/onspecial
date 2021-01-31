@@ -29,18 +29,19 @@ class StoreScrapper extends SlackNotification
 
     /**
      * Get the webhook url.
-     * 
-     * @return string 
+     *
+     * @return string
      */
     public function getWebHookUrl(): string
     {
+        /** @noinspection SpellCheckingInspection */
         return "/services/T017M9ZS9DW/B0199022DCG/J1ZrsWnvp9dvku3cml5E1mJE";
     }
 
     /**
      * Get the webhook data.
-     * 
-     * @return array 
+     *
+     * @return array
      */
     public function getWebHookData(): array
     {

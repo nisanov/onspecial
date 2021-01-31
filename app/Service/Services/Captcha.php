@@ -5,27 +5,26 @@ declare(strict_types=1);
 namespace App\Service\Services;
 
 use App\Service\Generic;
-use Phalcon\Http\ResponseInterface;
 
 class Captcha extends Generic
 {
     /**
      * The permitted characters that will create the captcha string.
-     * 
+     *
      * @var string
      */
     protected const CHARS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
     /**
      * The generated captcha string.
-     * 
+     *
      * @var string
      */
     protected string $string = "";
 
     /**
      * The generated captcha image.
-     * 
+     *
      * @var resource
      */
     protected $image;
@@ -40,27 +39,6 @@ class Captcha extends Generic
         $this->generateString($strength);
         $this->generateBackground();
         $this->generateCharacters();
-    }
-
-    /**
-     * Render the randomly generated captcha image.
-     *
-     * @param ResponseInterface $response
-     * @return resource
-     */
-    public function getImage()
-    {
-        return $this->image;
-    }
-
-    /**
-     * Get the randomly generated captcha string. 
-     *
-     * @return string
-     */
-    public function getString(): string
-    {
-        return $this->string;
     }
 
     /**
@@ -114,7 +92,7 @@ class Captcha extends Generic
         $black = imagecolorallocate($this->image, 0, 0, 0);
         $white = imagecolorallocate($this->image, 255, 255, 255);
 
-        $textcolors = [$black, $white];
+        $textColours = [$black, $white];
 
         $length = strlen($this->string);
         for ($i = 0; $i < $length; $i++) {
@@ -126,10 +104,30 @@ class Captcha extends Generic
                 rand(-15, 15),
                 (int)($initial + $i * $letter_space),
                 rand(20, 40),
-                $textcolors[rand(0, 1)],
+                $textColours[rand(0, 1)],
                 '/code/public_src/fonts/Quicksand-Bold.ttf',
                 $this->string[$i],
             );
         }
+    }
+
+    /**
+     * Render the randomly generated captcha image.
+     *
+     * @return resource
+     */
+    public function getImage()
+    {
+        return $this->image;
+    }
+
+    /**
+     * Get the randomly generated captcha string.
+     *
+     * @return string
+     */
+    public function getString(): string
+    {
+        return $this->string;
     }
 }

@@ -12,7 +12,7 @@ class ConfigProvider extends Generic
 {
     /**
      * Identifies this class instance in the service container.
-     * 
+     *
      * @var string
      */
     const IDENTIFIER = 'config';
@@ -24,15 +24,15 @@ class ConfigProvider extends Generic
      */
     public function register(): void
     {
-        $basePath = $this->application->getBasePath();
+        $path = $this->application->getBasePath('/app_config/config.php');
 
-        $this->container->setShared(static::IDENTIFIER, function () use ($basePath) {
+        $this->container->setShared(static::IDENTIFIER, function () use ($path) {
 
-            $path = $basePath . '/app_config/config.php';
             if (!file_exists($path) || !is_readable($path)) {
                 throw new Exception("Missing or unreadable configuration file at path: " . $path);
             }
 
+            /** @noinspection PhpIncludeInspection */
             $configuration = require $path;
 
             return new Config($configuration);

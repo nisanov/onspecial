@@ -10,5 +10,6 @@
 manifest.json
 .env
 .vscode
+.idea
 .phalcon
 .phpunit.result.cache

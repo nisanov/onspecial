@@ -5,17 +5,22 @@ declare(strict_types=1);
 namespace App\Controller\Traits;
 
 use App\Controller\JsonController;
+use App\Service\Services\Authentication;
+use App\Service\Services\Redirector;
+use Phalcon\Cache\Exception\InvalidArgumentException;
+use Phalcon\Db\Exception as DbException;
 
 /**
- * @property \App\Service\Services\Authentication $authentication
- * @property \App\Service\Services\Redirector $redirector
+ * @property Authentication $authentication
+ * @property Redirector $redirector
  */
 trait RequiresAuthentication
 {
     /**
-     * Handles the before exceute route event.
-     * 
+     * Handles the before execute route event.
+     *
      * @return bool
+     * @throws DbException|InvalidArgumentException
      */
     public function beforeExecuteRoute(): bool
     {

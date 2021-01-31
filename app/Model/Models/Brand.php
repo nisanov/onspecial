@@ -6,13 +6,15 @@ namespace App\Model\Models;
 
 use App\Model\Generic;
 use App\Model\Traits\HasTimestamps;
+use Phalcon\Db\Exception as DbException;
+use Phalcon\Mvc\Model\Resultset\Simple;
 
 /**
- * @property-read \Phalcon\Mvc\Model\Resultset\Simple|\App\Model\Models\Product[] $products
- * 
- * @method static \App\Model\Models\Brand[] find(array $parameters = null)
- * @method static \App\Model\Models\Brand findFirst(array $parameters = null)
- * @method static \App\Model\Models\Brand findFirstByName(string $name)
+ * @property-read Simple|Product[] $products
+ *
+ * @method static Brand[] find(array|string $parameters = null)
+ * @method static Brand findFirst(array|string|int|null $parameters = null)
+ * @method static Brand findFirstByName(string $name)
  */
 class Brand extends Generic
 {
@@ -20,17 +22,36 @@ class Brand extends Generic
 
     /**
      * The unique record identifier.
-     * 
+     *
      * @var int|null
      */
     public ?int $id = null;
 
     /**
      * The brand name.
-     * 
+     *
      * @var string|null
      */
     public ?string $name = null;
+
+    /**
+     * Get the first matching or created brand by name.
+     *
+     * @param string $name
+     * @return Brand
+     * @throws DbException
+     */
+    public static function getFirstOrCreatedByName(string $name): Brand
+    {
+        $brand = Brand::findFirstByName($name);
+        if ($brand === null) {
+            $brand = new Brand;
+            $brand->name = $name;
+            $brand->save();
+        }
+
+        return $brand;
+    }
 
     /**
      * Initialize the model.
@@ -45,23 +66,5 @@ class Brand extends Generic
             'reusable' => true,
             'alias' => 'products',
         ]);
-    }
-
-    /**
-     * Get the first matching or created brand by name.
-     *
-     * @param string $name
-     * @return Brand
-     */
-    public static function getFirstOrCreatedByName(string $name): Brand
-    {
-        $brand = Brand::findFirstByName($name);
-        if ($brand === null) {
-            $brand = new Brand;
-            $brand->name = $name;
-            $brand->save();
-        }
-
-        return $brand;
     }
 }

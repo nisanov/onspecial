@@ -6,7 +6,7 @@ namespace App\Form\Elements;
 
 use Phalcon\Forms\Element\AbstractElement;
 
-class Button extends AbstractElement
+class ButtonElement extends AbstractElement
 {
     /**
      * Get the HTML render of this element.

@@ -13,6 +13,8 @@
   "require": {
     "php": ">=7.4",
     "ext-phalcon": "~4.1.0",
+    "ext-gd": "*",
+    "ext-json": "*",
     "vlucas/phpdotenv": "^5.2",
     "robmorgan/phinx": "^0.12.4",
     "psy/psysh": "^0.10.4",

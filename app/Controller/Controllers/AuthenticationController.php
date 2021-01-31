@@ -7,6 +7,9 @@ namespace App\Controller\Controllers;
 use App\Controller\HtmlController;
 use App\Form\Forms\LoginForm;
 use App\Model\Models\User;
+use Exception;
+use Phalcon\Cache\Exception\InvalidArgumentException;
+use Phalcon\Db\Exception as DbException;
 use Phalcon\Http\ResponseInterface;
 
 class AuthenticationController extends HtmlController
@@ -25,12 +28,13 @@ class AuthenticationController extends HtmlController
      * Show the authentication login form.
      *
      * @return ResponseInterface|null
+     * @throws DbException|InvalidArgumentException
      */
     public function indexAction(): ?ResponseInterface
     {
         $user = $this->authentication->getUser();
         if ($user instanceof User) {
-            return $this->redirector->toLocation('specials/page/1')->withNothing();
+            return $this->redirector->toLocation('special/page/1')->withNothing();
         }
 
         $this->view->setVar('form', new LoginForm);
@@ -42,6 +46,7 @@ class AuthenticationController extends HtmlController
      * Process the authentication login form.
      *
      * @return ResponseInterface
+     * @throws Exception
      */
     public function loginAction(): ResponseInterface
     {
@@ -60,6 +65,7 @@ class AuthenticationController extends HtmlController
      * Process the authentication logout request.
      *
      * @return ResponseInterface
+     * @throws InvalidArgumentException
      */
     public function logoutAction(): ResponseInterface
     {

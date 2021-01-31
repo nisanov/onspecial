@@ -8,7 +8,11 @@ use App\Controller\HtmlController;
 use App\Form\Forms\RecoveryForm;
 use App\Model\Models\User;
 use Carbon\Carbon;
+use Exception;
+use Phalcon\Cache\Exception\InvalidArgumentException;
+use Phalcon\Db\Exception as DbException;
 use Phalcon\Http\ResponseInterface;
+use Phalcon\Security\Exception as SecurityException;
 
 class RecoveryController extends HtmlController
 {
@@ -36,6 +40,9 @@ class RecoveryController extends HtmlController
      * Process the recovery form.
      *
      * @return ResponseInterface
+     * @throws InvalidArgumentException
+     * @throws SecurityException
+     * @throws Exception
      */
     public function recoverAction(): ResponseInterface
     {
@@ -71,6 +78,8 @@ class RecoveryController extends HtmlController
      *
      * @param string $token
      * @return ResponseInterface
+     * @throws InvalidArgumentException
+     * @throws DbException
      */
     public function activateAction(string $token): ResponseInterface
     {

@@ -7,18 +7,18 @@ namespace App\Repository;
 use Phalcon\Di;
 use Phalcon\Mvc\Model\Manager;
 
-abstract class Generic
+abstract class GenericRepository
 {
     /**
      * The models manager.
-     * 
+     *
      * @var Manager
      */
     protected Manager $manager;
 
     /**
      * Construct the class instance.
-     * 
+     *
      * @return void
      */
     public function __construct()

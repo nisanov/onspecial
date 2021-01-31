@@ -8,11 +8,11 @@ use App\Model\Generic;
 use App\Model\Traits\HasTimestamps;
 
 /**
- * @property-read \App\Model\Models\Store $store
- * @property-read \App\Model\Models\Store $product
- * 
- * @method static \App\Model\Models\Special[] find(array $parameters = null)
- * @method static \App\Model\Models\Special findFirst(array $parameters = null)
+ * @property-read Store $store
+ * @property-read Store $product
+ *
+ * @method static Special[] find(array|string $parameters = null)
+ * @method static Special findFirst(array|string|int|null $parameters = null)
  */
 class Special extends Generic
 {
@@ -20,42 +20,42 @@ class Special extends Generic
 
     /**
      * The unique record identifier.
-     * 
+     *
      * @var int|null
      */
     public ?int $id = null;
 
     /**
      * The store record identifier.
-     * 
+     *
      * @var int|null
      */
     public ?int $store_id = null;
 
     /**
      * The product record identifier.
-     * 
+     *
      * @var int|null
      */
     public ?int $product_id = null;
 
     /**
      * The current price.
-     * 
+     *
      * @var float
      */
     public float $current_price = 0.00;
 
     /**
      * The previous price.
-     * 
+     *
      * @var float
      */
     public float $previous_price = 0.00;
 
     /**
      * The ratio price.
-     * 
+     *
      * @var string|null
      */
     public ?string $ratio_price = null;

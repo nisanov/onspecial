@@ -17,7 +17,7 @@ class IndexController extends HtmlController
     public function indexAction(): void
     {
         $this->dispatcher->forward([
-            'controller' => 'specials',
+            'controller' => 'special',
             'action' => 'page',
         ]);
     }
@@ -25,6 +25,7 @@ class IndexController extends HtmlController
     /**
      * Generate and respond with a captcha image.
      *
+     * @param Captcha $captcha
      * @return void
      */
     public function captchaAction(Captcha $captcha): void

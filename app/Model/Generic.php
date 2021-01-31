@@ -23,19 +23,6 @@ abstract class Generic extends MvcModel
     }
 
     /**
-     * Construct the model with every instance.
-     *
-     * @return void
-     */
-    public function onConstruct(): void
-    {
-        $data = $this->toArray();
-
-        $this->setOldSnapshotData($data);
-        $this->setSnapshotData($data);
-    }
-
-    /**
      * Get the table name derived from the class name.
      *
      * @return string
@@ -55,6 +42,19 @@ abstract class Generic extends MvcModel
     }
 
     /**
+     * Construct the model with every instance.
+     *
+     * @return void
+     */
+    public function onConstruct(): void
+    {
+        $data = $this->toArray();
+
+        $this->setOldSnapshotData($data);
+        $this->setSnapshotData($data);
+    }
+
+    /**
      * Inserts or updates a model instance. Returning true on success or false otherwise.
      *
      * @return bool
@@ -62,7 +62,7 @@ abstract class Generic extends MvcModel
      */
     public function save(): bool
     {
-        if (in_array(HasTimestamps::class, class_uses($this))) {
+        if (in_array(HasTimestamps::class, class_uses($this)) && method_exists($this, 'stamp')) {
             $this->stamp();
         }
 

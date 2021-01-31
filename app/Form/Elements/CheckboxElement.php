@@ -6,18 +6,18 @@ namespace App\Form\Elements;
 
 use Phalcon\Forms\Element\AbstractElement;
 
-class Checkbox extends AbstractElement
+class CheckboxElement extends AbstractElement
 {
     /**
      * Checkbox checked "yes" state.
-     * 
+     *
      * @var string
      */
     public const YES = 'yes';
 
     /**
      * Checkbox checked "no" state.
-     * 
+     *
      * @var string
      */
     public const NO = 'no';

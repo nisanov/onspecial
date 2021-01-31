@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Tests\Feature\Forms;
 
 use App\Form\Forms\LoginForm;
+use Exception;
 use Tests\Feature\FeatureTestCase;
 
 class LoginFormTest extends FeatureTestCase
@@ -38,6 +39,10 @@ class LoginFormTest extends FeatureTestCase
 
     /**
      * @dataProvider provideDataForValidationsTest
+     * @param array $data
+     * @param int $errorCount
+     * @param bool $isValid
+     * @throws Exception
      */
     public function testValidations(array $data, int $errorCount, bool $isValid): void
     {

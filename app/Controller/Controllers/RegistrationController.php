@@ -8,7 +8,11 @@ use App\Controller\HtmlController;
 use App\Form\Forms\RegistrationForm;
 use App\Model\Models\User;
 use Carbon\Carbon;
+use Exception;
+use Phalcon\Cache\Exception\InvalidArgumentException;
+use Phalcon\Db\Exception as DbException;
 use Phalcon\Http\ResponseInterface;
+use Phalcon\Security\Exception as SecurityException;
 
 class RegistrationController extends HtmlController
 {
@@ -36,6 +40,10 @@ class RegistrationController extends HtmlController
      * Process the registration form.
      *
      * @return ResponseInterface
+     * @throws InvalidArgumentException
+     * @throws DbException
+     * @throws SecurityException
+     * @throws Exception
      */
     public function registerAction(): ResponseInterface
     {
@@ -72,6 +80,8 @@ class RegistrationController extends HtmlController
      *
      * @param string $token
      * @return ResponseInterface
+     * @throws InvalidArgumentException
+     * @throws DbException
      */
     public function activateAction(string $token): ResponseInterface
     {

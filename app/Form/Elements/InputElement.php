@@ -6,7 +6,7 @@ namespace App\Form\Elements;
 
 use Phalcon\Forms\Element\AbstractElement;
 
-class Captcha extends AbstractElement
+class InputElement extends AbstractElement
 {
     /**
      * Get the HTML render of this element.
@@ -16,7 +16,7 @@ class Captcha extends AbstractElement
      */
     public function render(array $attributes = []): string
     {
-        $classes = ['input', 'captcha'];
+        $classes = ['input'];
         $attributes += ['id' => $this->name, 'name' => $this->name] + $this->getAttributes();
 
         $message = $this->getUserOption('message');
@@ -37,8 +37,7 @@ class Captcha extends AbstractElement
         $markup = [
             '<div class="' . implode(' ', $classes) . '">',
             '<label for="' . $this->name . '">' . $this->label . '</label>',
-            '<input ' . trim(implode(' ', $attributes)) . ' style="width:50%;">',
-            '<img src="/captcha" alt="Captcha String" style="float:right;cursor:pointer;" onclick="this.src = \'/captcha\';" />',
+            '<input ' . trim(implode(' ', $attributes)) . '>',
             '<span class="underline"></span>',
             '</div>',
             '<div class="message">' . $message . '</div>',

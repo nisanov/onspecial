@@ -1,3 +1,13 @@
+<?php
+
+declare(strict_types=1);
+
+use App\Form\Forms\LoginForm;
+
+/**
+ * @var LoginForm $form
+ */
+?>
 <form method="post" action="<?php echo $this->url->get('authentication/login'); ?>" novalidate>
     <h1 class="header">Account Authentication</h1>
     <?php echo $form->renderCsrfToken(); ?>

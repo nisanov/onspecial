@@ -12,7 +12,7 @@ class MailerProvider extends Generic
 {
     /**
      * Identifies this class instance in the service container.
-     * 
+     *
      * @var string
      */
     const IDENTIFIER = 'mailer';
@@ -24,7 +24,7 @@ class MailerProvider extends Generic
      */
     public function register(): void
     {
-        $view = $this->container->getView();
+        $view = $this->container->get('view');
         $config = $this->application->getConfig()->path('mailer')->toArray();
         $params = [
             'host' => $config['host'],

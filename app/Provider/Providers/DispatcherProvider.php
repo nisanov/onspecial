@@ -6,15 +6,15 @@ namespace App\Provider\Providers;
 
 use App\Exception\ExceptionHandler;
 use App\Provider\Generic;
-use Phalcon\Mvc\Dispatcher as MvcDispatcher;
 use Phalcon\Cli\Dispatcher as CliDispatcher;
 use Phalcon\Events\Manager;
+use Phalcon\Mvc\Dispatcher as MvcDispatcher;
 
 class DispatcherProvider extends Generic
 {
     /**
      * Identifies this class instance in the service container.
-     * 
+     *
      * @var string
      */
     const IDENTIFIER = 'dispatcher';

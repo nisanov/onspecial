@@ -11,17 +11,17 @@ abstract class Generic extends Exception
 {
     /**
      * The http exception status code.
-     * 
+     *
      * @var int
      */
     protected int $statusCode = 500;
 
     /**
-     * Constuct the generic exception instance.
+     * Construct the generic exception instance.
      *
      * @param string $message
      * @param int $code
-     * @param Throwable $previous
+     * @param Throwable|null $previous
      */
     public function __construct(string $message, int $code = 500, Throwable $previous = null)
     {

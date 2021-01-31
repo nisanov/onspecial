@@ -12,7 +12,7 @@ class FlashSessionProvider extends Generic
 {
     /**
      * Identifies this class instance in the service container.
-     * 
+     *
      * @var string
      */
     const IDENTIFIER = 'flashSession';
@@ -30,9 +30,9 @@ class FlashSessionProvider extends Generic
 
             $flash = new Session(new Escaper, $session);
             $flash->setCssClasses([
-                'error'   => 'alert alert-danger',
+                'error' => 'alert alert-danger',
                 'success' => 'alert alert-success',
-                'notice'  => 'alert alert-info',
+                'notice' => 'alert alert-info',
                 'warning' => 'alert alert-warning'
             ]);
 

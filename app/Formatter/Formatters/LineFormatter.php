@@ -9,11 +9,11 @@ use Phalcon\Logger;
 use Phalcon\Logger\Formatter\AbstractFormatter;
 use Phalcon\Logger\Item;
 
-class Line extends AbstractFormatter
+class LineFormatter extends AbstractFormatter
 {
     /**
      * Log level strings.
-     * 
+     *
      * @var array
      */
     const TYPES = [
@@ -34,14 +34,8 @@ class Line extends AbstractFormatter
      * @param Item $item
      * @return string
      */
-    public function format(Item $item)
+    public function format(Item $item): string
     {
-        return sprintf(
-            "[%s][%s] %s %s",
-            Carbon::now()->toISOString(true),
-            self::TYPES[$item->getType()],
-            $item->getMessage(),
-            json_encode($item->getContext())
-        );
+        return sprintf("[%s][%s] %s %s", Carbon::now()->toISOString(true), self::TYPES[$item->getType()], $item->getMessage(), json_encode($item->getContext()));
     }
 }

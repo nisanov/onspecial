@@ -4,23 +4,33 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
+use App\Application;
+use App\Service\Services\Authentication;
+use App\Service\Services\Mailer;
+use App\Service\Services\Redirector;
+use App\Service\Services\Toggle;
+use Phalcon\Cache;
+use Phalcon\Cache\Exception\InvalidArgumentException;
+use Phalcon\Db\Exception as DbException;
+use Phalcon\Logger;
 use Phalcon\Mvc\Controller;
 
 /**
- * @property \App\Application $application
- * @property \Phalcon\Logger $logger
- * @property \App\Service\Services\Redirector $redirector
- * @property \App\Service\Services\Authentication $authentication
- * @property \App\Service\Services\Mailer $mailer
- * @property \Phalcon\Cache $cache
- * @property \App\Service\Services\Toggle $toggle
+ * @property-read Application $application
+ * @property-read Logger $logger
+ * @property-read Redirector $redirector
+ * @property-read Authentication $authentication
+ * @property-read Mailer $mailer
+ * @property-read Cache $cache
+ * @property-read Toggle $toggle
  */
 abstract class HtmlController extends Controller
 {
     /**
-     * Handle the after excecute route event.
+     * Handle the after execute route event.
      *
      * @return void
+     * @throws DbException|InvalidArgumentException
      */
     public function afterExecuteRoute(): void
     {

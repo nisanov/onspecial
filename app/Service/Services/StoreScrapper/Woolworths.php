@@ -6,26 +6,17 @@ namespace App\Service\Services\StoreScrapper;
 
 use App\Service\Services\StoreScrapper;
 use Carbon\Carbon;
+use Exception;
+use Facebook\WebDriver\Exception\NoSuchElementException;
+use Facebook\WebDriver\Exception\TimeoutException;
 use Generator;
 
 class Woolworths extends StoreScrapper
 {
     /**
-     * Get the scrapper's store name.
-     *
-     * @return string
-     */
-    public function getName(): string
-    {
-        return 'Woolworths';
-    }
-
-    /**
      * Get the products on special generator.
      *
      * @return Generator
-     * @throws InvalidArgumentException
-     * @throws RuntimeException
      * @throws NoSuchElementException
      * @throws TimeoutException
      */
@@ -58,20 +49,29 @@ class Woolworths extends StoreScrapper
     }
 
     /**
+     * Get the scrapper's store name.
+     *
+     * @return string
+     */
+    public function getName(): string
+    {
+        return 'Woolworths';
+    }
+
+    /**
      * Get the specials generator for the specified page number.
      *
      * @param int $page
      * @return Generator
-     * @throws InvalidArgumentException
-     * @throws RuntimeException
      * @throws NoSuchElementException
      * @throws TimeoutException
+     * @throws Exception
      */
     public function getSpecialsOnPage(int $page): Generator
     {
         $records = 0;
 
-        $url = "https://www.woolworths.com.au/shop/browse/specials/half-price?pageNumber={$page}&sortBy=AvailableDate";
+        $url = "https://www.woolworths.com.au/shop/browse/specials/half-price?pageNumber=$page&sortBy=AvailableDate";
 
         $this->client->request('GET', $url);
         $this->client->waitFor('.paging-pageNumber');
@@ -95,7 +95,7 @@ class Woolworths extends StoreScrapper
 
             $records++;
 
-            $data = [
+            yield [
                 'record' => $records,
                 'store_id' => $this->store->id,
                 'store_reference' => trim((string)$product['Stockcode']),
@@ -113,8 +113,6 @@ class Woolworths extends StoreScrapper
                     'ratio' => trim($product['HasCupPrice'] ? $product['CupString'] : ""),
                 ],
             ];
-
-            yield $data;
         }
 
         return $records;

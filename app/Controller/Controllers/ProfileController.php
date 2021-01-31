@@ -4,9 +4,12 @@ declare(strict_types=1);
 
 namespace App\Controller\Controllers;
 
-use App\Controller\Traits\RequiresAuthentication;
 use App\Controller\HtmlController;
+use App\Controller\Traits\RequiresAuthentication;
 use App\Form\Forms\ProfileForm;
+use Exception;
+use Phalcon\Cache\Exception\InvalidArgumentException;
+use Phalcon\Db\Exception as DbException;
 use Phalcon\Http\ResponseInterface;
 
 class ProfileController extends HtmlController
@@ -26,7 +29,8 @@ class ProfileController extends HtmlController
     /**
      * Show the profile form.
      *
-     * @return ResponseInterface|null
+     * @return void
+     * @throws DbException|InvalidArgumentException
      */
     public function indexAction(): void
     {
@@ -37,6 +41,8 @@ class ProfileController extends HtmlController
      * Process the profile form.
      *
      * @return ResponseInterface
+     * @throws DbException
+     * @throws Exception
      */
     public function updateAction(): ResponseInterface
     {
@@ -71,9 +77,10 @@ class ProfileController extends HtmlController
     /**
      * Set the show state on the specified attribute.
      *
-     * @param string $segment
+     * @param string $attribute
      * @param bool $state
      * @return ResponseInterface
+     * @throws Exception
      */
     public function showAction(string $attribute, bool $state): ResponseInterface
     {
@@ -82,23 +89,23 @@ class ProfileController extends HtmlController
 
         switch ($attribute) {
             case 'seen':
-                $user->show_seen = $state;
-                $message = "Configured to {$action} seen specials";
+                $user->show_seen = (int)$state;
+                $message = "Configured to $action seen specials";
                 break;
             case 'favorites':
-                $user->show_favorites = $state;
-                $message = "Configured to {$action} favorite products";
+                $user->show_favorites = (int)$state;
+                $message = "Configured to $action favorite products";
                 break;
             case 'ignored':
-                $user->show_ignored = $state;
-                $message = "Configured to {$action} ignored products/brands";
+                $user->show_ignored = (int)$state;
+                $message = "Configured to $action ignored products/brands";
                 break;
             default:
-                return $this->redirector->toRequest('specials/page/1')->withError("The attribute specified is unknown: {$attribute}");
+                return $this->redirector->toRequest('special/page/1')->withError("The attribute specified is unknown: $attribute");
         }
 
         $user->save();
 
-        return $this->redirector->toRequest('specials/page/1')->withSuccess($message);
+        return $this->redirector->toRequest('special/page/1')->withSuccess($message);
     }
 }

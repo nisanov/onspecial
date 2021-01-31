@@ -1,3 +1,13 @@
+<?php
+
+declare(strict_types=1);
+
+use App\Form\Forms\RegistrationForm;
+
+/**
+ * @var RegistrationForm $form
+ */
+?>
 <form method="post" action="<?php echo $this->url->get('registration/register'); ?>" novalidate>
     <h1 class="header">Account Registration</h1>
     <?php echo $form->renderCsrfToken(); ?>

@@ -6,26 +6,27 @@ namespace App\Service\Services;
 
 use App\Application;
 use GuzzleHttp\Client;
+use GuzzleHttp\Exception\GuzzleException;
 
 abstract class SlackNotification
 {
     /**
      * The guzzle client.
-     * 
+     *
      * @var Client
      */
     protected Client $client;
 
     /**
      * The application environment.
-     * 
+     *
      * @var string
      */
     protected string $environment = "";
 
     /**
      * Construct the class instance and guzzle client.
-     * 
+     *
      * @return void
      */
     public function __construct()
@@ -35,23 +36,10 @@ abstract class SlackNotification
     }
 
     /**
-     * Get the webhook url.
-     * 
-     * @return string 
-     */
-    abstract public function getWebHookUrl(): string;
-
-    /**
-     * Get the webhook data.
-     * 
-     * @return array 
-     */
-    abstract public function getWebHookData(): array;
-
-    /**
      * Send the slack notification.
      *
      * @return void
+     * @throws GuzzleException
      */
     final public function send(): void
     {
@@ -62,4 +50,18 @@ abstract class SlackNotification
             ]
         ]);
     }
+
+    /**
+     * Get the webhook url.
+     *
+     * @return string
+     */
+    abstract public function getWebHookUrl(): string;
+
+    /**
+     * Get the webhook data.
+     *
+     * @return array
+     */
+    abstract public function getWebHookData(): array;
 }

@@ -2,34 +2,42 @@
 
 declare(strict_types=1);
 
-namespace App\Controller\Controllers;
+namespace App\Repository\Repositories;
 
-use App\Controller\Traits\RequiresAuthentication;
-use App\Controller\HtmlController;
-use App\Repository\Repositories\Product as ProductRepository;
+use App\Model\Models\User;
+use App\Repository\GenericRepository;
+use Phalcon\Mvc\Model\ResultsetInterface;
 
-class SpecialsController extends HtmlController
+class SpecialRepository extends GenericRepository
 {
-    use RequiresAuthentication;
+    /**
+     * Get the count of specials for the users configured profile and search term request.
+     *
+     * @param User $user
+     * @param string $search
+     * @return int
+     */
+    public function getSpecialsCount(User $user, string $search = ""): int
+    {
+        $placeholders = [
+            'userId' => $user->id,
+            'lastVisitedAt' => $user->last_visited_at,
+            'search' => "%$search%"
+        ];
+
+        return (int)$this->manager->executeQuery(preg_replace("/SELECT.*FROM/s", "SELECT COUNT(1) count FROM", $this->getSpecialsQuery($user, $search)), $placeholders)->getFirst()->toArray()['count'];
+    }
 
     /**
-     * Show the home page.
+     * Get the specials query.
      *
-     * @return void
+     * @param User $user
+     * @param string $search
+     * @return string
      */
-    public function pageAction(int $number = 1): void
+    public function getSpecialsQuery(User $user, string $search = ""): string
     {
-        $user = $this->authentication->getUser();
-
-        $statistics = (new ProductRepository)->getStatistics($user);
-        $statistics->listed = $statistics->products - ($user->show_ignored ? 0 : $statistics->ignoring);
-        $statistics->pages = (int)ceil($statistics->listed / $user->specials_per_page);
-        $statistics->page = ($number > $statistics->pages) ? $statistics->pages : $number;
-        $statistics->offset = ($statistics->page - 1) * $user->specials_per_page;
-
-        $this->view->setVar('user', $user);
-        $this->view->setVar('statistics', $statistics);
-        $this->view->setVar('products', $this->modelsManager->executeQuery("
+        return "
             SELECT 
                 products.id,
                 stores.name store,
@@ -66,16 +74,32 @@ class SpecialsController extends HtmlController
                 AND specials.updated_at IS NULL
                 AND (" . ($user->show_ignored ? 'TRUE' : 'FALSE') . " OR (NOT IFNULL(productUsers.ignoring, 0) AND NOT IFNULL(brandUsers.ignoring, 0)))
                 AND (" . ($user->show_favorites ? 'TRUE' : 'FALSE') . " OR NOT IFNULL(productUsers.favorite, 0))
+                AND (" . (empty($search) ? 'TRUE' : 'FALSE') . " OR products.name LIKE :search:)
             ORDER BY
                 IFNULL(productUsers.favorite, 0) DESC, 
                 IFNULL(productUsers.ignoring, 0) OR IFNULL(brandUsers.ignoring, 0) ASC,
                 IF(specials.created_at > :lastVisitedAt:, 1, 0) DESC,
                 IFNULL(brands.name, 'zzz') ASC, 
                 products.name ASC
-            LIMIT {$statistics->offset}, {$user->specials_per_page}
-        ", [
+        ";
+    }
+
+    /**
+     * Get the paginated resultset of specials for the users configured profile and search term request.
+     *
+     * @param User $user
+     * @param string $offset
+     * @param string $search
+     * @return ResultsetInterface
+     */
+    public function getSpecialsResultset(User $user, string $offset = "0", string $search = ""): ResultsetInterface
+    {
+        $placeholders = [
             'userId' => $user->id,
             'lastVisitedAt' => $user->last_visited_at,
-        ]));
+            'search' => "%$search%"
+        ];
+
+        return $this->manager->executeQuery($this->getSpecialsQuery($user, $search) . "LIMIT $offset, $user->specials_per_page", $placeholders);
     }
 }

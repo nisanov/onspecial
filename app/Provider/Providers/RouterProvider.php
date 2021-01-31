@@ -13,7 +13,7 @@ class RouterProvider extends Generic
 {
     /**
      * Identifies this class instance in the service container.
-     * 
+     *
      * @var string
      */
     const IDENTIFIER = 'router';
@@ -41,6 +41,7 @@ class RouterProvider extends Generic
                 $router = new MvcRouter;
                 $router->removeExtraSlashes(true);
 
+                /** @noinspection PhpIncludeInspection */
                 require_once $routes;
             }
 

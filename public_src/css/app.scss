@@ -18,7 +18,7 @@ body {
   justify-content: space-between;
   background-color: $smoke;
   color: $blue;
-  font-family: "Quicksand";
+  font-family: "Quicksand", sans-serif;
   font-weight: 400;
   font-size: 14px;
   padding: 0;
@@ -152,7 +152,7 @@ body {
       background-color: lighten($smoke, 4%);
       border-radius: 0 0 5px 5px;
       color: $blue;
-      font-family: "Quicksand";
+      font-family: "Quicksand", sans-serif;
       font-weight: 300;
       font-size: 13px;
       display: grid;
@@ -230,7 +230,7 @@ button {
 a {
   background-color: transparent;
   color: $cadet;
-  font-family: "Quicksand";
+  font-family: "Quicksand", sans-serif;
   font-weight: 500;
   font-size: 1em;
   padding: 0;
@@ -304,7 +304,7 @@ header {
   height: 56px;
   background-color: $smoke;
   color: $blue;
-  font-family: "Quicksand";
+  font-family: "Quicksand", sans-serif;
   font-weight: 500;
   font-size: 14px;
   box-shadow: $box-shadow;

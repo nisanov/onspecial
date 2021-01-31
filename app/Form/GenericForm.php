@@ -4,15 +4,15 @@ declare(strict_types=1);
 
 namespace App\Form;
 
-use App\Model\Generic as GenericModel;
+use App\Model\Generic;
 use Exception;
 use Phalcon\Forms\Form;
 
-abstract class Generic extends Form
+abstract class GenericForm extends Form
 {
     /**
      * Whether this form has rendered a CSRF token element.
-     * 
+     *
      * @var bool
      */
     protected bool $hasCsrfToken = false;
@@ -21,8 +21,9 @@ abstract class Generic extends Form
      * Determine whether the specified data is valid for this form configuration.
      *
      * @param array $data
-     * @param GenericModel $entity
+     * @param Generic $entity
      * @return bool
+     * @throws Exception
      */
     public function isValid($data = null, $entity = null): bool
     {
@@ -47,6 +48,26 @@ abstract class Generic extends Form
         }
 
         return $isValid;
+    }
+
+    /**
+     * Get the class name data session key.
+     *
+     * @return string
+     */
+    private function getClassNameData(): string
+    {
+        return get_class($this) . "\Data";
+    }
+
+    /**
+     * Get the class name messages session key.
+     *
+     * @return string
+     */
+    private function getClassNameMessages(): string
+    {
+        return get_class($this) . "\Messages";
     }
 
     /**
@@ -97,7 +118,7 @@ abstract class Generic extends Form
 
     /**
      * Render a hidden CSRF token element.
-     * 
+     *
      * @return void
      */
     public function renderCsrfToken(): void
@@ -110,25 +131,5 @@ abstract class Generic extends Form
         $tokenValue = $security->getToken();
 
         echo "<input type='hidden' name='$tokenKey' value='$tokenValue' />";
-    }
-
-    /**
-     * Get the class name data session key.
-     * 
-     * @return string
-     */
-    private function getClassNameData(): string
-    {
-        return get_class($this) . "\Data";
-    }
-
-    /**
-     * Get the class name messages session key.
-     * 
-     * @return string
-     */
-    private function getClassNameMessages(): string
-    {
-        return get_class($this) . "\Messages";
     }
 }

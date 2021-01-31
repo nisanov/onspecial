@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Task\Tasks;
 
-use Phalcon\Cli\Task;
+use App\Task\Generic;
 use Psy\Configuration;
 use Psy\Shell;
 use Psy\VersionUpdater\Checker;
@@ -12,11 +12,11 @@ use Throwable;
 use Whoops\Exception\Formatter;
 use Whoops\Exception\Inspector;
 
-class PsyshTask extends Task
+class PsyshTask extends Generic
 {
     /**
      * The class alias mapping.
-     * 
+     *
      * @var array
      */
     protected array $classes = [
@@ -41,7 +41,8 @@ class PsyshTask extends Task
         'ProfileController' => 'App\Controller\Controllers\ProfileController',
         'RecoveryController' => 'App\Controller\Controllers\RecoveryController',
         'RegistrationController' => 'App\Controller\Controllers\RegistrationController',
-        'ProductRepository' => 'App\Repository\Repositories\Product',
+        'ProductRepository' => 'App\Repository\Repositories\ProductRepository',
+        'SpecialRepository' => 'App\Repository\Repositories\SpecialRepository',
         'Panther' => 'Symfony\Component\Panther\Client',
         'Captcha' => 'App\Service\Services\Captcha',
         'StoreScrapperNotification' => 'App\Service\Services\SlackNotification\StoreScrapper',
@@ -49,7 +50,7 @@ class PsyshTask extends Task
 
     /**
      * The psy shell instance.
-     * 
+     *
      * @var Shell
      */
     protected Shell $shell;
@@ -79,6 +80,8 @@ class PsyshTask extends Task
         } finally {
             spl_autoload_unregister([$this, 'alias']);
         }
+
+        return -1;
     }
 
     /**
@@ -93,7 +96,7 @@ class PsyshTask extends Task
             return;
         }
 
-        $this->shell->writeStdout("[!] Aliasing '{$class}' to '{$this->classes[$class]}' for this psy shell session.\n");
+        $this->shell->writeStdout("[!] Aliasing '$class' to '{$this->classes[$class]}' for this psy shell session.\n");
 
         class_alias($this->classes[$class], $class);
     }

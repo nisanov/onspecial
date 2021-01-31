@@ -14,7 +14,7 @@ class DbProvider extends Generic
 {
     /**
      * Identifies this class instance in the service container.
-     * 
+     *
      * @var string
      */
     const IDENTIFIER = 'db';
@@ -23,6 +23,7 @@ class DbProvider extends Generic
      * Register this service provider.
      *
      * @return void
+     * @noinspection PhpUnusedParameterInspection
      */
     public function register(): void
     {
@@ -73,6 +74,7 @@ class DbProvider extends Generic
     /**
      * Get the combined raw statement generated from the profile item.
      *
+     * @param Item $profile
      * @return string
      */
     public static function getRawSqlStatement(Item $profile): string
@@ -88,10 +90,10 @@ class DbProvider extends Generic
 
         foreach ($variables as $variable => $value) {
             if (strpos($variable, ':') !== 0) {
-                $variable = ":{$variable}";
+                $variable = ":$variable";
             }
             if (!is_numeric($value)) {
-                $value = "'{$value}'";
+                $value = "'$value'";
             }
             $statement = str_replace($variable, $value, $statement);
         }

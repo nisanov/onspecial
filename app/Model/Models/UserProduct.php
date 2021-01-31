@@ -7,46 +7,46 @@ namespace App\Model\Models;
 use App\Model\Generic;
 
 /**
- * @property-read \App\Model\Models\User $user
- * @property-read \App\Model\Models\Product $product
- * 
- * @method static \App\Model\Models\UserProduct[] find(array $parameters = null)
- * @method static \App\Model\Models\UserProduct findFirst(array $parameters = null)
- * @method static \App\Model\Models\UserProduct findFirstByName(string $name)
+ * @property-read User $user
+ * @property-read Product $product
+ *
+ * @method static UserProduct[] find(array|string $parameters = null)
+ * @method static UserProduct findFirst(array|string|int|null $parameters = null)
+ * @method static UserProduct findFirstByName(string $name)
  */
 class UserProduct extends Generic
 {
     /**
      * The unique record identifier.
-     * 
+     *
      * @var int|null
      */
     public ?int $id = null;
 
     /**
      * The user record identifier.
-     * 
-     * @var int
+     *
+     * @var int|null
      */
     public ?int $user_id = null;
 
     /**
      * The product record identifier.
-     * 
-     * @var int
+     *
+     * @var int|null
      */
     public ?int $product_id = null;
 
     /**
      * Whether the product is a favorite.
-     * 
+     *
      * @var int
      */
     public int $favorite = 0;
 
     /**
      * Whether the product is ignored.
-     * 
+     *
      * @var int
      */
     public int $ignoring = 0;
@@ -64,12 +64,12 @@ class UserProduct extends Generic
 
         $this->belongsTo('user_id', User::class, 'id', [
             'reusable' => true,
-            'alias'    => 'user'
+            'alias' => 'user'
         ]);
 
         $this->belongsTo('product_id', Product::class, 'id', [
             'reusable' => true,
-            'alias'    => 'product'
+            'alias' => 'product'
         ]);
     }
 }

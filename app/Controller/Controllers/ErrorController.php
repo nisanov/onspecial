@@ -9,13 +9,12 @@ use App\Controller\HtmlController;
 class ErrorController extends HtmlController
 {
     /**
-     * Configured in the router provider register method to 
+     * Configured in the router provider register method to
      * handle a 404 page not found responses.
      *
      * @return void
      */
     public function pageNotFoundAction(): void
     {
-        return;
     }
 }

@@ -15,7 +15,7 @@ class WhoopsProvider extends Generic
 {
     /**
      * Identifies this class instance in the service container.
-     * 
+     *
      * @var string
      */
     const IDENTIFIER = 'whoops';

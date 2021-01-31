@@ -10,6 +10,7 @@ use App\Model\Models\Scrape;
 use App\Model\Models\Special;
 use App\Model\Models\Store;
 use Carbon\Carbon;
+use Phalcon\Db\Exception as DbException;
 use Symfony\Component\Panther\Client;
 use Throwable;
 use Whoops\Exception\Formatter;
@@ -19,14 +20,14 @@ abstract class StoreScrapper implements StoreScrapperInterface
 {
     /**
      * The scrape information.
-     * 
+     *
      * @var Scrape
      */
     protected Scrape $scrape;
 
     /**
      * The store scrapping.
-     * 
+     *
      * @var Store
      */
     protected Store $store;
@@ -40,7 +41,7 @@ abstract class StoreScrapper implements StoreScrapperInterface
 
     /**
      * Chrome client arguments.
-     * 
+     *
      * @var array
      */
     protected array $arguments = [
@@ -54,22 +55,23 @@ abstract class StoreScrapper implements StoreScrapperInterface
 
     /**
      * The number of records last scrapped.
-     * 
+     *
      * @var int
      */
     protected int $recordsScrapped = 0;
 
     /**
      * The number of records last expired.
-     * 
+     *
      * @var int
      */
     protected int $recordsExpired = 0;
 
     /**
      * Construct an instance of the store scrapper.
-     * 
+     *
      * @return void
+     * @throws DbException
      */
     public function __construct()
     {
@@ -84,6 +86,8 @@ abstract class StoreScrapper implements StoreScrapperInterface
      * Perform the store scrapper.
      *
      * @return void
+     * @throws DbException
+     * @throws Throwable
      */
     final public function performScrape(): void
     {
@@ -125,7 +129,7 @@ abstract class StoreScrapper implements StoreScrapperInterface
                 $this->scrape->records++;
             }
 
-            $this->recordsScrapped = $generator->getReturn();
+            $this->recordsScrapped = (int)$generator->getReturn();
             $this->archiveExpiredSpecials(); // archive must happen before the store is saved and the updated at is
             $this->store->save();
         } catch (Throwable $exception) {
@@ -138,8 +142,9 @@ abstract class StoreScrapper implements StoreScrapperInterface
 
     /**
      * Archive expired specials for this store instance.
-     * 
+     *
      * @return void
+     * @throws DbException
      */
     public function archiveExpiredSpecials(): void
     {
@@ -154,9 +159,8 @@ abstract class StoreScrapper implements StoreScrapperInterface
         foreach ($products as $product) {
             $product->on_special = 0;
             $product->save();
-            $special = $product->getSpecial();
-            if ($special !== null) {
-                $special->save();
+            if ($product->special !== null) {
+                $product->special->save();
             }
         }
 

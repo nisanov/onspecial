@@ -1,3 +1,5 @@
+@import "../variables";
+
 .btn {
   cursor: pointer;
   outline: 0;
@@ -5,7 +7,7 @@
   border: none;
   border-radius: 3px;
   box-shadow: $box-shadow;
-  font-family: "Quicksand";
+  font-family: "Quicksand", sans-serif;
   font-weight: 700;
   font-size: 14px;
   &.primary {

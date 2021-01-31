@@ -7,39 +7,39 @@ namespace App\Model\Models;
 use App\Model\Generic;
 
 /**
- * @property-read \App\Model\Models\User $user
- * @property-read \App\Model\Models\Brand $brand
- * 
- * @method static \App\Model\Models\UserBrand[] find(array $parameters = null)
- * @method static \App\Model\Models\UserBrand findFirst(array $parameters = null)
- * @method static \App\Model\Models\UserBrand findFirstByName(string $name)
+ * @property-read User $user
+ * @property-read Brand $brand
+ *
+ * @method static UserBrand[] find(array|string $parameters = null)
+ * @method static UserBrand findFirst(array|string|int|null $parameters = null)
+ * @method static UserBrand findFirstByName(string $name)
  */
 class UserBrand extends Generic
 {
     /**
      * The unique record identifier.
-     * 
+     *
      * @var int|null
      */
     public ?int $id = null;
 
     /**
      * The user record identifier.
-     * 
-     * @var int
+     *
+     * @var int|null
      */
     public ?int $user_id = null;
 
     /**
      * The brand record identifier.
-     * 
-     * @var int
+     *
+     * @var int|null
      */
     public ?int $brand_id = null;
 
     /**
      * Whether the brand is ignored.
-     * 
+     *
      * @var int
      */
     public int $ignoring = 0;
@@ -57,12 +57,12 @@ class UserBrand extends Generic
 
         $this->belongsTo('user_id', User::class, 'id', [
             'reusable' => true,
-            'alias'    => 'user'
+            'alias' => 'user'
         ]);
 
         $this->belongsTo('brand_id', Brand::class, 'id', [
             'reusable' => true,
-            'alias'    => 'brand'
+            'alias' => 'brand'
         ]);
     }
 }

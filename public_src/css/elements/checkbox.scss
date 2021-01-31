@@ -1,8 +1,10 @@
+@import "../variables";
+
 .checkbox {
   .label {
     margin: 0 8px 0 26px;
     padding: 0;
-    font-family: "Quicksand";
+    font-family: "Quicksand", sans-serif;
     font-weight: 400;
     font-size: 14px;
   }
@@ -45,8 +47,8 @@
     }
     .widget {
       position: absolute;
-      top: 0px;
-      left: 0px;
+      top: 0;
+      left: 0;
       height: 16px;
       width: 16px;
       background-color: $smoke;
@@ -62,8 +64,8 @@
         content: "";
         left: 8px;
         top: 8px;
-        height: 0px;
-        width: 0px;
+        height: 0;
+        width: 0;
         border-radius: 3px;
         border: solid $smoke;
         border-width: 0 3px 3px 0;

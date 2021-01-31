@@ -28,21 +28,21 @@ class Application
 {
     /**
      * Identifies this class instance in the service container.
-     * 
+     *
      * @var string
      */
     const IDENTIFIER = 'application';
 
     /**
      * The application configuration
-     * 
+     *
      * @var Config|null
      */
     protected ?Config $configuration = null;
 
     /**
      * The application instance.
-     * 
+     *
      * @var MvcApplication
      */
     protected MvcApplication $application;
@@ -54,28 +54,28 @@ class Application
 
     /**
      * The application container.
-     * 
+     *
      * @var FactoryDefault
      */
     protected FactoryDefault $container;
 
     /**
      * The application base path.
-     * 
+     *
      * @var string
      */
     protected string $basePath;
 
     /**
      * The MVC application request.
-     * 
+     *
      * @var string|null
      */
     protected string $request;
 
     /**
      * The MVC application response.
-     * 
+     *
      * @var ResponseInterface|null
      */
     protected ResponseInterface $response;
@@ -92,8 +92,9 @@ class Application
 
     /**
      * Construct the application class instance.
-     * 
+     *
      * @return void
+     * @throws Exception
      */
     public function __construct()
     {
@@ -121,6 +122,40 @@ class Application
     }
 
     /**
+     * Register application providers.
+     *
+     * @return void
+     * @throws Exception
+     */
+    private function registerProviders(): void
+    {
+        $path = $this->basePath . '/app_config/providers.php';
+        if (!file_exists($path) || !is_readable($path)) {
+            throw new Exception('Missing or unreadable providers file at path: ' . $path);
+        }
+
+        /** @noinspection PhpIncludeInspection */
+        $providers = require $path;
+        foreach ($providers as $className) {
+            /** @var GenericInterface $provider */
+            $provider = new $className($this->container);
+            $provider->register();
+        }
+    }
+
+    /**
+     * Register the application namespaces.
+     *
+     * @return void
+     */
+    private function registerNamespaces(): void
+    {
+        $loader = new Loader();
+        $loader->registerNamespaces(['App' => $this->basePath . '/app/']);
+        $loader->register();
+    }
+
+    /**
      * Get the default application.
      *
      * @return Application
@@ -130,12 +165,12 @@ class Application
         /** @var FactoryDefault $container */
         $container = Di::getDefault();
 
-        return $container->getApplication();
+        return $container->get('application');
     }
 
     /**
      * Run the application.
-     * 
+     *
      * @param string $request
      * @return void
      */
@@ -164,16 +199,6 @@ class Application
     }
 
     /**
-     * Get the application environment.
-     *
-     * @return string
-     */
-    public function getEnvironment(): string
-    {
-        return $this->getConfig()->path('application.environment');
-    }
-
-    /**
      * Determine whether the current application environment is production.
      *
      * @return bool
@@ -184,13 +209,33 @@ class Application
     }
 
     /**
+     * Get the application environment.
+     *
+     * @return string
+     */
+    public function getEnvironment(): string
+    {
+        return $this->getConfig()->path('application.environment');
+    }
+
+    /**
+     * Get the application configuration service provider.
+     *
+     * @return Config
+     */
+    public function getConfig(): Config
+    {
+        return $this->container->get('config');
+    }
+
+    /**
      * Determine whether the current application is in debug mode.
      *
      * @return bool
      */
     public function isDebug(): bool
     {
-        return $this->getConfig()->path('application.debug') === true;
+        return $this->getConfig()->path('application.debug') === "true";
     }
 
     /**
@@ -215,7 +260,7 @@ class Application
 
     /**
      * Get whether the application is being run at the command line.
-     * 
+     *
      * @return bool
      */
     public function isCommandLine(): bool
@@ -225,12 +270,13 @@ class Application
 
     /**
      * Get the application base path.
-     * 
+     *
+     * @param string|null $append
      * @return string
      */
-    public function getBasePath(): string
+    public function getBasePath(?string $append = null): string
     {
-        return $this->basePath;
+        return $this->basePath . ($append ?: "");
     }
 
     /**
@@ -245,7 +291,7 @@ class Application
 
     /**
      * Get the application container.
-     * 
+     *
      * @return FactoryDefault
      */
     public function getContainer(): FactoryDefault
@@ -254,84 +300,42 @@ class Application
     }
 
     /**
-     * Get the application configuration service provider.
-     * 
-     * @return Config
-     */
-    public function getConfig(): Config
-    {
-        return $this->container->getConfig();
-    }
-
-    /**
      * Get the application session service provider.
-     * 
+     *
      * @return SessionManager
      */
     public function getSession(): SessionManager
     {
-        return $this->container->getSession();
+        return $this->container->get('session');
     }
 
     /**
      * Get the application security service provider.
-     * 
+     *
      * @return Security
      */
     public function getSecurity(): Security
     {
-        return $this->container->getSecurity();
+        return $this->container->get('security');
     }
 
     /**
      * Get the application logger service provider.
-     * 
+     *
      * @return Logger
      */
     public function getLogger(): Logger
     {
-        return $this->container->getLogger();
+        return $this->container->get('logger');
     }
 
     /**
      * Get the application database profiler service provider.
-     * 
+     *
      * @return Profiler
      */
     public function getProfiler(): Profiler
     {
-        return $this->container->getProfiler();
-    }
-
-    /**
-     * Register application providers.
-     * 
-     * @return void
-     */
-    private function registerProviders(): void
-    {
-        $path = $this->basePath . '/app_config/providers.php';
-        if (!file_exists($path) || !is_readable($path)) {
-            throw new Exception('Missing or unreadable providers file at path: ' . $path);
-        }
-
-        $providers = require $path;
-        foreach ($providers as $className) {
-            /** @var GenericInterface $provider */
-            $provider = new $className($this->container);
-            $provider->register();
-        }
-    }
-
-    /**
-     * Register the application namespaces.
-     *
-     * @return void
-     */
-    private function registerNamespaces(): void
-    {
-        $loader = new Loader();
-        $loader->registerNamespaces(['App' => $this->basePath . '/app/']);
-        $loader->register();
+        return $this->container->get('profiler');
     }
 }

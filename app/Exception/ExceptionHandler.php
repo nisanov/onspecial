@@ -20,6 +20,7 @@ class ExceptionHandler extends Injectable
      * @param Dispatcher $dispatcher
      * @param Exception $exception
      * @return bool
+     * @noinspection PhpUnusedParameterInspection
      */
     public function beforeException(Event $event, Dispatcher $dispatcher, Exception $exception): bool
     {

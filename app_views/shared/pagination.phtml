@@ -1,8 +1,21 @@
+<?php
+
+declare(strict_types=1);
+
+use App\Model\Models\User;
+
+/**
+ * @var User $user
+ * @var array $products
+ * @var array $statistics
+ * @var string $position
+ */
+?>
 <div class="pagination <?php echo $position; ?>">
     <div class="wrapper">
         <div class="configuration">
             <?php if ($user->show_ignored) : ?>
-                <a class="<?php echo $statistics->ignoring === '0' ? 'btn disabled' : 'btn'; ?>" href="<?php echo $statistics->ignoring === '0' ? 'javascript:void(0);' : $this->url->get('profile/show/ignored/0'); ?>">
+                <a class="<?php echo $statistics['ignoring'] === '0' ? 'btn disabled' : 'btn'; ?>" href="<?php echo $statistics['ignoring'] === '0' ? 'javascript:void(0);' : $this->url->get('profile/show/ignored/0'); ?>">
                     Hide
                     <svg>
                         <use xlink:href="<?php echo $this->url->getStatic('img/sprites.svg'); ?>#ban"></use>
@@ -10,7 +23,7 @@
                     Ignored
                 </a>
             <?php else : ?>
-                <a class="<?php echo $statistics->ignoring === '0' ? 'btn disabled' : 'btn'; ?>" href="<?php echo $statistics->ignoring === '0' ? 'javascript:void(0);' : $this->url->get('profile/show/ignored/1'); ?>">
+                <a class="<?php echo $statistics['ignoring'] === '0' ? 'btn disabled' : 'btn'; ?>" href="<?php echo $statistics['ignoring'] === '0' ? 'javascript:void(0);' : $this->url->get('profile/show/ignored/1'); ?>">
                     Show
                     <svg>
                         <use xlink:href="<?php echo $this->url->getStatic('img/sprites.svg'); ?>#ban"></use>
@@ -19,7 +32,7 @@
                 </a>
             <?php endif; ?>
             <?php if ($user->show_favorites) : ?>
-                <a class="<?php echo $statistics->favoriting === '0' ? 'btn disabled' : 'btn'; ?>" href="<?php echo $statistics->favoriting === '0' ? 'javascript:void(0);' : $this->url->get('profile/show/favorites/0'); ?>">
+                <a class="<?php echo $statistics['favoriting'] === '0' ? 'btn disabled' : 'btn'; ?>" href="<?php echo $statistics['favoriting'] === '0' ? 'javascript:void(0);' : $this->url->get('profile/show/favorites/0'); ?>">
                     Hide
                     <svg>
                         <use xlink:href="<?php echo $this->url->getStatic('img/sprites.svg'); ?>#heart"></use>
@@ -27,7 +40,7 @@
                     Favorites
                 </a>
             <?php else : ?>
-                <a class="<?php echo $statistics->favoriting === '0' ? 'btn disabled' : 'btn'; ?>" href="<?php echo $statistics->favoriting === '0' ? 'javascript:void(0);' : $this->url->get('profile/show/favorites/1'); ?>">
+                <a class="<?php echo $statistics['favoriting'] === '0' ? 'btn disabled' : 'btn'; ?>" href="<?php echo $statistics['favoriting'] === '0' ? 'javascript:void(0);' : $this->url->get('profile/show/favorites/1'); ?>">
                     Show
                     <svg>
                         <use xlink:href="<?php echo $this->url->getStatic('img/sprites.svg'); ?>#heart"></use>
@@ -37,7 +50,7 @@
             <?php endif; ?>
         </div>
         <div class="navigation">
-            <?php if ($statistics->page === 1) : ?>
+            <?php if ($statistics['page'] === 1) : ?>
                 <a class="first inactive" href="javascript:void(0);">
                     <svg>
                         <use xlink:href="<?php echo $this->url->getStatic('img/sprites.svg'); ?>#angle-double-left"></use>
@@ -49,25 +62,25 @@
                     </svg>
                 </a>
             <?php else : ?>
-                <a class="first" href="<?php echo $this->url->get('specials/page/1'); ?>">
+                <a class="first" href="<?php echo $this->url->get('special/page/1'); ?>">
                     <svg>
                         <use xlink:href="<?php echo $this->url->getStatic('img/sprites.svg'); ?>#angle-double-left"></use>
                     </svg>
                 </a>
-                <a class="previous" href="<?php echo $this->url->get('specials/page/' . ($statistics->page - 1)); ?>">
+                <a class="previous" href="<?php echo $this->url->get('special/page/' . ($statistics['page'] - 1)); ?>">
                     <svg>
                         <use xlink:href="<?php echo $this->url->getStatic('img/sprites.svg'); ?>#angle-left"></use>
                     </svg>
                 </a>
             <?php endif; ?>
-            <?php for ($page = 1; $page <= $statistics->pages; $page++) : ?>
-                <?php if ($page === $statistics->page) : ?>
+            <?php for ($page = 1; $page <= $statistics['pages']; $page++) : ?>
+                <?php if ($page === $statistics['page']) : ?>
                     <a class="page active" href="javascript:void(0);"><span><?php echo $page; ?></span></a>
                 <?php else : ?>
-                    <a class="page" href="<?php echo $this->url->get('specials/page/' . $page); ?>"><?php echo $page; ?></a>
+                    <a class="page" href="<?php echo $this->url->get('special/page/' . $page); ?>"><?php echo $page; ?></a>
                 <?php endif; ?>
             <?php endfor; ?>
-            <?php if ($statistics->page === $statistics->pages) : ?>
+            <?php if ($statistics['page'] === $statistics['pages']) : ?>
                 <a class="next inactive" href="javascript:void(0);">
                     <svg>
                         <use xlink:href="<?php echo $this->url->getStatic('img/sprites.svg'); ?>#angle-right"></use>
@@ -79,12 +92,12 @@
                     </svg>
                 </a>
             <?php else : ?>
-                <a class="next" href="<?php echo $this->url->get('specials/page/' . ($statistics->page + 1)); ?>">
+                <a class="next" href="<?php echo $this->url->get('special/page/' . ($statistics['page'] + 1)); ?>">
                     <svg>
                         <use xlink:href="<?php echo $this->url->getStatic('img/sprites.svg'); ?>#angle-right"></use>
                     </svg>
                 </a>
-                <a class="last" href="<?php echo $this->url->get('specials/page/' . $statistics->pages); ?>">
+                <a class="last" href="<?php echo $this->url->get('special/page/' . $statistics['pages']); ?>">
                     <svg>
                         <use xlink:href="<?php echo $this->url->getStatic('img/sprites.svg'); ?>#angle-double-right"></use>
                     </svg>

@@ -7,6 +7,7 @@ namespace App\Controller\Controllers;
 use App\Controller\HtmlController;
 use App\Model\Models\User;
 use Phalcon\Mvc\View;
+use Phalcon\Security\Exception;
 
 class EmailController extends HtmlController
 {
@@ -29,7 +30,7 @@ class EmailController extends HtmlController
     {
         if ($this->application->isProduction()) {
 
-            $this->redirector->toLocation('specials/page/1')->withError("The Email Controller is only accessible during development");
+            $this->redirector->toLocation('special/page/1')->withError("The Email Controller is only accessible during development");
 
             return false;
         }
@@ -41,6 +42,7 @@ class EmailController extends HtmlController
      * Show the registration email.
      *
      * @return void
+     * @throws Exception
      */
     public function registrationAction(): void
     {
@@ -57,6 +59,7 @@ class EmailController extends HtmlController
      * Show the registration email.
      *
      * @return void
+     * @throws Exception
      */
     public function recoveryAction(): void
     {

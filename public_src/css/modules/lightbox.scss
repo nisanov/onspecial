@@ -1,3 +1,5 @@
+@import "../variables";
+
 .lightbox {
   position: fixed;
   display: flex;
@@ -9,7 +11,7 @@
   background: rgb(0 0 0 / 90%);
   transition: $transition;
   transform: scale(0);
-  transform-origin: center center;  
+  transform-origin: center center;
   opacity: 0.0;
   .close {
     position: fixed;
@@ -22,7 +24,7 @@
     background: transparent;
     outline: 0;
     border: none;
-    font-family: "Quicksand";
+    font-family: "Quicksand", sans-serif;
     font-weight: 300;
     font-size: 60px;
     line-height: 40px;

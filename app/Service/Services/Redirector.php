@@ -10,7 +10,7 @@ use Phalcon\Http\ResponseInterface;
 class Redirector extends Generic
 {
     /**
-     * The location 
+     * The location
      */
     protected string $location;
 

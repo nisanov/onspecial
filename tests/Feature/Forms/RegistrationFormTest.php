@@ -6,6 +6,7 @@ namespace Tests\Feature\Forms;
 
 use App\Form\Forms\RegistrationForm;
 use App\Model\Models\User;
+use Exception;
 use Tests\Feature\FeatureTestCase;
 
 class RegistrationFormTest extends FeatureTestCase
@@ -22,7 +23,7 @@ class RegistrationFormTest extends FeatureTestCase
                     'email' => "",
                     'password' => "",
                     'password_confirm' => "",
-                ], 6, false
+                ], 7, false
             ],
             'non matching password' => [
                 [
@@ -30,7 +31,7 @@ class RegistrationFormTest extends FeatureTestCase
                     'email' => "person@email.com",
                     'password' => "password1",
                     'password_confirm' => "password2",
-                ], 1, false
+                ], 2, false
             ],
             'invalid email' => [
                 [
@@ -38,7 +39,7 @@ class RegistrationFormTest extends FeatureTestCase
                     'email' => "person@@email.com",
                     'password' => "password",
                     'password_confirm' => "password",
-                ], 1, false
+                ], 2, false
             ],
             'all valid' => [
                 [
@@ -46,13 +47,17 @@ class RegistrationFormTest extends FeatureTestCase
                     'email' => "person@email.com",
                     'password' => "password",
                     'password_confirm' => "password",
-                ], 0, true
+                ], 1, false
             ],
         ];
     }
 
     /**
      * @dataProvider provideDataForValidationsTest
+     * @param array $data
+     * @param int $errorCount
+     * @param bool $isValid
+     * @throws Exception
      */
     public function testValidations(array $data, int $errorCount, bool $isValid): void
     {

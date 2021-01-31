@@ -6,7 +6,10 @@ namespace App\Controller\Controllers;
 
 use App\Controller\JsonController;
 use App\Controller\Traits\RequiresAuthentication;
-use App\Repository\Repositories\Product as ProductRepository;
+use App\Exception\Exceptions\ModelNotFoundException;
+use App\Repository\Repositories\ProductRepository as ProductRepository;
+use Phalcon\Cache\Exception\InvalidArgumentException;
+use Phalcon\Db\Exception as DbException;
 
 class BrandController extends JsonController
 {
@@ -14,8 +17,10 @@ class BrandController extends JsonController
 
     /**
      * Change the state of a user to brand ignore relationship.
-     * 
+     *
+     * @param int $brandId
      * @return array
+     * @throws ModelNotFoundException|DbException|InvalidArgumentException
      */
     public function ignoreAction(int $brandId): array
     {
@@ -25,9 +30,9 @@ class BrandController extends JsonController
 
         return [
             'message' => $state === true
-                ? "{$brand->name} has been marked as an ignored brand"
-                : "{$brand->name} is no longer marked as an ignored brand",
-            'ignoring' => (new ProductRepository)->getStatistics($user)->ignoring,
+                ? "$brand->name has been marked as an ignored brand"
+                : "$brand->name is no longer marked as an ignored brand",
+            'ignoring' => (new ProductRepository)->getStatistics($user)['ignoring'],
         ];
     }
 }
