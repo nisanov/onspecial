@@ -1,103 +1,154 @@
 @import "../variables";
 
 .pagination {
-    &.top {
-        margin: 66px auto 4px auto;
-        .wrapper {
-            flex-direction: column;
-            .configuration {
-                padding: 4px 4px 6px 4px;
-                border-bottom: 1px solid darken($smoke, 5%);
-            }
-            .navigation {
-                padding: 8px 4px 4px 4px;
-            }
-        }
-    }
-    &.bottom {
-        margin: 4px auto 66px auto;
-        .wrapper {
-            flex-direction: column-reverse;
-            .configuration {
-                padding: 6px 4px 4px 4px;
-                border-top: 1px solid darken($smoke, 5%);
-            }
-            .navigation {
-                padding: 4px 4px 8px 4px;
-            }
-        }
-    }
-    max-width: 500px;
+
+  max-width: 500px;
+
+  &.top {
+    margin: 66px auto 4px auto;
+
     .wrapper {
-        display: flex;
-        margin: 4px;
-        padding: 4px;
-        background-color: lighten($smoke, 3%);
-        border-radius: 5px;
-        border: 1px solid darken($smoke, 5%);
-        .configuration {
-            display: flex;
-            flex-direction: row;
-            justify-content: space-around;
-            align-items: center;
-            a {
-                display: flex;
-                flex-direction: row;
-                justify-content: center;
-                align-items: center;
-                text-decoration: none;
-                box-shadow: none;
-                svg {
-                    margin: 0 5px;
-                    width: 1.2em;
-                    height: 1.2em;
-                    fill: lighten($blue, 25%);
-                }
-            }
-        }
-        .navigation {
-            display: flex;
-            flex-direction: row;
-            justify-content: center;
-            align-items: center;
-            a {
-                width: 40px;
-                display: flex;
-                flex-direction: row;
-                justify-content: center;
-                align-items: center;
-                font-weight: 700;
-                color: lighten($blue, 25%);
-                font-size: 1.1em;
-                text-decoration: none;
-                outline: none;
-                cursor: pointer;
-                span {
-                    display: flex;
-                    flex-direction: row;
-                    justify-content: center;
-                    align-items: center;
-                    width: 26px;
-                    height: 26px;
-                    border-radius: 50%;
-                    background: lighten($purple, 25%);
-                    color: $white;
-                }
-                svg {
-                    width: 1.2em;
-                    height: 1.2em;
-                    fill: lighten($blue, 25%);
-                }
-                &.inactive {
-                    cursor: not-allowed;
-                    opacity: 0.25;
-                }
-                &.active {
-                    cursor: not-allowed;
-                    color: $cadet;
-                    opacity: 0.75;
-                }
-            }
-        }
+      flex-direction: column;
+
+      .configuration {
+        padding: 4px 4px 6px 4px;
+        border-bottom: 1px solid darken($smoke, 5%);
+      }
+
+      .navigation {
+        padding: 8px 4px 4px 4px;
+      }
     }
+  }
+
+  &.bottom {
+    margin: 4px auto 66px auto;
+
+    .wrapper {
+      flex-direction: column-reverse;
+
+      .search,
+      .configuration {
+        padding: 6px 4px 4px 4px;
+        border-top: 1px solid darken($smoke, 5%);
+      }
+
+      .navigation {
+        padding: 4px 4px 8px 4px;
+      }
+    }
+  }
+
+  .wrapper {
+    display: flex;
+    margin: 4px;
+    padding: 4px;
+    background-color: lighten($smoke, 3%);
+    border-radius: 5px;
+    border: 1px solid darken($smoke, 5%);
+
+    .search,
+    .configuration {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-around;
+      align-items: center;
+
+      a {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        text-decoration: none;
+        box-shadow: none;
+
+        svg {
+          margin: 0 5px;
+          width: 1.2em;
+          height: 1.2em;
+          fill: lighten($blue, 25%);
+        }
+      }
+    }
+
+    .search {
+      padding: 10px 4px;
+      justify-content: center;
+      border-bottom: 1px solid darken($smoke, 5%);
+
+      label {
+        margin: 0 0 0 8px;
+        font-family: "Quicksand", sans-serif;
+        font-weight: 700;
+        font-size: 14px;
+        color: rgb(96 157 159);
+        cursor: pointer;
+      }
+
+      .input {
+        width: 300px;
+        border-bottom: none;
+
+        input {
+          padding: 2px 0;
+          font-size: 15px;
+          color: $orange;
+        }
+      }
+
+      .btn {
+        padding: 2px 0 2px 6px;
+      }
+    }
+
+    .navigation {
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      align-items: center;
+
+      a {
+        width: 40px;
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        font-weight: 700;
+        color: lighten($blue, 25%);
+        font-size: 1.1em;
+        text-decoration: none;
+        outline: none;
+        cursor: pointer;
+
+        span {
+          display: flex;
+          flex-direction: row;
+          justify-content: center;
+          align-items: center;
+          width: 26px;
+          height: 26px;
+          border-radius: 50%;
+          background: lighten($purple, 25%);
+          color: $white;
+        }
+
+        svg {
+          width: 1.2em;
+          height: 1.2em;
+          fill: lighten($blue, 25%);
+        }
+
+        &.inactive {
+          cursor: not-allowed;
+          opacity: 0.25;
+        }
+
+        &.active {
+          cursor: not-allowed;
+          color: $cadet;
+          opacity: 0.75;
+        }
+      }
+    }
+  }
 }

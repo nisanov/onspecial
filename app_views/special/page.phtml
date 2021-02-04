@@ -3,11 +3,12 @@
 declare(strict_types=1);
 
 use App\Model\Models\User;
+use App\Model\Structures\SpecialsStatistics;
 
 /**
  * @var User $user
  * @var array $products
- * @var array $statistics
+ * @var SpecialsStatistics $statistics
  */
 ?>
 <header>
@@ -19,11 +20,15 @@ use App\Model\Models\User;
         </a>
         <div class="statistics">
             <?php if ($user->show_ignored) : ?>
-                <div><b><?php echo $statistics['products']; ?></b> Products Available</div>
-            <?php else : ?>
-                <div><b><?php echo $statistics['products']; ?></b> Products Available - Ignored <b><span id="ignoring"><?php echo $statistics['ignoring']; ?></span></b></div>
+                <div><b><?php echo $statistics->getAvailable(); ?></b> Products Available</div>
+            <?php else: ?>
+                <div><b><?php echo $statistics->getAvailable(); ?></b> Products Available - Ignored <b><span id="ignoring"><?php echo $statistics->getIgnoring(); ?></span></b></div>
             <?php endif; ?>
-            <div><b><?php echo $statistics['offset'] + 1; ?></b> - <b><?php echo $statistics['offset'] + count($products); ?></b> Products Listed - Seen <b><span id="seen">0</span></b></div>
+            <?php if (count($products)): ?>
+                <div><b><?php echo $statistics->getOffset() + 1; ?></b> - <b><?php echo $statistics->getOffset() + count($products); ?></b> Products Listed - Seen <b><span id="seen">0</span></b></div>
+            <?php else: ?>
+                <div><b>0</b> Products Listed</div>
+            <?php endif; ?>
         </div>
     </div>
 </header>
@@ -31,62 +36,66 @@ use App\Model\Models\User;
 <?php $this->partial('shared/pagination', ['position' => 'top']); ?>
 
 <div class="products">
-    <?php foreach ($products as $index => $product) : ?>
-        <div class="product" data-id="<?php echo $product->id; ?>" data-brand-id="<?php echo $product->brand_id; ?>" data-position="<?php echo $index + 1; ?>" data-product='<?php echo urlencode(json_encode($product)); ?>'>
-            <div class="content">
-                <div class="thumbnail">
-                    <button class="svg search-plus">
-                        <svg>
-                            <use xlink:href="<?php echo $this->url->getStatic('img/sprites.svg'); ?>#search-plus"></use>
-                        </svg>
-                    </button>
-                    <img data-image="<?php echo $product->image; ?>" data-src="<?php echo $product->thumb; ?>" src="<?php echo $this->url->getStatic('img/loader.gif'); ?>" onerror="this.src='<?php echo $this->url->getStatic('img/placeholder.jpg'); ?>'" alt="<?php echo $product->name; ?>" />
-                    <?php if ($product->is_new) : ?>
-                        <span class="new-badge">new</span>
-                    <?php endif; ?>
-                </div>
-                <div class="information">
-                    <div><?php echo $product->name; ?></div>
-                    <div class="price">
-                        <span class="current">$<?php echo $product->current_price; ?></span><span class="previous"> was $<?php echo $product->previous_price; ?></span>
+    <?php if (count($products)): ?>
+        <?php foreach ($products as $index => $product) : ?>
+            <div class="product" data-id="<?php echo $product->id; ?>" data-brand-id="<?php echo $product->brand_id; ?>" data-position="<?php echo $index + 1; ?>" data-product='<?php echo urlencode(json_encode($product)); ?>'>
+                <div class="content">
+                    <div class="thumbnail">
+                        <button class="svg search-plus">
+                            <svg>
+                                <use xlink:href="<?php echo $this->url->getStatic('img/sprites.svg'); ?>#search-plus"></use>
+                            </svg>
+                        </button>
+                        <img data-image="<?php echo $product->image; ?>" data-src="<?php echo $product->thumb; ?>" src="<?php echo $this->url->getStatic('img/loader.gif'); ?>" onerror="this.src='<?php echo $this->url->getStatic('img/placeholder.jpg'); ?>'" alt="<?php echo $product->name; ?>"/>
+                        <?php if ($product->is_new) : ?>
+                            <span class="new-badge">new</span>
+                        <?php endif; ?>
+                    </div>
+                    <div class="information">
+                        <div><?php echo $product->name; ?></div>
+                        <div class="price">
+                            <span class="current">$<?php echo $product->current_price; ?></span><span class="previous"> was $<?php echo $product->previous_price; ?></span>
+                        </div>
+                    </div>
+                    <div class="controls">
+                        <?php if ($product->favorite_product) : ?>
+                            <button class="svg favorite favorited">
+                                <svg>
+                                    <use xlink:href="<?php echo $this->url->getStatic('img/sprites.svg'); ?>#heart-solid"></use>
+                                </svg>
+                            </button>
+                        <?php else : ?>
+                            <button class="svg favorite">
+                                <svg>
+                                    <use xlink:href="<?php echo $this->url->getStatic('img/sprites.svg'); ?>#heart"></use>
+                                </svg>
+                            </button>
+                        <?php endif; ?>
+                        <?php if ($product->ignoring_product || $product->ignoring_brand) : ?>
+                            <button class="svg ignoring ignored">
+                                <svg>
+                                    <use xlink:href="<?php echo $this->url->getStatic('img/sprites.svg'); ?>#ban"></use>
+                                </svg>
+                            </button>
+                        <?php else : ?>
+                            <button class="svg ignoring">
+                                <svg>
+                                    <use xlink:href="<?php echo $this->url->getStatic('img/sprites.svg'); ?>#ban"></use>
+                                </svg>
+                            </button>
+                        <?php endif; ?>
+                        <button class="svg dropdown">
+                            <svg>
+                                <use xlink:href="<?php echo $this->url->getStatic('img/sprites.svg'); ?>#angle-down"></use>
+                            </svg>
+                        </button>
                     </div>
                 </div>
-                <div class="controls">
-                    <?php if ($product->favorite_product) : ?>
-                        <button class="svg favorite favorited">
-                            <svg>
-                                <use xlink:href="<?php echo $this->url->getStatic('img/sprites.svg'); ?>#heart-solid"></use>
-                            </svg>
-                        </button>
-                    <?php else : ?>
-                        <button class="svg favorite">
-                            <svg>
-                                <use xlink:href="<?php echo $this->url->getStatic('img/sprites.svg'); ?>#heart"></use>
-                            </svg>
-                        </button>
-                    <?php endif; ?>
-                    <?php if ($product->ignoring_product || $product->ignoring_brand) : ?>
-                        <button class="svg ignoring ignored">
-                            <svg>
-                                <use xlink:href="<?php echo $this->url->getStatic('img/sprites.svg'); ?>#ban"></use>
-                            </svg>
-                        </button>
-                    <?php else : ?>
-                        <button class="svg ignoring">
-                            <svg>
-                                <use xlink:href="<?php echo $this->url->getStatic('img/sprites.svg'); ?>#ban"></use>
-                            </svg>
-                        </button>
-                    <?php endif; ?>
-                    <button class="svg dropdown">
-                        <svg>
-                            <use xlink:href="<?php echo $this->url->getStatic('img/sprites.svg'); ?>#angle-down"></use>
-                        </svg>
-                    </button>
-                </div>
             </div>
-        </div>
-    <?php endforeach; ?>
+        <?php endforeach; ?>
+    <?php else: ?>
+        <div class="empty">No matching specials were found!</div>
+    <?php endif; ?>
 </div>
 
 <?php $this->partial('shared/pagination', ['position' => 'bottom']); ?>

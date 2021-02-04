@@ -46,6 +46,7 @@ class PsyshTask extends Generic
         'Panther' => 'Symfony\Component\Panther\Client',
         'Captcha' => 'App\Service\Services\Captcha',
         'StoreScrapperNotification' => 'App\Service\Services\SlackNotification\StoreScrapper',
+        'SpecialsStatistics' => 'App\Model\Structures\SpecialsStatistics',
     ];
 
     /**

@@ -6,6 +6,7 @@ namespace App\Controller\Controllers;
 
 use App\Controller\HtmlController;
 use App\Controller\Traits\RequiresAuthentication;
+use App\Model\Structures\SpecialsStatistics;
 use App\Repository\Repositories\ProductRepository as ProductRepository;
 use App\Repository\Repositories\SpecialRepository;
 use Phalcon\Cache\Exception\InvalidArgumentException;
@@ -27,16 +28,18 @@ class SpecialController extends HtmlController
         $user = $this->authentication->getUser();
         $search = $this->request->getQuery('search', 'trim', "");
 
-        $repository = new SpecialRepository;
+        $specials = new SpecialRepository;
 
-        $statistics = (new ProductRepository)->getStatistics($user);
-        $statistics['listed'] = $repository->getSpecialsCount($user, $search);
+        $stats = (new SpecialsStatistics($user, $specials->getSpecialsCount($user, $search)))->setPage($number);
+
+        $statistics = (new ProductRepository)->getStatistics($user)->toArray();
+        $statistics['listed'] = $specials->getSpecialsCount($user, $search);
         $statistics['pages'] = (int)ceil($statistics['listed'] / $user->specials_per_page);
         $statistics['page'] = ($number > $statistics['pages']) ? $statistics['pages'] : $number;
         $statistics['offset'] = ($statistics['page'] - 1) * $user->specials_per_page;
 
         $this->view->setVar('user', $user);
-        $this->view->setVar('statistics', $statistics);
-        $this->view->setVar('products', $repository->getSpecialsResultset($user, (string)$statistics['offset'], $search));
+        $this->view->setVar('statistics', $stats);
+        $this->view->setVar('products', $specials->getSpecialsResultset($user, (string)$stats->getOffset(), $search));
     }
 }

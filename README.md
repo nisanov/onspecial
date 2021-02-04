@@ -101,7 +101,7 @@ A supermarket products on special aggregator web application.
 - Example of debugging psy shell at the command line:
 
     ```bash
-    docker-compose exec php php -dxdebug.remote_host=172.17.0.1 console.php psysh
+    docker-compose exec php php -dxdebug.client_host=172.17.0.1 console.php psysh
     ```
 
 ## Testing
@@ -135,5 +135,5 @@ A supermarket products on special aggregator web application.
 - Install and renew lets encrypt certificate:
 
     ```bash
-    docker-compose exec nginx certbot --nginx -d onspecial.info
+    docker-compose exec nginx certbot --nginx -d specials.onthewifi.com
     ```

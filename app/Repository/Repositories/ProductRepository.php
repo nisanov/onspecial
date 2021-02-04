@@ -6,6 +6,7 @@ namespace App\Repository\Repositories;
 
 use App\Model\Models\User;
 use App\Repository\GenericRepository;
+use Phalcon\Mvc\Model\Row;
 
 class ProductRepository extends GenericRepository
 {
@@ -13,13 +14,14 @@ class ProductRepository extends GenericRepository
      * Get statistical information on the specified user.
      *
      * @param User $user
-     * @return array [
+     * @return Row
+     * array [
      *  'products' => string, // number of products available
      *  'ignoring' => string, // number of products the user is ignoring
      *  'favoriting' => string, // number of products the user is favoriting
      * ]
      */
-    public function getStatistics(User $user): array
+    public function getStatistics(User $user): Row
     {
         $query = "
             SELECT
@@ -36,6 +38,6 @@ class ProductRepository extends GenericRepository
                 products.on_special
         ";
 
-        return $this->manager->executeQuery($query, ['userId' => $user->id])->getFirst()->toArray();
+        return $this->manager->executeQuery($query, ['userId' => $user->id])->getFirst();
     }
 }
