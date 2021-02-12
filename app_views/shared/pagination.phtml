@@ -51,17 +51,17 @@ use App\Model\Structures\SpecialsStatistics;
             <?php endif; ?>
         </div>
         <div class="search">
-            <label for="search">Search:</label>
+            <label for="search_<?php echo $position; ?>">Search:</label>
             <div class="input">
-                <input id="search" name="search" type="text" value="<?php echo $this->request->getQuery('search', 'trim', ""); ;?>">
+                <input id="search_<?php echo $position; ?>" name="search" type="text" value="<?php echo $this->request->getQuery('search', 'trim', ""); ?>">
                 <span class="underline"></span>
             </div>
-            <a class="btn" href="<?php echo $this->url->get('special/page/' . $statistics->getPage() . '/' ); ?>" onclick="this.href += '?search='+ encodeURIComponent(document.getElementById('search').value);">
+            <a class="btn btn-search" href="<?php echo $this->url->get('special/page/' . $statistics->getPage() . '/' ); ?>">
                 <svg>
                     <use xlink:href="<?php echo $this->url->getStatic('img/sprites.svg'); ?>#search"></use>
                 </svg>
             </a>
-            <a class="btn" href="<?php echo $this->url->get('special/page/' . $statistics->getPage()); ?>">
+            <a class="btn btn-reset" href="<?php echo $this->url->get('special/page/' . $statistics->getPage()); ?>">
                 <svg>
                     <use xlink:href="<?php echo $this->url->getStatic('img/sprites.svg'); ?>#times"></use>
                 </svg>

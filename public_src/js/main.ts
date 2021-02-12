@@ -2,6 +2,7 @@ import { notify } from './modules/notify';
 import fab from './modules/fab';
 import http from './modules/http';
 import label from './modules/label';
+import search from './modules/search';
 import products from './modules/products';
 
 const danger = document.querySelector('.alert.alert-danger');
@@ -22,4 +23,5 @@ if (success !== null && success.innerHTML !== '') {
 fab.initialize();
 http.initialize();
 label.initialize();
+search.initialize();
 products.initialize();
