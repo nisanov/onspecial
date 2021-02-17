@@ -56,7 +56,7 @@ use App\Model\Structures\SpecialsStatistics;
                         <div class="price">
                             <span class="current">$<?php echo $product->current_price; ?></span><span class="previous"> was $<?php echo $product->previous_price; ?></span>
                             <?php if (!empty($product->ratio_price)): ?>
-                                <span class="ratio"><?php echo $product->ratio_price; ?></span>
+                                <span class="ratio"><?php echo str_replace(' / ', ' per ', $product->ratio_price); ?></span>
                             <?php endif; ?>
                         </div>
                     </div>

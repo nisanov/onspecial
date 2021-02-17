@@ -70,9 +70,10 @@
         box-shadow: none;
 
         svg {
-          margin: 0 5px;
-          width: 1.2em;
-          height: 1.2em;
+          padding: 0;
+          margin: 0 3px;
+          width: 1em;
+          height: 1em;
           fill: lighten($blue, 25%);
         }
       }
