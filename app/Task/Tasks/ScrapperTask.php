@@ -18,11 +18,11 @@ class ScrapperTask extends Generic
     {
         foreach (Store::find('active') as $store) {
 
-            fwrite(STDOUT, "Performing scrape for store: $store->name" . PHP_EOL);
+            $this->logger->info("Performing scrape for store: {$store->name}.");
 
             $store->getScrapperInstance()->performScrape();
 
-            fwrite(STDOUT, "Completed scrape for store: $store->name" . PHP_EOL);
+            $this->logger->info("Completed scrape for store: {$store->name}.");
         }
 
         return 0;
@@ -38,15 +38,15 @@ class ScrapperTask extends Generic
     {
         $store = Store::findFirstByName($storeName);
         if (!$store instanceof Store) {
-            fwrite(STDOUT, "Unknown store specified: $storeName" . PHP_EOL);
+            $this->logger->info("Unknown store specified: {$storeName}.");
             return -1;
         }
 
-        fwrite(STDOUT, "Performing scrape for store: $storeName" . PHP_EOL);
+        $this->logger->info("Performing scrape for store: {$store->name}.");
 
         $store->getScrapperInstance()->performScrape();
 
-        fwrite(STDOUT, "Completed scrape for store: $storeName" . PHP_EOL);
+        $this->logger->info("Completed scrape for store: {$store->name}.");
 
         return 0;
     }

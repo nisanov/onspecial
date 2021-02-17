@@ -120,8 +120,6 @@ export default class Products {
               </span>
               <span>Since:</span>
               <span>${DateTime.fromSQL(json.created_at).toLocaleString(DateTime.DATE_MED_WITH_WEEKDAY)} (${days} ${days === 1 ? 'day' : 'days'})</span>
-              <span>Ratio:</span>
-              <span>${json.ratio_price}</span>
               <span>Description:</span>
               <span>${json.description ? json.description : '-'}</span>
               <span>Ingredients:</span>

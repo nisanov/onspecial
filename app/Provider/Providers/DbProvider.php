@@ -54,7 +54,7 @@ class DbProvider extends Generic
             });
             $manager->attach('db:afterQuery', function () use ($profiler, $logger) {
                 $profile = $profiler->stopProfile()->getLastProfile();
-                $logger->info("", [
+                $logger->debug("", [
                     'statement' => self::getRawSqlStatement($profile),
                     'seconds' => $profile->getTotalElapsedSeconds(),
                     'profiler' => [

@@ -3,8 +3,8 @@
 declare(strict_types=1);
 
 return [
-    App\Provider\Providers\LoggerProvider::class,
     App\Provider\Providers\ConfigProvider::class,
+    App\Provider\Providers\LoggerProvider::class,
     App\Provider\Providers\WhoopsProvider::class,
     App\Provider\Providers\ProfilerProvider::class,
     App\Provider\Providers\UrlProvider::class,

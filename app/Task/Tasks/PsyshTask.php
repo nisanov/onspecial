@@ -43,6 +43,7 @@ class PsyshTask extends Generic
         'RegistrationController' => 'App\Controller\Controllers\RegistrationController',
         'ProductRepository' => 'App\Repository\Repositories\ProductRepository',
         'SpecialRepository' => 'App\Repository\Repositories\SpecialRepository',
+        'BrandRepository' => 'App\Repository\Repositories\BrandRepository',
         'Panther' => 'Symfony\Component\Panther\Client',
         'Captcha' => 'App\Service\Services\Captcha',
         'StoreScrapperNotification' => 'App\Service\Services\SlackNotification\StoreScrapper',

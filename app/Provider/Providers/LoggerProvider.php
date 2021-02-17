@@ -25,13 +25,16 @@ class LoggerProvider extends Generic
      */
     public function register(): void
     {
-        $this->container->setShared(static::IDENTIFIER, function () {
+        $isDebug = $this->application->isDebug();
+
+        $this->container->setShared(static::IDENTIFIER, function () use ($isDebug) {
 
             $adapter = new Stream('php://stdout');
             $adapter->setFormatter(new LineFormatter);
 
             $logger = new Logger('messages');
             $logger->setAdapters(['main' => $adapter]);
+            $logger->setLogLevel($isDebug ? Logger::DEBUG : Logger::INFO);
 
             return $logger;
         });

@@ -4,7 +4,7 @@ volumes:
   os.mysql:
     name: os.mysql
   os.redis:
-    name: onspecial.redis
+    name: os.redis
 
 networks:
   os.network:
@@ -21,6 +21,8 @@ services:
       - ./.docker/php/xdebug:/usr/bin/xdebug:ro
     ports:
       - 9000:9000
+    environment:
+      - PHP_IDE_CONFIG=serverName=specials.onthewifi.com # PhpStorm configuration
     networks:
       - os.network
     depends_on:

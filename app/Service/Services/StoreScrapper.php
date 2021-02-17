@@ -9,6 +9,7 @@ use App\Model\Models\Product;
 use App\Model\Models\Scrape;
 use App\Model\Models\Special;
 use App\Model\Models\Store;
+use App\Service\Generic;
 use Carbon\Carbon;
 use Phalcon\Db\Exception as DbException;
 use Symfony\Component\Panther\Client;
@@ -16,7 +17,7 @@ use Throwable;
 use Whoops\Exception\Formatter;
 use Whoops\Exception\Inspector;
 
-abstract class StoreScrapper implements StoreScrapperInterface
+abstract class StoreScrapper extends Generic implements StoreScrapperInterface
 {
     /**
      * The scrape information.
