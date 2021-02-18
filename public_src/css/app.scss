@@ -71,6 +71,26 @@ body {
           object-fit: scale-down;
           align-self: center;
         }
+        .store {
+          position: absolute;
+          bottom: 0;
+          left: 0;
+          width: 100%;
+          text-align: center;
+          text-transform: uppercase;
+          font-size: 0.6em;
+          font-weight: 700;
+          letter-spacing: 1px;
+          line-height: 14px;
+          opacity: 0.3;
+          color: $smoke;
+          &.woolworths {
+            background: $green;
+          }
+          &.coles {
+            background: $red;
+          }
+        }
       }
       .information {
         margin: 15px;
@@ -88,7 +108,7 @@ body {
             margin-left: 3px;
             font-size: 0.8em;
             font-weight: 600;
-            color: $royal;
+            color: lighten($purple, 25%);
           }
         }
       }

@@ -50,6 +50,7 @@ use App\Model\Structures\SpecialsStatistics;
                         <?php if ($product->is_new) : ?>
                             <span class="new-badge">new</span>
                         <?php endif; ?>
+                        <span class="store <?php echo strtolower($product->store); ?>"><?php echo $product->store; ?></span>
                     </div>
                     <div class="information">
                         <div><?php echo $product->name; ?></div>
