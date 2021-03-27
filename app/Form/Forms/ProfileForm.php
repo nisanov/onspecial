@@ -31,7 +31,7 @@ class ProfileForm extends GenericForm
         $name->setUserOption('message', $this->getSessionStoredMessage('name'));
         $name->addValidator(new PresenceOf(['message' => "The name must be specified"]));
 
-        $email = new InputElement('email', ['type' => 'email', 'value' => $this->getSessionStoredValue('email', $user->email)]);
+        $email = new InputElement('profile_email', ['type' => 'email', 'value' => $this->getSessionStoredValue('profile_email', $user->email)]);
         $email->setLabel('Email');
         $email->setFilters(['trim', 'string']);
         $email->setUserOption('message', $this->getSessionStoredMessage('email'));
@@ -44,7 +44,7 @@ class ProfileForm extends GenericForm
         $specialsPerPage->setUserOption('message', $this->getSessionStoredMessage('specials_per_page'));
         $specialsPerPage->addValidator(new Between(['message' => "The specials per page must be between 250 and 2000", 'minimum' => 250, 'maximum' => 2000]));
 
-        $password = new InputElement('password', ['type' => 'password', 'value' => $this->getSessionStoredValue('password')]);
+        $password = new InputElement('profile_password', ['type' => 'password', 'value' => $this->getSessionStoredValue('profile_password')]);
         $password->setLabel('Password');
         $password->setFilters(['trim', 'string']);
         $password->setUserOption('message', $this->getSessionStoredMessage('password'));
