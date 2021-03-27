@@ -29,8 +29,8 @@ class ProductController extends JsonController
 
         return [
             'message' => $state === true
-                ? "$product->name has been marked as a favorite product"
-                : "$product->name is no longer marked as a favorite product"
+                ? "{$product->name} has been marked as a favorite product"
+                : "{$product->name} is no longer marked as a favorite product"
         ];
     }
 
@@ -49,8 +49,8 @@ class ProductController extends JsonController
 
         return [
             'message' => $state === true
-                ? "$product->name has been marked as an ignored product"
-                : "$product->name is no longer marked as an ignored product"
+                ? "{$product->name} has been marked as an ignored product"
+                : "{$product->name} is no longer marked as an ignored product"
         ];
     }
 }

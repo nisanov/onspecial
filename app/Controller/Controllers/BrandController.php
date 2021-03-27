@@ -30,8 +30,8 @@ class BrandController extends JsonController
 
         return [
             'message' => $state === true
-                ? "$brand->name has been marked as an ignored brand"
-                : "$brand->name is no longer marked as an ignored brand",
+                ? "{$brand->name} has been marked as an ignored brand"
+                : "{$brand->name} is no longer marked as an ignored brand",
             'ignoring' => (new ProductRepository)->getStatistics($user)['ignoring'],
         ];
     }
