@@ -48,13 +48,13 @@ A supermarket products on special aggregator web application.
 
 ## Redis
 
-1. Connecting to the redis server:
+- Connecting to the redis server:
 
     ```bash
     docker-compose exec redis redis-cli -a [password]
     ```
 
-2. Show the sessions stored in the redis server; once connected:
+- Show the sessions stored in the redis server; once connected:
 
     ```bash
     SELECT 1
@@ -62,7 +62,7 @@ A supermarket products on special aggregator web application.
     MGET key [key ...]
     ```
 
-3. Show the model metadata stored in the redis server; once connected:
+- Show the model metadata stored in the redis server; once connected:
 
     ```bash
     SELECT 2
@@ -70,7 +70,7 @@ A supermarket products on special aggregator web application.
     MGET key [key ...]
     ```
 
-4. Show the cache stored in the redis server; once connected:
+- Show the cache stored in the redis server; once connected:
 
     ```bash
     SELECT 3
@@ -104,14 +104,6 @@ A supermarket products on special aggregator web application.
     docker-compose exec php php -dxdebug.client_host=172.17.0.1 console.php psysh
     ```
 
-## Testing
-
-1. Run the phpunit test suite:
-
-    ```bash
-    docker-compose exec php ./vendor/bin/phpunit
-    ```
-
 ## MailHog
 
 - Access MailHog redirected emails via the following location:
@@ -135,5 +127,5 @@ A supermarket products on special aggregator web application.
 - Install and renew lets encrypt certificate:
 
     ```bash
-    docker-compose exec nginx certbot --nginx -d specials.onthewifi.com
+    docker-compose exec nginx certbot --nginx -d onspecial.info
     ```
