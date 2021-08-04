@@ -90,7 +90,7 @@ class Authentication extends Generic
         $parts = [
             $user->email,
             $user->password,
-            $this->request->getUserAgent(),
+//            $this->request->getUserAgent(),
             $this->request->getClientAddress(),
         ];
 

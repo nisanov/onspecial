@@ -31,6 +31,10 @@ abstract class Generic extends MvcModel
     {
         $name = strtolower((new ReflectionClass($this))->getShortName());
 
+        if (substr($name, -2) === "ay") {
+            return substr($name, 0, -2) . 'ays';
+        }
+
         switch (substr($name, -1)) {
             case 'y':
                 return substr($name, 0, -1) . 'ies';

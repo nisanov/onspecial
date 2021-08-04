@@ -1,0 +1,40 @@
+@import "../variables";
+
+.birthdays {
+  position: relative;
+  margin: 62px auto 4px auto;
+  max-width: 500px;
+  .birthday {
+    position: relative;
+    margin: 4px;
+    background-color: lighten($smoke, 3%);
+    border-radius: 5px;
+    border: 1px solid darken($smoke, 5%);
+    .content {
+      position: relative;
+      padding: 5px 10px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: stretch;
+      border-radius: 5px;
+      min-height: 110px;
+      .person {
+        margin: 0 0 7px 0;
+        color: $orange;
+        font-size: 1.2em;
+        font-weight: 600;
+        letter-spacing: 1px;
+      }
+      .timespan {
+        margin: 0 0 7px 0;
+        font-size: 1.2em;
+        font-weight: 400;
+      }
+      .upcoming {
+        font-size: 1.1em;
+        font-weight: 300;
+      }
+    }
+  }
+}

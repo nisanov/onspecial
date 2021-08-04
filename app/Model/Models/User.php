@@ -9,6 +9,8 @@ use App\Model\Traits\HasTimestamps;
 use Phalcon\Mvc\Model\Resultset\Simple;
 
 /**
+ * @property-read Simple|Birthday[] $birthdays
+ *
  * @method static Simple|User[] find(array|string $parameters = null)
  * @method static User findFirst(array|string|int|null $parameters = null)
  * @method static User findFirstByEmail(string $email)
@@ -102,6 +104,11 @@ class User extends Generic
     public function initialize(): void
     {
         parent::initialize();
+
+        $this->hasMany('id', Birthday::class, 'user_id', [
+            'reusable' => true,
+            'alias' => 'birthdays',
+        ]);
 
         $this->hasMany('id', UserProduct::class, 'user_id', [
             'reusable' => true,

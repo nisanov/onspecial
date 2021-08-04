@@ -1,0 +1,37 @@
+<?php
+
+declare(strict_types=1);
+
+use App\Model\Models\User;
+
+/**
+ * @var User $user
+ * @var array $birthdays
+ */
+?>
+<header>
+    <div class="wrapper">
+        <a class="logo" href="<?php echo $this->url->get(''); ?>">
+            <svg>
+                <use xlink:href="<?php echo $this->url->getStatic('img/sprites.svg'); ?>#gifts"></use>
+            </svg>
+        </a>
+        <h1 class="title">Birthdays</h1>
+    </div>
+</header>
+
+<div class="birthdays">
+    <?php if (count($birthdays)): ?>
+        <?php foreach ($birthdays as $record) : ?>
+            <div class="birthday">
+                <div class="content">
+                    <div class="person"><?php echo $record->birthday->name; ?></div>
+                    <div class="timespan">Born <?php echo $record->birthday->timespan(); ?> on <br><?php echo $record->birthday->born()->format('l jS \\of F Y'); ?></div>
+                    <div class="upcoming"><?php echo $record->birthday->upcomingAgeWithOrdinalSuffix(); ?> Birthday is on <?php echo $record->birthday->upcoming()->format('l jS \\of F Y'); ?></div>
+                </div>
+            </div>
+        <?php endforeach; ?>
+    <?php else: ?>
+        <div class="empty">Nothing was found!</div>
+    <?php endif; ?>
+</div>
